@@ -242,8 +242,9 @@
 /* ---------- hero cursor trail ---------- */
 .trail { position: absolute; inset: 0; pointer-events: none; z-index: 3; overflow: hidden; }
 .trail-card { position: absolute; width: 104px; height: 104px; border-radius: 16px; display: grid; place-items: center; overflow: hidden; box-shadow: 0 10px 30px -10px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.08); will-change: transform, opacity, filter; }
-.trail-card svg { width: 66%; height: 66%; }
-.trail-card .tl-lab { position: absolute; left: 0; right: 0; bottom: 7px; text-align: center; font: 400 9.5px var(--f-mono); font-style: normal; letter-spacing: .02em; opacity: .75; }
+.trail-card { align-content: center; justify-items: center; gap: 8px; padding-top: 4px; box-shadow: 0 10px 30px -10px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.1); }
+.trail-card svg { width: 42px; height: 42px; }
+.trail-card .tl-lab { position: static; text-align: center; font: 500 12px var(--f-body); font-style: normal; letter-spacing: 0; opacity: .9; }
 .tl-big { font: 600 54px var(--f-head); letter-spacing: -.04em; }
 .tl-type { font: 600 26px var(--f-head); letter-spacing: -.03em; display: inline-flex; align-items: center; margin-bottom: 8px; }
 .tl-caret { display: inline-block; width: 3px; height: 26px; background: var(--ink); margin-left: 3px; animation: tlcaret .6s steps(1) infinite; }

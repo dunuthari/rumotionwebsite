@@ -11,25 +11,19 @@
   layer.setAttribute("aria-hidden", "true");
   hero.appendChild(layer);
 
-  var curve = function (d, c) { return '<svg viewBox="0 0 60 60" fill="none"><path d="M8 52H52M8 8H52" stroke="' + c + '" stroke-opacity=".18"/><path d="' + d + '" stroke="' + c + '" stroke-width="3.2" stroke-linecap="round"/><circle cx="52" cy="8" r="3.6" fill="' + c + '"/></svg>'; };
-  var R = document.querySelector(".brand img");
-  var logoSrc = R ? R.getAttribute("src") : "";
-
-  /* each card: [background, ink color, inner html] */
-  var CARDS = [
-    ["#DCFA37", "#101010", logoSrc ? '<img src="' + logoSrc + '" alt="" style="width:62%;border-radius:31%">' : '<b class="tl-big">R</b>'],
-    ["#2B2D31", "#DCFA37", curve("M8 52C20 52 24 8 52 8", "#DCFA37") + '<i class="tl-lab">expoOut</i>'],
-    ["#FAFAFA", "#101010", '<b class="tl-type">Type<span class="tl-caret"></span></b><i class="tl-lab">Typewriter</i>'],
-    ["#1C1D20", "#DCFA37", '<div class="tl-kf"><u></u><s></s><u></u></div><i class="tl-lab">2 keyframes</i>'],
-    ["#8A7DFF", "#101010", '<div class="tl-pop"></div><i class="tl-lab">Pop</i>'],
-    ["#DCFA37", "#101010", '<div class="tl-swipe"><s></s><u></u></div><i class="tl-lab">Swipe cut</i>'],
-    ["#101010", "#F1F2F4", '<b class="tl-aa">Aa</b><i class="tl-lab">Hero Zoom</i>'],
-    ["#2B2D31", "#DCFA37", curve("M8 52C16 52 22 -6 36 8C44 16 48 8 52 8", "#DCFA37") + '<i class="tl-lab">backOut</i>'],
-    ["#FAFAFA", "#101010", '<div class="tl-wave"><s></s><s></s><s></s><s></s><s></s><s></s><s></s></div><i class="tl-lab">Waveform</i>'],
-    ["#DCFA37", "#101010", '<span class="tl-pill">Get started</span><i class="tl-lab">Pill button</i>'],
-    ["#1C1D20", "#F1F2F4", '<b class="tl-blur">Blur</b><i class="tl-lab">Blur Out</i>'],
-    ["#8A7DFF", "#101010", '<svg viewBox="0 0 60 60"><path d="M30 6l5 19 19 5-19 5-5 19-5-19-19-5 19-5z" fill="#101010"/></svg><i class="tl-lab">Star Swipe</i>']
+  /* the plugin's eight main tabs, drawn as lime line icons (24x24 grid) */
+  var S = 'viewBox="0 0 24 24" fill="none" stroke="#DCFA37" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"';
+  var TABS = [
+    ["Layers", '<svg ' + S + '><rect x="3.5" y="3.5" width="11" height="11" rx="3"/><rect x="9.5" y="9.5" width="11" height="11" rx="3"/></svg>'],
+    ["Animate", '<svg ' + S + '><path d="M7 4.5l12 7.5-12 7.5z"/></svg>'],
+    ["Text", '<svg ' + S + '><path d="M5 6.5V4.5h14v2M12 4.5v15M9 19.5h6"/></svg>'],
+    ["Transitions", '<svg ' + S + '><path d="M4 8h14M14 4l4 4-4 4M20 16H6M10 12l-4 4 4 4"/></svg>'],
+    ["Build", '<svg ' + S + '><circle cx="8.5" cy="8.5" r="4.5"/><rect x="11" y="11" width="9.5" height="9.5" rx="2.5"/></svg>'],
+    ["Camera", '<svg ' + S + '><rect x="3" y="6.5" width="13" height="11" rx="3"/><path d="M16 10.5l5-2.5v8l-5-2.5"/></svg>'],
+    ["Flow", '<svg ' + S + '><path d="M3 20C10 20 8 4 21 4"/></svg>'],
+    ["Style", '<svg ' + S + '><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r=".9" fill="#DCFA37"/><circle cx="15" cy="10" r=".9" fill="#DCFA37"/><circle cx="12" cy="15" r=".9" fill="#DCFA37"/></svg>']
   ];
+  var CARDS = TABS.map(function (t) { return ["#1C1D20", "#F1F2F4", t[1] + '<i class="tl-lab">' + t[0] + '</i>']; });
 
   var idx = 0, z = 1, lastX = null, lastY = null, STEP = 84, live = [];
 
