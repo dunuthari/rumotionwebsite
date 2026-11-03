@@ -1,0 +1,23 @@
+/* Ru Motion design tokens (see design.md) */
+:root {
+  --lime: #DCFA37; --lime-hover: #E6FF5C; --lime-press: #BFDA2E;
+  --lime-tint-dark: #333A12; --lime-tint-light: #F4FBC9;
+  --ink: #101010; --ink-2: #1C1D20; --ink-3: #232428; --ink-4: #2B2D31; --ink-line: #3C3E43;
+  --paper: #FAFAFA; --paper-2: #FFFFFF; --paper-line: #E6E7EA; --paper-soft: #F3F4F6;
+  --t-dark: #F1F2F4; --t-dark-m: #BEC0C4; --t-dark-h: #90939A;
+  --t-light: #101010; --t-light-m: #5F6368; --t-light-h: #8A8D93;
+
+  --f-head: "Inter Tight", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --gutter: 16px;
+  --max: 1200px;
+  --sec-y: 72px;
+  --nav-h: 64px;
+}
+@media (min-width: 640px) { :root { --gutter: 24px; } }
+@media (min-width: 1024px) { :root { --sec-y: 120px; } }
