@@ -266,3 +266,14 @@
 .tl-blur { font: 600 32px var(--f-head); letter-spacing: -.03em; margin-bottom: 10px; animation: tlblur 1.2s var(--ease) infinite alternate; }
 @keyframes tlblur { from { filter: blur(0); } to { filter: blur(6px); } }
 @media (max-width: 900px) { .trail { display: none; } }
+
+/* ---------- hero rotating word (inside the selection box) ---------- */
+.hero h1 { max-width: none; }
+.hero h1 .ln { display: block; white-space: nowrap; }
+.rot { display: inline-block; position: relative; vertical-align: baseline; white-space: nowrap; clip-path: inset(-0.08em -0.2em -0.02em -0.2em); }
+.rot.is-live { transition: width .6s cubic-bezier(0.34, 1.2, 0.5, 1); }
+.rot-t { display: inline-flex; white-space: nowrap; }
+.rot-w { display: inline-flex; }
+.rot-c { display: inline-block; will-change: transform, opacity; }
+.rot-sp { display: inline-block; white-space: pre; }
+.rot-measure { position: absolute; left: 0; top: 0; visibility: hidden; white-space: nowrap; pointer-events: none; }
