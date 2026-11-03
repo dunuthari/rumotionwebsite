@@ -3,12 +3,49 @@
   var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
   var nav = $("#nav"), reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* smooth scrolling: eased, cancellable, works with the pinned section (CSS smooth is the no-JS fallback) */
+  var anim = null;
+  function stopScroll() { if (anim) { cancelAnimationFrame(anim); anim = null; } }
+  ["wheel", "touchstart", "keydown", "mousedown"].forEach(function (ev) { window.addEventListener(ev, stopScroll, { passive: true }); });
+  function ease(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function scrollToY(y, done) {
+    stopScroll();
+    var from = window.scrollY, max = document.documentElement.scrollHeight - window.innerHeight;
+    y = Math.max(0, Math.min(max, y));
+    var dist = y - from;
+    if (reduce || Math.abs(dist) < 2) { window.scrollTo(0, y); if (done) done(); return; }
+    var dur = Math.min(1200, Math.max(550, Math.abs(dist) * .55)), t0 = null;
+    function step(now) {
+      if (t0 === null) t0 = now;
+      var k = Math.min(1, (now - t0) / dur);
+      window.scrollTo(0, from + dist * ease(k));
+      if (k < 1) anim = requestAnimationFrame(step); else { anim = null; if (done) done(); }
+    }
+    anim = requestAnimationFrame(step);
+  }
+  window.RuScroll = scrollToY;
+  $$('a[href^="#"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var id = a.getAttribute("href");
+      if (id.length < 2) return;
+      var target = $(id);
+      if (!target) return;
+      e.preventDefault();
+      scrollToY(id === "#top" ? 0 : target.getBoundingClientRect().top + window.scrollY, function () {
+        if (history.replaceState) history.replaceState(null, "", id);
+      });
+    });
+  });
+
   /* nav: tone follows the section under it, CTA appears after the hero buttons scroll away */
-  var secs = $$("[data-nav]"), heroCtas = $("#heroCtas");
+  var secs = $$("[data-nav]"), heroCtas = $("#heroCtas"), links = $$("#navLinks a");
   function navState() {
     var y = (nav.offsetHeight || 64) / 2, tone = "dark", i, r;
     for (i = 0; i < secs.length; i++) { r = secs[i].getBoundingClientRect(); if (r.top <= y && r.bottom > y) { tone = secs[i].getAttribute("data-nav"); break; } }
     nav.setAttribute("data-tone", tone);
+    var cur = null;
+    for (i = 0; i < secs.length; i++) { r = secs[i].getBoundingClientRect(); if (r.top <= y && r.bottom > y) { cur = secs[i].getAttribute("data-link"); break; } }
+    links.forEach(function (l) { if (cur && l.getAttribute("href") === "#" + cur) { l.setAttribute("aria-current", "true"); } else { l.removeAttribute("aria-current"); } });
     nav.classList.toggle("solid", window.scrollY > 24);
     var show = heroCtas ? heroCtas.getBoundingClientRect().bottom < 0 : true;
     nav.classList.toggle("show-cta", show);
@@ -36,7 +73,7 @@
     var b = document.createElement("button"); b.type = "button"; b.textContent = s.getAttribute("data-label"); b.setAttribute("role", "tab");
     b.addEventListener("click", function () {
       var top = feat.getBoundingClientRect().top + window.scrollY, room = feat.offsetHeight - window.innerHeight;
-      window.scrollTo({ top: top + room * ((i + .5) / steps.length), behavior: reduce ? "auto" : "smooth" });
+      scrollToY(top + room * ((i + .5) / steps.length));
     });
     prog.appendChild(b);
   });

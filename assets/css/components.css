@@ -29,6 +29,7 @@
 .nav-links { margin-left: auto; display: flex; align-items: center; gap: 4px; }
 .nav-links a:not(.btn) { text-decoration: none; font-size: 14px; padding: 8px 12px; border-radius: 999px; opacity: .72; transition: opacity .15s; }
 .nav-links a:not(.btn):hover, .nav-links a[aria-current] { opacity: 1; }
+.nav-links a[aria-current] { text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 8px; }
 .nav .cta { opacity: 0; pointer-events: none; transform: translateY(-4px); transition: opacity .3s var(--ease), transform .3s var(--ease); margin-left: 8px; }
 .nav.show-cta .cta { opacity: 1; pointer-events: auto; transform: none; }
 .nav[data-tone="dark"] { color: var(--t-dark); }
