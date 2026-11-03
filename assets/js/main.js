@@ -3,12 +3,24 @@
   var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
   var nav = $("#nav"), reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* Lenis (https://github.com/darkroomengineering/lenis) drives smooth scrolling; the custom code below is the fallback if it did not load */
+  var lenis = null;
+  if (window.Lenis) {
+    try { lenis = new window.Lenis({ autoRaf: true, lerp: 0.1, smoothWheel: true, allowNestedScroll: true }); } catch (err) { lenis = null; }
+  }
+  window.lenis = lenis;
+
   /* smooth scrolling: eased, cancellable, works with the pinned section (CSS smooth is the no-JS fallback) */
   var anim = null;
   function stopScroll() { if (anim) { cancelAnimationFrame(anim); anim = null; } }
   ["wheel", "touchstart", "keydown", "mousedown"].forEach(function (ev) { window.addEventListener(ev, stopScroll, { passive: true }); });
   function ease(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
   function scrollToY(y, done) {
+    if (lenis) {
+      var d = Math.abs(y - window.scrollY);
+      lenis.scrollTo(Math.max(0, y), { duration: Math.min(1.3, Math.max(0.6, d / 3000)), easing: ease, onComplete: done, force: true });
+      return;
+    }
     stopScroll();
     var from = window.scrollY, max = document.documentElement.scrollHeight - window.innerHeight;
     y = Math.max(0, Math.min(max, y));
@@ -27,7 +39,7 @@
 
   /* smooth wheel scrolling (momentum): desktop mouse and trackpad only, native scroll stays for touch and reduced motion */
   (function () {
-    if (reduce || !window.matchMedia("(pointer: fine)").matches) return;
+    if (lenis || reduce || !window.matchMedia("(pointer: fine)").matches) return;
     var target = window.scrollY, cur = window.scrollY, running = false, last = 0, EASE = 0.11;
     function maxY() { return document.documentElement.scrollHeight - window.innerHeight; }
     function clamp(v) { return Math.max(0, Math.min(maxY(), v)); }
@@ -98,8 +110,9 @@
   mb.addEventListener("click", function () {
     var o = nav.classList.toggle("open"); mb.setAttribute("aria-expanded", o ? "true" : "false");
     document.body.style.overflow = o ? "hidden" : "";
+    if (lenis) { if (o) { lenis.stop(); } else { lenis.start(); } }
   });
-  $$("#navLinks a").forEach(function (a) { a.addEventListener("click", function () { nav.classList.remove("open"); mb.setAttribute("aria-expanded", "false"); document.body.style.overflow = ""; }); });
+  $$("#navLinks a").forEach(function (a) { a.addEventListener("click", function () { nav.classList.remove("open"); mb.setAttribute("aria-expanded", "false"); document.body.style.overflow = ""; if (lenis) { lenis.start(); } }); });
 
   /* reveal on scroll (content is visible without JS) */
   var rv = $$(".rv");
