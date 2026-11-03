@@ -24,6 +24,48 @@
     anim = requestAnimationFrame(step);
   }
   window.RuScroll = scrollToY;
+
+  /* smooth wheel scrolling (momentum): desktop mouse and trackpad only, native scroll stays for touch and reduced motion */
+  (function () {
+    if (reduce || !window.matchMedia("(pointer: fine)").matches) return;
+    var target = window.scrollY, cur = window.scrollY, running = false, last = 0, EASE = 0.11;
+    function maxY() { return document.documentElement.scrollHeight - window.innerHeight; }
+    function clamp(v) { return Math.max(0, Math.min(maxY(), v)); }
+    function frame(now) {
+      var dt = Math.min(64, now - last || 16.7); last = now;
+      var k = 1 - Math.pow(1 - EASE, dt / 16.67);
+      cur += (target - cur) * k;
+      if (Math.abs(target - cur) < 0.4) { cur = target; running = false; }
+      window.scrollTo(0, cur);
+      if (running) requestAnimationFrame(frame);
+    }
+    function innerCanScroll(el, dy) {
+      while (el && el !== document.body) {
+        var cs = getComputedStyle(el);
+        if ((cs.overflowY === "auto" || cs.overflowY === "scroll") && el.scrollHeight > el.clientHeight + 1) {
+          if (dy < 0 && el.scrollTop > 0) return true;
+          if (dy > 0 && el.scrollTop + el.clientHeight < el.scrollHeight - 1) return true;
+        }
+        el = el.parentElement;
+      }
+      return false;
+    }
+    window.addEventListener("wheel", function (e) {
+      if (e.ctrlKey || e.defaultPrevented || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      if (document.body.style.overflow === "hidden") return;
+      var dy = e.deltaMode === 1 ? e.deltaY * 32 : e.deltaMode === 2 ? e.deltaY * window.innerHeight : e.deltaY;
+      if (innerCanScroll(e.target, dy)) return;
+      e.preventDefault();
+      if (anim) { stopScroll(); target = cur = window.scrollY; }
+      else if (!running) { target = cur = window.scrollY; }
+      target = clamp(target + dy);
+      if (!running) { running = true; last = performance.now(); requestAnimationFrame(frame); }
+    }, { passive: false });
+    /* keep in sync when the page moves by other means: keyboard, scrollbar drag, anchors, touch */
+    window.addEventListener("scroll", function () { if (!running) { target = cur = window.scrollY; } }, { passive: true });
+    window.addEventListener("keydown", function () { running = false; }, { passive: true });
+    window.addEventListener("mousedown", function () { running = false; target = cur = window.scrollY; }, { passive: true });
+  })();
   $$('a[href^="#"]').forEach(function (a) {
     a.addEventListener("click", function (e) {
       var id = a.getAttribute("href");
