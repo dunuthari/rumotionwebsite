@@ -77,3 +77,5 @@ body{margin:0;background:#FAFAFA;color:#101010;font-family:Inter,system-ui,sans-
   .mk-link { padding: 14px; gap: 10px; }
   .mk-link b { font-size: 14px; word-break: normal; overflow-wrap: anywhere; }
 }
+
+.mk-sign { margin-top: 28px !important; font-size: 12px !important; line-height: 1.4 !important; color: var(--t-light-h) !important; }
