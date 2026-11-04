@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>FAQ | Ru Motion</title>
+<meta name="description" content="Install Ru Motion on Windows and Mac: step by step answers to the most common questions about the After Effects panel.">
+<meta name="theme-color" content="#101010">
+<meta property="og:title" content="Ru Motion FAQ">
+<meta property="og:description" content="How to install Ru Motion on Windows and Mac, and what to do when the panel does not show up.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/faq.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How do I install Ru Motion on Windows?","acceptedAnswer":{"@type":"Answer","text":"Close After Effects. Unzip RuMotion-CEP.zip and double-click install.bat. Restart After Effects and open Window, Extensions, Ru Motion."}},
+{"@type":"Question","name":"How do I install Ru Motion on Mac?","acceptedAnswer":{"@type":"Answer","text":"Close After Effects and unzip the file. Double-click install.command; if macOS blocks it, right-click the file, choose Open, then confirm. Restart After Effects and open Window, Extensions, Ru Motion."}},
+{"@type":"Question","name":"Ru Motion is not in the Window, Extensions menu. What now?","acceptedAnswer":{"@type":"Answer","text":"Restart After Effects, run the installer again, check that the RuMotion folder is in the Adobe CEP extensions folder and contains index.html directly, and make sure you use After Effects 2019 or newer."}},
+{"@type":"Question","name":"What does PlayerDebugMode do, and is it safe?","acceptedAnswer":{"@type":"Answer","text":"After Effects only loads CEP panels signed by Adobe. The installer sets a user setting that lets it load unsigned panels such as this one. It affects only your user account."}},
+{"@type":"Question","name":"Do I need to delete the old version before updating?","acceptedAnswer":{"@type":"Answer","text":"No. Close After Effects and run the installer again. It removes the old folder first and keeps your saved settings."}},
+{"@type":"Question","name":"Which After Effects versions work?","acceptedAnswer":{"@type":"Answer","text":"After Effects 2019 (version 16) and later on Windows and Mac."}}
+]}
+</script>
+<script>(function(){var n=performance.getEntriesByType&&performance.getEntriesByType('navigation')[0];if(location.hash||(n&&n.type==='reload'))return;if('scrollRestoration' in history){history.scrollRestoration='manual';}function top(){window.scrollTo(0,0);if(window.lenis&&window.lenis.scrollTo){window.lenis.scrollTo(0,{immediate:true,force:true});}}top();addEventListener('DOMContentLoaded',top);addEventListener('load',function(){top();setTimeout(top,60);});addEventListener('pageshow',function(e){if(e.persisted){top();}});})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav" data-tone="light">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html" aria-label="Ru Motion home"><img src="assets/img/logo.svg" alt="" width="30" height="30"><span>Ru Motion</span></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="index.html#features">Features</a>
+      <a href="maker.html">Meet the maker</a>
+      <a href="faq.html" aria-current="true">FAQ</a>
+      <a href="download.html">Download</a>
+      <a class="btn btn-p btn-sm cta" href="download.html">Download</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="sec dark faq-hero" data-nav="dark">
+  <div class="wrap">
+    <p class="mono eyebrow">FAQ</p>
+    <h1>Install help,<br>Windows and Mac.</h1>
+    <p class="lead">The ten questions people ask most when setting up Ru Motion, for Windows and Mac.</p>
+  </div>
+</section>
+
+<section class="faq-body">
+  <div class="wrap faq-layout">
+
+    <aside class="faq-toc" aria-label="Questions">
+      <p class="mono">QUESTIONS</p>
+      <ol>
+        <li><a href="#q1">Install on Windows</a></li>
+        <li><a href="#q2">Install on Mac</a></li>
+        <li><a href="#q3">Not in the Extensions menu</a></li>
+        <li><a href="#q4">What is PlayerDebugMode?</a></li>
+        <li><a href="#q5">Stuck on "Starting Ru Motion"</a></li>
+        <li><a href="#q6">Updating to a new version</a></li>
+        <li><a href="#q7">Keep the downloaded folder?</a></li>
+        <li><a href="#q8">Supported versions</a></li>
+        <li><a href="#q9">Presets do nothing</a></li>
+        <li><a href="#q10">The single .jsx file</a></li>
+      </ol>
+    </aside>
+
+    <div>
+      <div class="faq-list">
+
+        <details class="q" id="q1">
+          <summary><span class="num mono">01</span>How do I install it on Windows?<span class="chev" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></span></summary>
+          <div class="a">
+            <p><span class="os">Windows</span>It takes about a minute:</p>
+            <ol>
+              <li>Close <strong>After Effects</strong>.</li>
+              <li>Unzip <code>RuMotion-CEP.zip</code>.</li>
+              <li>Double-click <code>install.bat</code>. A window opens, copies the panel and sets the permissions, then tells you it is done.</li>
+              <li>Start After Effects and open <strong>Window &rarr; Extensions &rarr; Ru Motion</strong>. Dock it wherever you like.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="q" id="q2">
+          <summary><span class="num mono">02</span>How do I install it on Mac?<span class="chev" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></span></summary>
+          <div class="a">
+            <p><span class="os">Mac</span>Same idea, with the Mac installer:</p>
+            <ol>
+              <li>Close <strong>After Effects</strong> and unzip <code>RuMotion-CEP.zip</code>.</li>
+              <li>Double-click <code>install.command</code>. If macOS blocks it, <strong>right-click the file, choose Open</strong>, then confirm.</li>
+              <li>Start After Effects and open <strong>Window &rarr; Extensions &rarr; Ru Motion</strong>.</li>
+            </ol>
+            <p>If it still will not run, open Terminal, type <code>chmod +x </code>, drag <code>install.command</code> into the window and press Enter. Then double-click it again.</p>
+          </div>
+        </details>
+
+        <details class="q" id="q3">
+          <summary><span class="num mono">03</span>Ru Motion is not in the Window &rarr; Extensions menu. What now?<span class="chev" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></span></summary>
+          <div class="a">
+            <p>Check these in order:</p>
+            <ol>
+              <li><strong>Restart After Effects.</strong> It only loads panels at startup.</li>
+              <li><strong>Run the installer again</strong> with After Effects closed.</li>
+              <li><strong>Check the folder.</strong> It should be here, with <code>index.html</code>, <code>CSXS</code> and <code>jsx</code> directly inside <code>RuMotion</code>, not inside another folder:
+                <ul>
+                  <li><span class="os">Windows</span><code>%APPDATA%\Adobe\CEP\extensions\RuMotion</code></li>
+                  <li><span class="os">Mac</span><code>~/Library/Application Support/Adobe/CEP/extensions/RuMotion</code></li>
+                </ul>
+              </li>
+              <li><strong>Check your version.</strong> You need After Effects 2019 or newer.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="q" id="q4">
+          <summary><span class="num mono">04</span>What does &ldquo;PlayerDebugMode&rdquo; do, and is it safe?<span class="chev" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></span></summary>
+          <div class="a">
+            <p>After Effects only loads panels that Adobe has signed. The installer sets one setting that lets it load unsigned panels such as this one. It affects only your own user account, and only panels you have installed yourself.</p>
+            <p>To turn it off again (Ru Motion and any other unsigned panel will then stop loading):</p>
+            <p><span class="os">Windows</span>In Registry Editor, delete the <code>PlayerDebugMode</code> value under <code>HKEY_CURRENT_USER\Software\Adobe\CSXS.12</code> (and the other CSXS keys).</p>
+            <p><span class="os">Mac</span>In Terminal:</p>
+            <pre><code>defaults delete com.adobe.CSXS.12 PlayerDebugMode</code></pre>
+          </div>
+        </details>
+
+        <details class="q" id="q5">
+          <summary><span class="num mono">05</span>The panel opens but says &ldquo;Starting Ru Motion&hellip;&rdquo; or shows an error.<span class="chev" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></span></summary>
+          <div class="a">
+            <p>Close and reopen the panel first, then restart After Effects. The first start of a session takes a few seconds because the effects load once.</p>
+            <p><span class="os">Windows</span>A downloaded zip can be marked as blocked. Right-click the zip, open <strong>Properties</strong>, tick <strong>Unblock</strong>, then unzip and run the installer again.</p>
+            <p>If the message stays, email a screenshot of it and your After Effects version to <a href="mailto:tlakshan10106@gmail.com">tlakshan10106@gmail.com</a>.</p>
+          </div>
+        </details>
+
+        <details class="q" id="q6">
+          <summary><span class="num mono">06</span>Do I need to delete the old version before updating?<span class="chev" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></span></summary>
+          <div class="a">
+            <p><strong>No.</strong> Close After Effects and run the new installer. It removes the old folder first and then copies the new one, so nothing is left over to clash.</p>
+            <p>Your saved settings (colors, fonts, presets) live in After Effects&rsquo; own preferences, so an update does not reset them. If the installer shows an error, close After Effects and run it again.</p>
+          </div>
+        </details>
+
+        <details class="q" id="q7">
+          <summary><span class="num mono">07</span>Do I need to keep the downloaded folder?<span class="chev" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></span></summary>
+          <div class="a">
+            <p>No. The panel runs from the copy the installer made in the extensions folder. After installing you can delete the zip and the unzipped folder.</p>
+          </div>
+        </details>
+
+        <details class="q" id="q8">
+          <summary><span class="num mono">08</span>Which After Effects versions work?<span class="chev" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></span></summary>
+          <div class="a">
+            <p><strong>After Effects 2019 (version 16) and later</strong>, on both Windows and Mac. The same panel folder is used on both systems; only the installer differs.</p>
+            <p>Older versions cannot load it. Use the single <code>RuMotion.jsx</code> instead (see question 10).</p>
+          </div>
+        </details>
+
+        <details class="q" id="q9">
+          <summary><span class="num mono">09</span>Some buttons do nothing, or presets are not applied.<span class="chev" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></span></summary>
+          <div class="a">
+            <p>Some buttons, such as the text presets, write a small temporary file. In After Effects, open <strong>Preferences &rarr; Scripting &amp; Expressions</strong> and turn on <strong>Allow Scripts to Write Files and Access Network</strong>. Restart After Effects afterwards.</p>
+            <p>Also check that a layer is selected and the playhead is where the effect should start. Each button&rsquo;s tooltip says what it needs.</p>
+          </div>
+        </details>
+
+        <details class="q" id="q10">
+          <summary><span class="num mono">10</span>Can I use the single RuMotion.jsx instead?<span class="chev" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></span></summary>
+          <div class="a">
+            <p>Yes. Copy <code>RuMotion.jsx</code> into After Effects&rsquo; <code>Scripts/ScriptUI Panels</code> folder, restart, and open it from the Window menu. It is an older style of panel: no mouse-wheel scrolling, and a little slower.</p>
+            <p>You can also run it once without installing: <strong>File &rarr; Script &rarr; Run Script File</strong>. It opens as a floating window.</p>
+          </div>
+        </details>
+
+      </div>
+
+      <div class="faq-help">
+        <h2>Still stuck?</h2>
+        <p>Send a screenshot of what you see, your After Effects version and whether you use Windows or Mac. You will get an answer by email.</p>
+        <div class="row">
+          <a class="btn btn-p" href="mailto:tlakshan10106@gmail.com?subject=Ru%20Motion%20install%20help">Email for help</a>
+          <a class="btn btn-sd" href="download.html">Go to download</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="foot" data-nav="light">
+  <div class="wrap foot-in">
+    <a class="brand" href="index.html"><img src="assets/img/logo.svg" alt="" width="28" height="28"><span>Ru Motion</span></a>
+    <nav aria-label="Footer"><a href="maker.html">Meet the maker</a><a href="index.html#features">Features</a><a href="faq.html">FAQ</a><a href="download.html">Download</a></nav>
+    <div class="right"><a href="mailto:tlakshan10106@gmail.com">tlakshan10106@gmail.com</a><span>&copy; 2026 Ru Motion</span></div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lenis@1.3.27/dist/lenis.min.js"></script>
+<script src="assets/js/faq.js"></script>
+</body>
+</html>
