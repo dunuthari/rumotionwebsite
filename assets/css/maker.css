@@ -23,17 +23,10 @@
 .mk-head h2 { font-size: clamp(30px, 4.4vw, 52px); line-height: 1.04; letter-spacing: -.035em; }
 .mk-head .lead { margin-top: 16px; }
 
-.mk-story { display: grid; gap: 28px; }
-@media (min-width: 900px) { .mk-story { grid-template-columns: 1fr 1fr; gap: 72px; } }
+.mk-story { display: grid; gap: 28px; max-width: 760px; }
 .mk-story p { font-size: clamp(17px, 1.7vw, 20px); line-height: 1.6; color: var(--t-light-m); }
 .mk-story p + p { margin-top: 18px; }
 .mk-story strong { color: var(--ink); font-weight: 600; }
-.mk-principles { display: grid; gap: 12px; align-content: start; }
-.mk-pr { background: var(--paper-2); border: 1px solid var(--paper-line); border-radius: 22px; padding: 20px 22px; display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; transition: transform .3s var(--ease-out), box-shadow .3s var(--ease-out), border-color .2s; }
-.mk-pr:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -18px rgba(16, 16, 16, .22); border-color: #cfd1d6; }
-.mk-pr .n { grid-row: span 2; font: 600 14px var(--f-mono); width: 38px; height: 38px; border-radius: 50%; background: var(--lime); color: var(--ink); display: grid; place-items: center; }
-.mk-pr h3 { font-size: 19px; letter-spacing: -.015em; align-self: end; }
-.mk-pr p { font-size: 15px; line-height: 1.5; color: var(--t-light-m); align-self: start; }
 
 @media (min-width: 900px) { 
 .mk-facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
