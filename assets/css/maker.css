@@ -23,11 +23,6 @@
 .mk-head h2 { font-size: clamp(30px, 4.4vw, 52px); line-height: 1.04; letter-spacing: -.035em; }
 .mk-head .lead { margin-top: 16px; }
 
-.mk-story { display: grid; gap: 28px; max-width: 760px; }
-.mk-story p { font-size: clamp(17px, 1.7vw, 20px); line-height: 1.6; color: var(--t-light-m); }
-.mk-story p + p { margin-top: 18px; }
-.mk-story strong { color: var(--ink); font-weight: 600; }
-
 @media (min-width: 900px) { 
 .mk-facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 @media (min-width: 900px) { .mk-facts { grid-template-columns: repeat(4, 1fr); gap: 16px; } }
@@ -56,8 +51,10 @@
 .mk-about { padding-block: calc(var(--sec-y) * .8) calc(var(--sec-y) * .4); }
 .mk-about-grid { display: grid; gap: 28px; align-items: start; }
 @media (min-width: 900px) { .mk-about-grid { grid-template-columns: .9fr 1.1fr; gap: 72px; } }
+.mk-about + .mk-about { padding-top: calc(var(--sec-y) * .4); }
 .mk-about h2 { font-size: clamp(30px, 4.4vw, 52px); line-height: 1.04; letter-spacing: -.035em; }
 .mk-about p { font-size: clamp(17px, 1.7vw, 20px); line-height: 1.6; color: var(--t-light-m); }
+.mk-about p.eyebrow { font-size: 12px; line-height: 1.4; color: var(--t-light-h); }
 .mk-about p + p { margin-top: 16px; }
 .mk-about strong { color: var(--ink); font-weight: 600; }
 .mk-tags { list-style: none; padding: 0; margin: 24px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
