@@ -23,7 +23,6 @@
 .mk-head h2 { font-size: clamp(30px, 4.4vw, 52px); line-height: 1.04; letter-spacing: -.035em; }
 .mk-head .lead { margin-top: 16px; }
 
-@media (min-width: 900px) { 
 .mk-facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 @media (min-width: 900px) { .mk-facts { grid-template-columns: repeat(4, 1fr); gap: 16px; } }
 .mk-fact { background: var(--paper-2); border: 1px solid var(--paper-line); border-radius: 24px; padding: 24px 22px; transition: transform .3s var(--ease-out), box-shadow .3s var(--ease-out); }
@@ -62,3 +61,19 @@
 .mk-tags li:hover { background: var(--lime); transform: translateY(-2px); }
 
 body{margin:0;background:#FAFAFA;color:#101010;font-family:Inter,system-ui,sans-serif}
+
+/* big pull quote */
+.mk-quote { padding-block: calc(var(--sec-y) * .9); position: relative; overflow: hidden; isolation: isolate; }
+.mk-quote::before { content: ""; position: absolute; inset: auto -10% -70% 40%; height: 120%; background: radial-gradient(closest-side, rgba(220, 250, 55, .16), transparent 70%); z-index: -1; pointer-events: none; }
+.mk-q { margin: 0; max-width: 1040px; }
+.mk-qmark { width: clamp(34px, 4.4vw, 54px); height: auto; color: var(--lime); margin-bottom: 24px; }
+.mk-q blockquote { margin: 0; }
+.mk-q blockquote p { font: 600 clamp(34px, 6.4vw, 84px)/1.04 var(--f-head); letter-spacing: -.04em; color: var(--t-dark); text-wrap: balance; }
+.mk-q .dim { color: var(--t-dark-h); }
+.mk-q em { font-style: normal; color: var(--lime); }
+.mk-q figcaption { margin-top: 30px; color: var(--t-dark-h); }
+
+@media (max-width: 520px) {
+  .mk-link { padding: 14px; gap: 10px; }
+  .mk-link b { font-size: 14px; word-break: normal; overflow-wrap: anywhere; }
+}
