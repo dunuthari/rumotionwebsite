@@ -1,6 +1,6 @@
 # Ru Motion website — design system
 
-Status: draft for approval. Nothing in this file is built yet.
+Status: home page built and tested. FAQ and Download pages are not built yet.
 Scope: Landing, FAQ and Download pages for the Ru Motion After Effects plugin (free, Windows + macOS, After Effects 2019+).
 Reference: a dark/light "product" SaaS site (inspiration only — structure and feel, no copied content or branding).
 
@@ -128,7 +128,7 @@ Mono label, 12px, pill, 1px hairline. Selected: `--lime-tint-dark` bg + lime tex
 - Keyboard: `Enter`/`Space` toggles; arrow keys move between rows; `aria-expanded`/`aria-controls` set.
 
 ### Stats strip
-3–4 items, each: mono label above, 28px heading below. Items: `FREE` · `WINDOWS + MAC` · `AFTER EFFECTS 2019+` · `25 TOOLS` (verify count before publishing). Hairline separators.
+3–4 items, each: mono label above, 28px heading below. Items: `FREE` · `WINDOWS + MAC` · `AFTER EFFECTS 2019+` · `28 EASING CURVES` (counted from the plugin's `FLOW_PRESETS`). Hairline separators.
 
 ### Product panel mock-up (the hero component)
 - Source: the working browser mock-up of the real panel (`preview/index.html` of the plugin), restyled for the new lime tokens. Dark theme only.
@@ -201,7 +201,7 @@ Display title "Common questions"; narrow column; groups (mono labels): **Getting
 
 ## 13. Content to supply or confirm
 - Real testimonials/quotes (user will send); until then the section stays hidden.
-- Final tool count for the stats strip (verify against the plugin before publishing).
+- Stats strip: "28 easing curves" and "16 text presets" are verified against the plugin source.
 - Download file(s): CEP panel zip only (decision), version + release date.
 - License wording: free for personal and commercial use; no redistribution.
 - Contact: `tlakshan10106@gmail.com`.
@@ -211,3 +211,41 @@ Display title "Common questions"; narrow column; groups (mono labels): **Getting
 - Confirm Inter Tight / Inter + JetBrains Mono as the final fonts.
 - Confirm lime hover `#E6FF5C` and press `#BFDA2E`.
 - Confirm "Download" is the nav's primary label.
+
+---
+
+## 15. Interactions as built (home page)
+
+### Smooth scrolling
+- **Library:** Lenis 1.3.27 from unpkg (`autoRaf: true`, `lerp: 0.1`, `smoothWheel: true`, `allowNestedScroll: true`). Required Lenis CSS is inlined in `base.css`.
+- **Anchor links:** eased scroll (cubic in-out), duration 0.6 to 1.3 s by distance, lands exactly on the section, then updates the URL hash.
+- **Fallback:** if Lenis does not load, a custom eased wheel scroll and eased anchors run instead. Native scrolling stays for touch devices and `prefers-reduced-motion`.
+- **Nav:** the Features link is underlined while the Features, How it works or Highlights section is under the nav. Nav tone (dark or light) follows the section beneath it.
+- **Mobile menu:** pauses Lenis while open.
+
+### Hero cursor trail (`assets/js/trail.js`)
+- **Trigger:** pointer movement over the hero, one tile each time the pointer travels 84 px. Mouse and pen only.
+- **Tiles:** the plugin's eight main tabs, in order: Layers, Animate, Text, Transitions, Build, Camera, Flow, Style. 104 px dark tile (`#1C1D20`), 16 px radius, 1px inner hairline, 42 px lime (`#DCFA37`) line icon (1.6 stroke, round caps), label 12 px Inter in `--t-dark`.
+- **Life cycle (1.5 s):** blur 14px and scale 0.7 to sharp at 20%, hold until 68%, then blur and fade out. Random tilt of plus or minus 6 degrees. Newest on top. At most 16 alive.
+- **Off:** touch devices, reduced motion, viewports under 900 px.
+
+### Hero rotating word (`assets/js/rotate.js`)
+- **Where:** only the highlighted part of the headline, inside the lime selection box. The outline and four corner handles never change.
+- **Words:** "one click." then "seconds." then "a flash." then "real time.", every 2.3 s. Words must read after "Animation in" and have no descenders.
+- **Motion:** per-character slide. Exit: up and out (translateY -120%, 380 ms). Enter: up from below (translateY 100%, 640 ms, slight overshoot). Both staggered from the last letter, 26 ms apart. The old word finishes leaving before the new one arrives. The box width eases to the new word (600 ms).
+- **Accessibility:** screen readers get one static, updating phrase. The animated copy is `aria-hidden`.
+- **Off:** reduced motion keeps "one click.".
+
+### Other built interactions
+- **Reveal on scroll:** rise 24px and fade, 700 ms, 60 ms stagger, once.
+- **Pinned features (desktop 900px and up):** sticky stage, six steps, one per about 92vh of scroll, with a clickable progress strip. Below 900px the steps stack with no pinning.
+- **Product panel:** tabs, chips, buttons with an "Applied" toast, 28 easing tiles, and a bounce slider that follows the pointer.
+- **Timeline:** draggable keyframe diamonds that change the speed readout.
+
+### Files
+```
+/index.html
+/assets/css/tokens.css  base.css  components.css
+/assets/js/main.js  panel.js  trail.js  rotate.js
+/assets/img/logo.svg  favicon.svg
+```
