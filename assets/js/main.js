@@ -122,28 +122,6 @@
     setTimeout(function () { rv.forEach(function (n) { n.classList.add("in"); }); }, 6000);
   } else { rv.forEach(function (n) { n.classList.add("in"); }); }
 
-  /* pinned features */
-  var feat = $("#features"), steps = $$(".step", feat), prog = $("#featProg"), mq = window.matchMedia("(min-width: 900px)"), cur = -1;
-  steps.forEach(function (s, i) {
-    var b = document.createElement("button"); b.type = "button"; b.textContent = s.getAttribute("data-label"); b.setAttribute("role", "tab");
-    b.addEventListener("click", function () {
-      var top = feat.getBoundingClientRect().top + window.scrollY, room = feat.offsetHeight - window.innerHeight;
-      scrollToY(top + room * ((i + .5) / steps.length));
-    });
-    prog.appendChild(b);
-  });
-  function setStep(i) {
-    if (i === cur) return; cur = i;
-    steps.forEach(function (s, k) { s.classList.toggle("active", k === i); });
-    $$("button", prog).forEach(function (b, k) { b.setAttribute("aria-current", k === i ? "true" : "false"); b.setAttribute("aria-selected", k === i ? "true" : "false"); });
-  }
-  function featScroll() {
-    if (!mq.matches) { steps.forEach(function (s) { s.classList.remove("active"); }); cur = -1; return; }
-    var r = feat.getBoundingClientRect(), room = r.height - window.innerHeight;
-    var p = room > 0 ? Math.max(0, Math.min(.999, -r.top / room)) : 0;
-    setStep(Math.floor(p * steps.length));
-  }
-  window.addEventListener("scroll", featScroll, { passive: true }); window.addEventListener("resize", featScroll); mq.addEventListener && mq.addEventListener("change", featScroll); featScroll();
 
   /* timeline: drag keyframes */
   var rows = $("#tlRows"), play = $("#tlPlay"), label = $("#tlTime");

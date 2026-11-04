@@ -146,7 +146,7 @@ Mono label, 12px, pill, 1px hairline. Selected: `--lime-tint-dark` bg + lime tex
 1. Nav (transparent)
 2. **Hero — dark.** Display headline "Animation in one click." with "one click" highlighted; lead "Polished motion for your edits, ready in seconds."; primary **Download** + secondary **See how it works**; lime glow; live panel emerging from the bottom edge.
 3. **Stats strip — dark.**
-4. **Pinned-scroll features — light.** Panel pinned left/center; right/left copy swaps per step: Animate · Text · Transitions · Build · Camera · Flow. ~100vh per step; progress indicator of 6 mono labels.
+4. **Stacking feature cards — light.** Six sticky cards that stack as you scroll (see section 15): Animate · Text · Transitions · Build · Camera · Flow.
 5. **How it works band — dark.** Three steps (select → click → retime), plus a timeline mock-up showing two keyframes.
 6. **Bento — light.** Text presets · Layer & cut tools · Easing curves · UI kit builders.
 7. **Testimonials — light.** Hidden until real quotes exist; layout: large quote with leading text greyed, mono role line.
@@ -238,7 +238,10 @@ Display title "Common questions"; narrow column; groups (mono labels): **Getting
 
 ### Other built interactions
 - **Reveal on scroll:** rise 24px and fade, 700 ms, 60 ms stagger, once.
-- **Pinned features (desktop 900px and up):** sticky stage, six steps, one per about 92vh of scroll, with a clickable progress strip. Below 900px the steps stack with no pinning.
+- **Features, stacking cards (`assets/css/stack.css`, `assets/js/stack.js`):** six full-width cards (Animate, Text, Transitions, Build, Camera, Flow). Each card is sticky below the nav and stacks 14px lower than the one before. As the next card slides up, the cards beneath scale down by 4.5% per card and dim by 16% (transform-origin top). Card colors: lime, ink, lilac `#BDB2FF`, white, slate `#26282D`, lime. Each card has an `NN / 06` tag, a headline, copy, feature pills and a looping demo.
+  - **Pointer tilt:** the demo tilts up to 9 degrees toward the pointer (mouse and pen only).
+  - **Pills:** hovering or focusing a pill names it in the demo caption. Clicking a pill (or Enter or Space) replays the demo.
+  - **Off:** reduced motion keeps flat sticky cards with no scaling or tilt. Phones use the same stacking with smaller offsets.
 - **Product panel:** tabs, chips, buttons with an "Applied" toast, 28 easing tiles, and a bounce slider that follows the pointer.
 - **Timeline:** draggable keyframe diamonds that change the speed readout.
 

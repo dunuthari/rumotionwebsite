@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="assets/css/tokens.css">
 <link rel="stylesheet" href="assets/css/base.css">
 <link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/stack.css">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -66,70 +67,74 @@
   </div>
 </section>
 
-<!-- FEATURES (pinned scroll on desktop) -->
-<section class="sec light feat" id="features" data-nav="light" data-link="features" style="--n:6">
-  <div class="feat-stick">
-    <div class="wrap">
-      <div class="feat-head">
-        <p class="mono eyebrow">WHAT'S INSIDE</p>
-        <h2 class="h1">Everything you animate, one panel.</h2>
-        <p class="lead">Select a layer, click an effect. It starts at the playhead and builds real keyframes you can retime.</p>
-      </div>
-      <div class="feat-stage" id="featStage">
-
-        <article class="step active" data-label="Animate">
+<!-- FEATURES (stacking cards) -->
+<section class="sec stackf" id="features" data-nav="light" data-link="features">
+  <div class="wrap">
+    <div class="feat-head">
+      <p class="mono eyebrow">WHAT'S INSIDE</p>
+      <h2 class="h1">Everything you animate, one panel.</h2>
+      <p class="lead">Select a layer, click an effect. It starts at the playhead and builds real keyframes you can retime. Scroll to stack the tabs.</p>
+    </div>
+    <div class="stack" id="stack">
+        <article class="scard t-lime" style="--i:0" data-label="Animate">
+          <div class="scard-in">
           <div class="step-copy">
-            <p class="mono eyebrow" style="margin-bottom:0">ANIMATE</p>
+            <p class="mono eyebrow"><i>01 / 06</i>ANIMATE</p>
             <h3>Shapes that morph, pop and slide.</h3>
             <p>Bring any layer in or out with expo easing, motion blur and a live bounce you can switch on or off.</p>
             <ul><li>Shape morph</li><li>Pop</li><li>Move in / out</li><li>UI list stagger</li><li>Hold push-in</li></ul>
           </div>
           <div class="vis" aria-hidden="true"><div class="d-morph"></div><div class="d-pop"></div><span class="mono cap">SHAPE MORPH + POP</span></div>
+          </div>
         </article>
-
-        <article class="step" data-label="Text">
+        <article class="scard t-ink" style="--i:1" data-label="Text">
+          <div class="scard-in">
           <div class="step-copy">
-            <p class="mono eyebrow" style="margin-bottom:0">TEXT</p>
+            <p class="mono eyebrow"><i>02 / 06</i>TEXT</p>
             <h3>Type it, blur it, reveal it.</h3>
             <p>Typewriters, letter blurs, word highlights and hero zooms, plus 16 text presets ready to apply.</p>
             <ul><li>Typewriter</li><li>Letter Blur</li><li>Word Highlight</li><li>Hero Zoom</li><li>Text + Icon</li><li>Star Swipe</li></ul>
           </div>
           <div class="vis" aria-hidden="true"><div class="d-type"><span class="tw">Animation in one click</span></div><span class="mono cap">TYPEWRITER</span></div>
+          </div>
         </article>
-
-        <article class="step" data-label="Transitions">
+        <article class="scard t-lilac" style="--i:2" data-label="Transitions">
+          <div class="scard-in">
           <div class="step-copy">
-            <p class="mono eyebrow" style="margin-bottom:0">TRANSITIONS</p>
+            <p class="mono eyebrow"><i>03 / 06</i>TRANSITIONS</p>
             <h3>Cuts that feel designed.</h3>
             <p>Zoom cuts, swipe cuts and shape wipes between clips, built from linked nulls you can still edit.</p>
             <ul><li>Zoom cut</li><li>Swipe cut</li><li>Shape wipe</li></ul>
           </div>
           <div class="vis" aria-hidden="true"><div class="d-swipe"><div class="a">Scene A</div><div class="b">Scene B</div></div><span class="mono cap">SWIPE CUT</span></div>
+          </div>
         </article>
-
-        <article class="step" data-label="Build">
+        <article class="scard t-paper" style="--i:3" data-label="Build">
+          <div class="scard-in">
           <div class="step-copy">
-            <p class="mono eyebrow" style="margin-bottom:0">BUILD</p>
+            <p class="mono eyebrow"><i>04 / 06</i>BUILD</p>
             <h3>Interface pieces, made for you.</h3>
             <p>Drop in buttons, frosted glass, cursors and waveforms for product videos, styled with your colors and fonts.</p>
             <ul><li>Pill button</li><li>Frosted glass</li><li>AI glow button</li><li>Fake cursor</li><li>Audio waveform</li><li>Stock grid wall</li></ul>
           </div>
           <div class="vis" aria-hidden="true"><div class="d-build"><div class="pill">Get started</div><div class="glass">Frosted glass card</div><div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><span class="mono cap">UI KIT</span></div>
+          </div>
         </article>
-
-        <article class="step" data-label="Camera">
+        <article class="scard t-slate" style="--i:4" data-label="Camera">
+          <div class="scard-in">
           <div class="step-copy">
-            <p class="mono eyebrow" style="margin-bottom:0">CAMERA</p>
+            <p class="mono eyebrow"><i>05 / 06</i>CAMERA</p>
             <h3>Depth in a single click.</h3>
             <p>Push in and add parallax so flat layers feel like a real scene.</p>
             <ul><li>Camera push</li><li>Parallax</li><li>Hold push-in</li></ul>
           </div>
           <div class="vis" aria-hidden="true"><div class="d-cam"><i></i><i></i><i></i></div><span class="mono cap">PARALLAX</span></div>
+          </div>
         </article>
-
-        <article class="step" data-label="Flow">
+        <article class="scard t-lime" style="--i:5" data-label="Flow">
+          <div class="scard-in">
           <div class="step-copy">
-            <p class="mono eyebrow" style="margin-bottom:0">FLOW</p>
+            <p class="mono eyebrow"><i>06 / 06</i>FLOW</p>
             <h3>28 easing curves, applied as real ease.</h3>
             <p>Pick a curve and it becomes proper temporal ease on your keys, with an optional bounce overshoot.</p>
             <ul><li>Sine</li><li>Quad</li><li>Cubic</li><li>Expo</li><li>Back</li><li>Bounce overshoot</li></ul>
@@ -140,10 +145,8 @@
             </div>
             <span class="mono cap">EXPO OUT</span>
           </div>
+          </div>
         </article>
-
-      </div>
-      <div class="feat-prog" id="featProg" role="tablist" aria-label="Feature steps"></div>
     </div>
   </div>
 </section>
@@ -229,6 +232,7 @@
 <script src="https://unpkg.com/lenis@1.3.27/dist/lenis.min.js"></script>
 <script src="assets/js/panel.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/stack.js"></script>
 <script src="assets/js/trail.js"></script>
 <script src="assets/js/rotate.js"></script>
 </body>

@@ -1,0 +1,46 @@
+/* Features: stacking cards. Each card sticks below the nav; the cards under it shrink and dim as the next one arrives. */
+.stackf { padding-block: var(--sec-y) calc(var(--sec-y) * .5); background: var(--paper); }
+.stackf .feat-head { margin-bottom: 40px; }
+.stack { position: relative; padding-bottom: 6vh; }
+.scard {
+  --s: 1; --d: 0; --bg: var(--lime); --fg: var(--ink);
+  position: sticky; top: calc(var(--nav-h) + 16px + var(--i, 0) * 14px);
+  margin-bottom: 30vh; border-radius: 32px; background: var(--bg); color: var(--fg);
+  transform: scale(var(--s)); transform-origin: 50% 0; will-change: transform;
+  box-shadow: 0 28px 70px -20px rgba(16, 16, 16, .28), 0 2px 0 rgba(255, 255, 255, .06) inset;
+  overflow: hidden; isolation: isolate;
+}
+.scard:last-child { margin-bottom: 0; }
+.scard::after { content: ""; position: absolute; inset: 0; background: #000; opacity: var(--d); pointer-events: none; border-radius: inherit; z-index: 5; }
+.scard-in { display: grid; gap: 22px; padding: 24px; align-items: center; min-height: min(520px, 74vh); position: relative; z-index: 1; }
+@media (min-width: 900px) { .scard-in { grid-template-columns: 1fr 1fr; gap: 56px; padding: 52px 60px; } }
+.t-lime { --bg: var(--lime); --fg: #101010; }
+.t-ink { --bg: #141517; --fg: #F1F2F4; }
+.t-lilac { --bg: #BDB2FF; --fg: #101010; }
+.t-paper { --bg: #FFFFFF; --fg: #101010; box-shadow: 0 28px 70px -20px rgba(16, 16, 16, .22), 0 0 0 1px var(--paper-line); }
+.t-slate { --bg: #26282D; --fg: #F1F2F4; }
+.scard .eyebrow { color: inherit; opacity: .6; display: flex; gap: 10px; align-items: center; margin: 0; }
+.scard .eyebrow i { font-style: normal; display: inline-block; padding: 3px 9px; border-radius: 999px; background: rgba(127, 127, 127, .22); }
+.scard .step-copy h3 { margin: 14px 0 14px; }
+.scard .step-copy p { color: inherit; opacity: .8; max-width: 460px; }
+.scard .step-copy ul { margin-top: 22px; }
+.scard .step-copy li {
+  color: inherit; background: rgba(127, 127, 127, .16); border: 1px solid rgba(127, 127, 127, .3);
+  cursor: pointer; transition: background .2s var(--ease), color .2s var(--ease), transform .2s var(--ease-out), border-color .2s;
+  user-select: none;
+}
+.scard .step-copy li:hover, .scard .step-copy li:focus-visible, .scard .step-copy li.on { background: var(--fg); color: var(--bg); border-color: var(--fg); transform: translateY(-2px); }
+.scard .vis {
+  max-width: none; aspect-ratio: 1 / .8; background: #101010; border: 1px solid rgba(255, 255, 255, .08);
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .3s var(--ease-out); will-change: transform;
+}
+.scard .vis .cap { transition: color .2s; }
+.scard .vis .cap.hot { color: var(--lime); }
+@media (max-width: 899px) {
+  .scard { top: calc(var(--nav-h) + 10px + var(--i, 0) * 10px); margin-bottom: 22vh; border-radius: 26px; }
+  .scard .vis { aspect-ratio: 1 / .62; max-height: 230px; }
+  .scard-in { min-height: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .scard { transform: none !important; } .scard .vis { transform: none !important; } }
+
+.scard .step-copy li.hit { transform: translateY(1px) scale(.97); }
