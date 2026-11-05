@@ -1,16 +1,22 @@
 /* Features: stacking cards. Each card sticks below the nav; the cards under it shrink and dim as the next one arrives. */
 .stackf { padding-block: var(--sec-y) calc(var(--sec-y) * .5); background: var(--paper); }
 .stackf .feat-head { margin-bottom: 40px; }
-.stack { position: relative; padding-bottom: 6vh; }
+.stack { position: relative; }
+/* A sticky card can only move down as far as there is content after it inside the stack. The last card has none, so it never
+   reached its stacking position. This spacer gives it the same room the other cards get from the cards below them.  It is also how long the finished stack stays put
+   before the section scrolls on. */
+.stack::after { content: ""; display: block; height: 22vh; }
 .scard {
   --s: 1; --d: 0; --bg: var(--lime); --fg: var(--ink);
   position: sticky; top: calc(var(--nav-h) + 16px + var(--i, 0) * 14px);
-  margin-bottom: 30vh; border-radius: 32px; background: var(--bg); color: var(--fg);
+  border-radius: 32px; background: var(--bg); color: var(--fg);
   transform: scale(var(--s)); transform-origin: 50% 0; will-change: transform;
   box-shadow: 0 28px 70px -20px rgba(16, 16, 16, .28), 0 2px 0 rgba(255, 255, 255, .06) inset;
   overflow: hidden; isolation: isolate;
 }
-.scard:last-child { margin-bottom: 0; }
+/* The gap between cards is a top margin, not a bottom margin: a sticky card is released when its margin box reaches the end of the
+   stack, so a big bottom margin made the earlier cards slide away before the last card had stacked. */
+.scard + .scard { margin-top: 30vh; }
 .scard::after { content: ""; position: absolute; inset: 0; background: #000; opacity: var(--d); pointer-events: none; border-radius: inherit; z-index: 5; }
 .scard-in { display: grid; gap: 22px; padding: 24px; align-items: center; min-height: min(520px, 74vh); position: relative; z-index: 1; }
 @media (min-width: 900px) { .scard-in { grid-template-columns: 1fr 1fr; gap: 56px; padding: 52px 60px; } }
@@ -37,7 +43,8 @@
 .scard .vis .cap { transition: color .2s; }
 .scard .vis .cap.hot { color: var(--lime); }
 @media (max-width: 899px) {
-  .scard { top: calc(var(--nav-h) + 10px + var(--i, 0) * 10px); margin-bottom: 22vh; border-radius: 26px; }
+  .scard { top: calc(var(--nav-h) + 10px + var(--i, 0) * 10px); border-radius: 26px; }
+  .scard + .scard { margin-top: 22vh; }
   .scard .vis { aspect-ratio: 1 / .62; max-height: 230px; }
   .scard-in { min-height: 0; }
 }
