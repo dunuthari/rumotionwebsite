@@ -1,6 +1,6 @@
 # Ru Motion website — design system
 
-Status: home page built and tested. FAQ and Download pages are not built yet.
+Status: Home, Meet the maker, FAQ and Download pages are built and tested.
 Scope: Landing, FAQ and Download pages for the Ru Motion After Effects plugin (free, Windows + macOS, After Effects 2019+).
 Reference: a dark/light "product" SaaS site (inspiration only — structure and feel, no copied content or branding).
 
@@ -252,3 +252,10 @@ Display title "Common questions"; narrow column; groups (mono labels): **Getting
 /assets/js/main.js  panel.js  trail.js  rotate.js
 /assets/img/logo.svg  favicon.svg
 ```
+
+### Download page (built)
+- **Layout:** breadcrumb strip under the nav ("DOWNLOAD" left, "Need install help?" link right), a dark centered hero ("Download Ru Motion", one lead line), then a light "Get started" section, notes, a checksum block and a help card.
+- **One button for both systems:** a single large lime pill, "Download for Windows and Mac", which downloads `assets/downloads/RuMotion-CEP.zip` (v1.0, 219 KB). The same zip holds `install.bat` (Windows) and `install.command` (Mac). A line under it shows version, size and "After Effects 2019+", plus "DETECTED: WINDOWS" or "MAC" when the visitor's system is recognised.
+- **Get started:** heading on the left, two install cards on the right (Windows, Mac), each with numbered steps in lime circles and a link to the matching FAQ answer. The visitor's own system card gets a dark outline and a "YOUR SYSTEM" tag.
+- **Good to know:** three notes (license, requirements, why debug mode is set) and a SHA-256 checksum with a Copy button.
+- **Help:** dark card with "Email for help" and "Read the FAQ".
