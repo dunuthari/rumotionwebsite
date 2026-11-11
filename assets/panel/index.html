@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<script>
+/* Website demo: the real Ru Motion panel (same HTML, CSS and card data as the After Effects panel).
+   There is no After Effects here, so this stand-in answers the panel's calls with the card data baked in below. */
+(function () {
+  var DATA = {"meta":{"name":"Ru Motion","features":[{"i":0,"group":"Animate","name":"Quick","parent":""},{"i":1,"group":"Animate","name":"Move in / out","parent":""},{"i":2,"group":"Animate","name":"Pop","parent":""},{"i":3,"group":"Animate","name":"Shape morph","parent":""},{"i":4,"group":"Animate","name":"UI list stagger","parent":""},{"i":5,"group":"Animate","name":"Hold push-in","parent":""},{"i":6,"group":"Text","name":"Effects","parent":""},{"i":7,"group":"Text","name":"Text + Icon","parent":""},{"i":8,"group":"Text","name":"Captions","parent":""},{"i":9,"group":"Transitions","name":"Zoom cut","parent":""},{"i":10,"group":"Transitions","name":"Swipe cut","parent":""},{"i":11,"group":"Transitions","name":"Shape wipe","parent":""},{"i":12,"group":"Build","name":"Smart shape","parent":""},{"i":13,"group":"Build","name":"Pill button","parent":""},{"i":14,"group":"Build","name":"Frosted glass","parent":""},{"i":15,"group":"Build","name":"AI glow button","parent":""},{"i":16,"group":"Build","name":"Fake cursor","parent":""},{"i":17,"group":"Build","name":"Avatar bubble","parent":""},{"i":18,"group":"Build","name":"Audio waveform","parent":""},{"i":19,"group":"Build","name":"Liquid-glass button","parent":""},{"i":20,"group":"Build","name":"Stock grid wall","parent":""},{"i":21,"group":"Layers & Timing","name":"Layer operations","parent":""},{"i":22,"group":"Flow","name":"Easing curves","parent":""},{"i":23,"group":"Camera","name":"Camera","parent":""},{"i":24,"group":"Text","name":"Star Swipe","parent":"Text + Icon"},{"i":25,"group":"Style","name":"Style","parent":""}]},"cards":[{"title":"Quick","kids":[{"t":"row","items":[{"k":"t","id":0,"text":"Bounce effect","v":false,"tip":"ON: every animation below bounces (slides, pops and fades overshoot and settle).\nOFF: clean eased motion with no bounce.\nSet how much with Bounce (%) below."}]},{"t":"row","items":[{"k":"f","id":1,"label":"Bounce (%):","v":"","tip":"How far animations overshoot before settling.\n5 = subtle, 10 = default, 30 = very springy."}]},{"t":"row","items":[{"k":"f","id":2,"label":"Slide distance (px):","v":"200","tip":""}]},{"t":"card","card":{"title":"In","kids":[{"t":"btns","items":[{"k":"b","id":3,"text":"Fade In","v":"secondary","tip":"","a":""},{"k":"b","id":4,"text":"Scale Pop","v":"secondary","tip":"","a":""}]},{"t":"btns","items":[{"k":"b","id":5,"text":"Blur Fade In","v":"secondary","tip":"Fades in from a blur","a":""}]}]}},{"t":"card","card":{"title":"Out","kids":[{"t":"btns","items":[{"k":"b","id":6,"text":"Fade Out","v":"secondary","tip":"","a":""},{"k":"b","id":7,"text":"Blur Fade Out","v":"secondary","tip":"Blurs out and fades away","a":""}]}]}},{"t":"card","card":{"title":"Move","kids":[{"t":"btns","items":[{"k":"b","id":8,"text":"Slide Left (+Fade)","v":"secondary","tip":"Slides in, travelling left, and fades in","a":""},{"k":"b","id":9,"text":"Slide Right (+Fade)","v":"secondary","tip":"Slides in, travelling right, and fades in","a":""}]},{"t":"btns","items":[{"k":"b","id":10,"text":"Slide Up (+Fade)","v":"secondary","tip":"Slides in, travelling up, and fades in","a":""},{"k":"b","id":11,"text":"Slide Down (+Fade)","v":"secondary","tip":"Slides in, travelling down, and fades in","a":""}]}]}},{"t":"hint","text":"Bounce applies to In, Out and Move. Uses Duration and Curve from the Style group."},{"t":"card","card":{"title":"Tools","kids":[{"t":"row","items":[{"k":"d","id":12,"label":"Gradient direction:","items":["Horizontal","Vertical","Diagonal"],"sel":0,"tip":"Direction for Lock Gradient."}]},{"t":"btns","items":[{"k":"b","id":13,"text":"Reverse Keys","v":"secondary","tip":"Reverses selected keyframed properties (or all on the selected layers)","a":""},{"k":"b","id":14,"text":"Lock Gradient","v":"secondary","tip":"Gradient that stays locked to the layer: it moves, scales and rotates with it","a":""}]}]}},{"t":"card","card":{"title":"Bounce the ball effect","kids":[{"t":"hint","text":"Keyframed layers bounce like a ball after each key."},{"t":"row","items":[{"k":"f","id":15,"label":"Amount (%):","v":"","tip":"How far it bounces after each keyframe.\n5 = small settle, 10 = default, 30+ = big rubber-ball bounce."}]},{"t":"row","items":[{"k":"b","id":16,"text":"Bounce the ball effect","v":"primary","tip":"Adds a ball-like bounce after every keyframe of the selected layers (position, scale, rotation) or selected keyframed properties.","a":""}]}]}}]},{"title":"Move in / out","kids":[{"t":"row","items":[{"k":"d","id":17,"label":"Mode:","items":["In","Out"],"sel":0,"tip":""}]},{"t":"row","items":[{"k":"d","id":18,"label":"Distance:","items":["Off screen","Custom"],"sel":0,"tip":""}]},{"t":"row","items":[{"k":"f","id":19,"label":"Custom (px):","v":"300","tip":"Used when Distance is Custom."}]},{"t":"row","items":[{"k":"t","id":20,"text":"Fade opacity too","v":false,"tip":""}]},{"t":"row","items":[{"k":"f","id":21,"label":"Stagger (frames):","v":"0","tip":"Delay between layers, in frames.\n0 = every selected layer starts together.\n3 = each next layer starts 3 frames after the one before it, so they animate one after another."}]},{"t":"hint","text":"Arrow = direction of travel:"},{"t":"btns","items":[{"k":"b","id":22,"text":"\u2190","v":"secondary","tip":"","a":""},{"k":"b","id":23,"text":"\u2191","v":"secondary","tip":"","a":""},{"k":"b","id":24,"text":"\u2193","v":"secondary","tip":"","a":""},{"k":"b","id":25,"text":"\u2192","v":"secondary","tip":"","a":""}]}]},{"title":"Pop","kids":[{"t":"row","items":[{"k":"t","id":26,"text":"Fade opacity too","v":true,"tip":""}]},{"t":"row","items":[{"k":"t","id":27,"text":"Scale from layer center","v":true,"tip":"Moves the anchor point to the layer's center first."}]},{"t":"hint","text":"Springs past the end size and settles. Edit freq / decay / amp in the scale expression to tune."},{"t":"btns","items":[{"k":"b","id":28,"text":"Pop Up","v":"secondary","tip":"","a":""},{"k":"b","id":29,"text":"Pop Out","v":"secondary","tip":"","a":""}]}]},{"title":"Shape morph","kids":[{"t":"hint","text":"Select 2 layers, playhead at the start, then click Morph. Any mix of shapes, pictures, footage, solids and text works. The first layer winds up, swoops over to the second one while taking its size, and the second layer lands in its place with a bounce."},{"t":"row","items":[{"k":"d","id":30,"label":"Morph from:","items":["Lower layer","Upper layer"],"sel":0,"tip":"Lower layer = the layer at the bottom of the two."}]},{"t":"row","items":[{"k":"t","id":31,"text":"Put morph in a new composition","v":false,"tip":""}]},{"t":"card","card":{"title":"Bounce","kids":[{"t":"hint","text":"How the morph settles after it lands. The same three sliders are on both layers as effects, so you can change them later."},{"t":"row","items":[{"k":"s","id":32,"label":"Amplitude:","v":100,"min":0,"max":200,"div":1,"unit":" %","dec":0,"tip":"How strong the bounce is."}]},{"t":"row","items":[{"k":"s","id":33,"label":"Frequency:","v":15,"min":5,"max":60,"div":10,"unit":"","dec":2,"tip":"How fast it swings (swings per second)."}]},{"t":"row","items":[{"k":"s","id":34,"label":"Decay (sec):","v":10,"min":2,"max":40,"div":10,"unit":"","dec":2,"tip":"How long the swinging takes to fade out."}]}]}},{"t":"row","items":[{"k":"b","id":35,"text":"Morph","v":"primary","tip":"","a":""}]}]},{"title":"UI list stagger","kids":[{"t":"hint","text":"Select imported UI rows. Animates top to bottom."},{"t":"row","items":[{"k":"f","id":36,"label":"Slide up (px):","v":"40","tip":""}]},{"t":"row","items":[{"k":"f","id":37,"label":"Stagger (frames):","v":"2","tip":"Delay between layers, in frames.\n0 = every selected layer starts together.\n3 = each next layer starts 3 frames after the one before it, so they animate one after another."}]},{"t":"row","items":[{"k":"t","id":38,"text":"Fade opacity too","v":true,"tip":""}]},{"t":"row","items":[{"k":"b","id":39,"text":"Stagger selected layers","v":"primary","tip":"","a":""}]}]},{"title":"Hold push-in","kids":[{"t":"hint","text":"Slow scale-up on holds (100% \u2192 105%)."},{"t":"row","items":[{"k":"f","id":40,"label":"Amount (%):","v":"5","tip":""}]},{"t":"row","items":[{"k":"d","id":41,"label":"Range:","items":["Whole layer","Playhead to layer end"],"sel":0,"tip":""}]},{"t":"row","items":[{"k":"b","id":42,"text":"Push in selected","v":"primary","tip":"","a":""}]}]},{"title":"Effects","kids":[{"t":"hint","text":"Select text layer(s), put the playhead where it should start, click an effect."},{"t":"card","card":{"title":"Reveal","kids":[{"t":"btns","items":[{"k":"b","id":43,"text":"Typewriter","v":"secondary","tip":"Types the selected text layer out letter by letter at the playhead, with a caret that follows.","a":""},{"k":"b","id":44,"text":"Typewriter Block","v":"secondary","tip":"Types the selected text out word by word: a gradient block sits over the next word and the newest words glow blue, then settle back to the text colour.","a":""}]},{"t":"btns","items":[{"k":"b","id":45,"text":"Letter Blur","v":"secondary","tip":"Text fades in letter by letter with a little blur.","a":""},{"k":"b","id":46,"text":"SaaS Text Preset 1","v":"secondary","tip":"Select two text layers placed in the same spot (the lower layer is visible first and rolls out, the upper layer rolls in), or one layer with two lines. The first sentence rolls up and out through a one-line window while the second rises into its place, word by word.","a":""}]},{"t":"btns","items":[{"k":"b","id":47,"text":"Two-Line Stack","v":"secondary","tip":"A text layer with two lines: the first line sits, then the words of the second come in below and the block re-centres.","a":""}]}]}},{"t":"card","card":{"title":"Style","kids":[{"t":"btns","items":[{"k":"b","id":48,"text":"Word Highlight","v":"secondary","tip":"The current word turns teal and the highlight moves word to word.","a":""},{"k":"b","id":49,"text":"Hero Zoom","v":"secondary","tip":"A giant, blurred layer pulls back and sharpens into place (any layer).","a":""}]},{"t":"btns","items":[{"k":"b","id":50,"text":"Hero Blur","v":"secondary","tip":"The layer blurs in and settles in place (any layer).","a":""},{"k":"b","id":51,"text":"Blur Out","v":"secondary","tip":"The layer blurs out and shrinks a little (any layer).","a":""}]},{"t":"btns","items":[{"k":"b","id":52,"text":"Delete Out","v":"secondary","tip":"The letters disappear from the right, with blur.","a":""}]}]}},{"t":"card","card":{"title":"Presets","kids":[{"t":"btns","items":[{"k":"b","id":53,"text":"Bounce Text","v":"secondary","tip":"Applies the \"Bounce Text\" animation preset to the selected layers, starting at the playhead.","a":""},{"k":"b","id":54,"text":"Bouncing Text","v":"secondary","tip":"Applies the \"Bouncing Text\" animation preset to the selected layers, starting at the playhead.","a":""}]},{"t":"btns","items":[{"k":"b","id":55,"text":"Bouncy Color Fade","v":"secondary","tip":"Applies the \"Bouncy Color Fade\" animation preset to the selected layers, starting at the playhead.","a":""},{"k":"b","id":56,"text":"Color Fade Out","v":"secondary","tip":"Applies the \"Color Fade Out\" animation preset to the selected layers, starting at the playhead.","a":""}]},{"t":"btns","items":[{"k":"b","id":57,"text":"Letters Drop","v":"secondary","tip":"Applies the \"Letters Drop\" animation preset to the selected layers, starting at the playhead.","a":""},{"k":"b","id":58,"text":"Letters Slide","v":"secondary","tip":"Applies the \"Letters Slide\" animation preset to the selected layers, starting at the playhead.","a":""}]},{"t":"btns","items":[{"k":"b","id":59,"text":"Motion Type","v":"secondary","tip":"Applies the \"Motion Type\" animation preset to the selected layers, starting at the playhead.","a":""},{"k":"b","id":60,"text":"One by One","v":"secondary","tip":"Applies the \"One by One\" animation preset to the selected layers, starting at the playhead.","a":""}]},{"t":"btns","items":[{"k":"b","id":61,"text":"SaaS Style 3","v":"secondary","tip":"Applies the \"SaaS Style 3\" animation preset to the selected layers, starting at the playhead.","a":""},{"k":"b","id":62,"text":"SaaS Style 4","v":"secondary","tip":"Applies the \"SaaS Style 4\" animation preset to the selected layers, starting at the playhead.","a":""}]},{"t":"btns","items":[{"k":"b","id":63,"text":"SaaS Style 5","v":"secondary","tip":"Applies the \"SaaS Style 5\" animation preset to the selected layers, starting at the playhead.","a":""},{"k":"b","id":64,"text":"Snap","v":"secondary","tip":"Applies the \"Snap\" animation preset to the selected layers, starting at the playhead.","a":""}]},{"t":"btns","items":[{"k":"b","id":65,"text":"Snap 2","v":"secondary","tip":"Applies the \"Snap 2\" animation preset to the selected layers, starting at the playhead.","a":""},{"k":"b","id":66,"text":"Snapping","v":"secondary","tip":"Applies the \"Snapping\" animation preset to the selected layers, starting at the playhead.","a":""}]},{"t":"btns","items":[{"k":"b","id":67,"text":"Words Drop","v":"secondary","tip":"Applies the \"Words Drop\" animation preset to the selected layers, starting at the playhead.","a":""},{"k":"b","id":68,"text":"Words Slide","v":"secondary","tip":"Applies the \"Words Slide\" animation preset to the selected layers, starting at the playhead.","a":""}]}]}}]},{"title":"Text + Icon","kids":[{"t":"hint","text":"Type 2\u20136 words, choose where the icon goes, browse for your icon."},{"t":"row","items":[{"k":"f","id":69,"label":"Sentence:","v":"","tip":"Your words. The icon is placed in the gap you choose below."}]},{"t":"row","items":[{"k":"d","id":70,"label":"Icon position:","items":[],"sel":0,"tip":"Where the icon sits in the sentence."}]},{"t":"hint","text":"Preview:  (icon)"},{"t":"row","items":[{"k":"b","id":71,"text":"Browse\u2026","v":"secondary","tip":"Choose your own icon: PNG, SVG, AI, PSD or JPG.","a":""},{"k":"b","id":72,"text":"Sparkle","v":"secondary","tip":"Go back to the built-in sparkle.","a":""}]},{"t":"row","items":[{"k":"f","id":73,"label":"Text color:","v":"","tip":"Hex color, e.g. #4285F4"},{"k":"b","id":74,"text":"Pick\u2026","v":"secondary","tip":"","a":""}]},{"t":"row","items":[{"k":"f","id":75,"label":"Icon color:","v":"","tip":"Hex color, e.g. #4285F4"},{"k":"b","id":76,"text":"Pick\u2026","v":"secondary","tip":"","a":""}]},{"t":"row","items":[{"k":"f","id":77,"label":"Font size:","v":"","tip":"Text size in pixels."}]},{"t":"row","items":[{"k":"f","id":78,"label":"Icon size (%):","v":"100","tip":"100% = the icon at its natural size for this text. Scale it freely afterwards."}]},{"t":"row","items":[{"k":"f","id":79,"label":"Icon gap (px):","v":"","tip":"Extra space between the two words around the icon. Positive = wider, negative = tighter. 0 = the natural gap. Undo and rebuild to change it."}]},{"t":"row","items":[{"k":"f","id":80,"label":"Length (s):","v":"4","tip":"How long the layers last from the playhead."}]},{"t":"row","items":[{"k":"t","id":81,"text":"Highlight words","v":false,"tip":"Optional colour sweep: each word goes lavender, then magenta, then back to its normal colour. Off keeps everything gray."}]},{"t":"row","items":[{"k":"f","id":82,"label":"Highlight (s/word):","v":"1","tip":"How long each word keeps the highlight."}]},{"t":"hint","text":"The icon is left still, so you can animate it yourself."},{"t":"row","items":[{"k":"b","id":83,"text":"Build text + icon","v":"primary","tip":"Builds the words (sliding apart and growing), the icon slot and the highlight at the playhead.","a":""}]}]},{"title":"Captions","kids":[{"t":"hint","text":"1. Select an audio or video layer and click English Transcript. 2. Pick an In and Out animation. 3. Apply. You can change the animation at any time without transcribing again."},{"t":"card","card":{"title":"Transcribe","kids":[{"t":"row","items":[{"k":"d","id":84,"label":"Accuracy:","items":["Fast: 75 MB","Balanced: 142 MB","Accurate: 466 MB","Best: 1.5 GB"],"sel":1,"tip":"Bigger models are more accurate but slower. The first use downloads the model; it is kept for next time."}]},{"t":"row","items":[{"k":"b","id":85,"text":"English Transcript","v":"primary","tip":"Select an audio or video layer first. Creates one caption text layer per line, named Ru Caption N.","a":"transcribe-en"}]}]}},{"t":"card","card":{"title":"Transcript","kids":[{"t":"hint","text":"The start time and words of every caption. Edit them, then press Apply changes. Enter splits a line, Backspace at the start joins it to the line above, + adds an empty caption."}]}},{"t":"card","card":{"title":"Style","kids":[{"t":"hint","text":"How the word being spoken is shown while the voice says it. Click Apply to all captions after changing it. Captions made before word timing existed are spread evenly over the line; transcribe again for exact timing."},{"t":"row","items":[{"k":"d","id":86,"label":"Look:","items":["Plain","Word box","Word colour","Word pop","Underline","Karaoke fill"],"sel":0,"tip":"Plain leaves the captions as they are. The other looks light up one word at a time."}]},{"t":"row","items":[{"k":"f","id":87,"label":"Text colour:","v":"#FFFFFF","tip":"Hex color, e.g. #4285F4"},{"k":"b","id":88,"text":"Pick\u2026","v":"secondary","tip":"","a":""}]},{"t":"row","items":[{"k":"f","id":89,"label":"Box colour:","v":"#E8A23A","tip":"Hex color, e.g. #4285F4"},{"k":"b","id":90,"text":"Pick\u2026","v":"secondary","tip":"","a":""}]},{"t":"row","items":[{"k":"f","id":91,"label":"Roundness (px):","v":"10","tip":"Corner roundness of the Word box."}]},{"t":"row","items":[{"k":"f","id":92,"label":"Other words (%):","v":"45","tip":"Brightness of the words that are not being spoken (when they are dimmed)."}]},{"t":"row","items":[{"k":"d","id":93,"label":"Other words:","items":["Dimmed","Full"],"sel":0,"tip":"Dimmed: the other words fade back. Full: they stay at full brightness."}]}]}},{"t":"card","card":{"title":"Animation","kids":[{"t":"row","items":[{"k":"d","id":94,"label":"In:","items":["None","Fade","Pop","Slide up","Blur in","Typewriter","Word by word"],"sel":1,"tip":""}]},{"t":"row","items":[{"k":"f","id":95,"label":"In length (frames):","v":"8","tip":"Typewriter and Word by word take a few times longer."}]},{"t":"row","items":[{"k":"d","id":96,"label":"Out:","items":["None","Fade","Slide down","Blur out","Pop out"],"sel":1,"tip":""}]},{"t":"row","items":[{"k":"f","id":97,"label":"Out length (frames):","v":"6","tip":""}]},{"t":"row","items":[{"k":"d","id":98,"label":"Curve:","items":["Expo out","Smooth","Linear"],"sel":0,"tip":""}]},{"t":"row","items":[{"k":"f","id":99,"label":"Slide distance (px):","v":"40","tip":"For Slide up and Slide down."}]}]}},{"t":"row","items":[{"k":"b","id":100,"text":"Apply to all captions","v":"primary","tip":"Rebuilds the In and Out animation and the word highlight of every Ru Caption layer in the comp. Their font, size, colour and position are not touched.","a":""}]},{"t":"btns","items":[{"k":"b","id":101,"text":"Apply to selected","v":"secondary","tip":"Re-animates only the selected Ru Caption layers.","a":""},{"k":"b","id":102,"text":"Select all captions","v":"secondary","tip":"Selects every Ru Caption layer in the comp.","a":""}]},{"t":"hint","text":"New captions are white, bold, 64 px, near the bottom with a soft shadow; restyle them in After Effects as you like. First use downloads the speech engine and model (about 150 MB), then it works offline."}]},{"title":"Zoom cut","kids":[{"t":"hint","text":"Select 2 clips, or put the playhead on the cut."},{"t":"row","items":[{"k":"f","id":103,"label":"Frames each side:","v":"6","tip":""}]},{"t":"row","items":[{"k":"f","id":104,"label":"Intensity (\u00d7):","v":"3","tip":""}]},{"t":"row","items":[{"k":"f","id":105,"label":"Blur (shutter \u00b0):","v":"270","tip":""}]},{"t":"btns","items":[{"k":"b","id":106,"text":"Zoom In","v":"secondary","tip":"","a":""},{"k":"b","id":107,"text":"Zoom Out","v":"secondary","tip":"","a":""}]}]},{"title":"Swipe cut","kids":[{"t":"hint","text":"Select the outgoing + incoming clips, or put the playhead on the cut."},{"t":"hint","text":"Adds 3 linked nulls: Out, In and a Move null at the cut."},{"t":"row","items":[{"k":"f","id":108,"label":"Frames each side:","v":"15","tip":"How long the whoosh lasts on each side of the cut."}]},{"t":"row","items":[{"k":"f","id":109,"label":"Distance (%):","v":"27","tip":"How far the clips slide. 27% is about 520 px on a 1920 frame, so both stay on screen. 100% = a full screen."}]},{"t":"row","items":[{"k":"f","id":110,"label":"Blur (shutter \u00b0):","v":"300","tip":"Raises the comp's shutter angle to at least this, for motion blur."}]},{"t":"btns","items":[{"k":"b","id":111,"text":"\u2190","v":"secondary","tip":"","a":""},{"k":"b","id":112,"text":"\u2191","v":"secondary","tip":"","a":""},{"k":"b","id":113,"text":"\u2193","v":"secondary","tip":"","a":""},{"k":"b","id":114,"text":"\u2192","v":"secondary","tip":"","a":""}]}]},{"title":"Shape wipe","kids":[{"t":"hint","text":"Select 2 clips, or put the playhead on the cut."},{"t":"row","items":[{"k":"d","id":115,"label":"Shape:","items":["Circle","Triangle"],"sel":0,"tip":""}]},{"t":"row","items":[{"k":"d","id":116,"label":"Grow from:","items":["Center","Left","Right","Top","Bottom"],"sel":0,"tip":""}]},{"t":"row","items":[{"k":"t","id":117,"text":"Blue accent shape leads the reveal","v":true,"tip":""}]},{"t":"row","items":[{"k":"f","id":118,"label":"Accent lead (frames):","v":"3","tip":""}]},{"t":"row","items":[{"k":"b","id":119,"text":"Add shape wipe","v":"primary","tip":"","a":""}]}]},{"title":"Smart shape","kids":[{"t":"card","card":{"title":"Shape","kids":[{"t":"row","items":[{"k":"d","id":120,"label":"Type:","items":["Squircle","Rounded rectangle","Pill","Circle / Ellipse","Triangle","Star","Polygon"],"sel":0,"tip":""}]},{"t":"row","items":[{"k":"f","id":121,"label":"Width \u00d7 Height:","v":"400","tip":""},{"k":"f","id":122,"label":"","v":"400","tip":""}]},{"t":"row","items":[{"k":"f","id":123,"label":"Corner radius:","v":"60","tip":"Rounded rectangle only."}]},{"t":"row","items":[{"k":"f","id":124,"label":"Points / sides:","v":"5","tip":"Star and Polygon."}]},{"t":"row","items":[{"k":"f","id":125,"label":"Star inner (%):","v":"45","tip":"Star only: inner radius as % of outer."}]}]}},{"t":"card","card":{"title":"Fill & stroke","kids":[{"t":"row","items":[{"k":"f","id":126,"label":"Fill color:","v":"","tip":"Hex color, e.g. #4285F4"},{"k":"b","id":127,"text":"Pick\u2026","v":"secondary","tip":"","a":""}]},{"t":"row","items":[{"k":"f","id":128,"label":"Fill opacity (%):","v":"100","tip":""}]},{"t":"row","items":[{"k":"t","id":129,"text":"Gradient fill (locked to shape)","v":false,"tip":"Uses Gradient start/end colors from Style."}]},{"t":"row","items":[{"k":"d","id":130,"label":"Gradient direction:","items":["Horizontal","Vertical","Diagonal"],"sel":2,"tip":""}]},{"t":"row","items":[{"k":"t","id":131,"text":"Stroke","v":false,"tip":""}]},{"t":"row","items":[{"k":"f","id":132,"label":"Stroke color:","v":"","tip":"Hex color, e.g. #4285F4"},{"k":"b","id":133,"text":"Pick\u2026","v":"secondary","tip":"","a":""}]},{"t":"row","items":[{"k":"f","id":134,"label":"Stroke width:","v":"4","tip":""}]}]}},{"t":"card","card":{"title":"Effects","kids":[{"t":"row","items":[{"k":"t","id":135,"text":"Soft shadow","v":true,"tip":""}]},{"t":"row","items":[{"k":"t","id":136,"text":"Frosted glass behind (new shapes)","v":false,"tip":""}]}]}},{"t":"btns","items":[{"k":"b","id":137,"text":"Create shape","v":"primary","tip":"","a":""},{"k":"b","id":138,"text":"Update selected","v":"secondary","tip":"Rebuilds the selected shape layers with these settings. Layer position, scale and animation are kept.","a":""}]}]},{"title":"Pill button","kids":[{"t":"row","items":[{"k":"f","id":139,"label":"Label:","v":"+ New","tip":""}]},{"t":"row","items":[{"k":"d","id":140,"label":"Style:","items":["Primary","White glass","Outline"],"sel":0,"tip":""}]},{"t":"row","items":[{"k":"t","id":141,"text":"Pop in at playhead","v":true,"tip":""}]},{"t":"row","items":[{"k":"b","id":142,"text":"Create pill button","v":"primary","tip":"","a":""}]}]},{"title":"Frosted glass","kids":[{"t":"hint","text":"Select shapes; blurs whatever is behind them."},{"t":"row","items":[{"k":"f","id":143,"label":"Blur radius:","v":"30","tip":""}]},{"t":"row","items":[{"k":"b","id":144,"text":"Frost selected shapes","v":"primary","tip":"","a":""}]}]},{"title":"AI glow button","kids":[{"t":"row","items":[{"k":"f","id":145,"label":"Label:","v":"Creating\u2026","tip":""}]},{"t":"row","items":[{"k":"b","id":146,"text":"Create AI glow button","v":"primary","tip":"","a":""}]}]},{"title":"Fake cursor","kids":[{"t":"hint","text":"Add cursor \u2192 move playhead \u2192 drag cursor \u2192 repeat."},{"t":"row","items":[{"k":"b","id":147,"text":"Add cursor","v":"primary","tip":"","a":""}]},{"t":"row","items":[{"k":"b","id":148,"text":"Click at playhead","v":"primary","tip":"Scale-down press plus a ripple circle.","a":""}]},{"t":"row","items":[{"k":"b","id":149,"text":"Smooth moves","v":"primary","tip":"Applies the footer curve to every cursor move.","a":""}]}]},{"title":"Avatar bubble","kids":[{"t":"hint","text":"Select photo layers."},{"t":"row","items":[{"k":"f","id":150,"label":"Avatar size (px):","v":"120","tip":""}]},{"t":"row","items":[{"k":"b","id":151,"text":"Bubble selected photos","v":"primary","tip":"","a":""}]},{"t":"row","items":[{"k":"b","id":152,"text":"Press at playhead","v":"primary","tip":"Click animation + a 'Next scene' marker.","a":""}]}]},{"title":"Audio waveform","kids":[{"t":"row","items":[{"k":"d","id":153,"label":"Mode:","items":["From selected audio","Idle loop"],"sel":0,"tip":""}]},{"t":"row","items":[{"k":"f","id":154,"label":"Bars:","v":"24","tip":""}]},{"t":"row","items":[{"k":"f","id":155,"label":"Max height (px):","v":"140","tip":""}]},{"t":"row","items":[{"k":"b","id":156,"text":"Create waveform","v":"primary","tip":"","a":""}]}]},{"title":"Liquid-glass button","kids":[{"t":"row","items":[{"k":"f","id":157,"label":"Label:","v":"Play","tip":""}]},{"t":"row","items":[{"k":"t","id":158,"text":"3D depth + camera blur","v":false,"tip":"Makes the rings 3D and adds a DOF camera push-in."}]},{"t":"row","items":[{"k":"b","id":159,"text":"Create glass button","v":"primary","tip":"","a":""}]}]},{"title":"Stock grid wall","kids":[{"t":"hint","text":"Select clips/images in the Project panel."},{"t":"row","items":[{"k":"f","id":160,"label":"Columns:","v":"5","tip":""}]},{"t":"row","items":[{"k":"f","id":161,"label":"Gap (px):","v":"24","tip":""}]},{"t":"row","items":[{"k":"f","id":162,"label":"Corner radius:","v":"24","tip":""}]},{"t":"row","items":[{"k":"f","id":163,"label":"Tilt (\u00b0):","v":"-8","tip":""}]},{"t":"row","items":[{"k":"f","id":164,"label":"Scroll speed (px/s):","v":"40","tip":""}]},{"t":"row","items":[{"k":"d","id":165,"label":"Scroll:","items":["Up","Down"],"sel":0,"tip":""}]},{"t":"row","items":[{"k":"b","id":166,"text":"Build grid wall","v":"primary","tip":"","a":""}]}]},{"title":"Layer operations","kids":[{"t":"btns","items":[{"k":"b","id":167,"text":"Pre-comp","v":"secondary","tip":"Group layers safely \u2014 keeps their in/out range","a":""},{"k":"b","id":168,"text":"Unwrap Comp","v":"secondary","tip":"Moves the layers of the selected pre-comp into this comp, with timing and parenting. A null keeps the pre-comp layer's transform.","a":""}]},{"t":"btns","items":[{"k":"b","id":169,"text":"Adjustment Layer","v":"secondary","tip":"Full comp bounds, above the selection","a":""},{"k":"b","id":170,"text":"Smart Null","v":"secondary","tip":"50\u00d750 null at the comp center (or the selection's center), parents selected layers","a":""}]},{"t":"card","card":{"title":"Smart Duplicate","kids":[{"t":"row","items":[{"k":"f","id":171,"label":"Copies:","v":"1","tip":""}]},{"t":"row","items":[{"k":"d","id":172,"label":"Precomp copies:","items":["Linked \u2014 edits affect all","Independent \u2014 own comp"],"sel":1,"tip":"Linked: every copy uses the same comp, so editing one changes all.\nIndependent: each copy gets its own comp (nested comps copied too), so edits stay separate."}]},{"t":"row","items":[{"k":"b","id":173,"text":"Smart Duplicate","v":"primary","tip":"Index duplicate: Card 01 \u2192 Card 02","a":""}]}]}},{"t":"card","card":{"title":"Solid Layer","kids":[{"t":"row","items":[{"k":"f","id":174,"label":"Color:","v":"","tip":"Hex color, e.g. #4285F4"}]},{"t":"row","items":[{"k":"b","id":175,"text":"Solid Layer","v":"primary","tip":"","a":""}]}]}},{"t":"card","card":{"title":"Follow Path","kids":[{"t":"hint","text":"Select a path layer (mask or shape) + the follower."},{"t":"row","items":[{"k":"f","id":176,"label":"Path time (s):","v":"3","tip":""}]},{"t":"row","items":[{"k":"t","id":177,"text":"Loop along path","v":true,"tip":""}]},{"t":"row","items":[{"k":"t","id":178,"text":"Orient along path","v":false,"tip":""}]},{"t":"row","items":[{"k":"b","id":179,"text":"Follow Path","v":"primary","tip":"The follower moves along the path, driven by an \"Ru Path Progress\" slider.","a":""}]}]}}]},{"title":"Easing curves","kids":[{"t":"hint","text":"Select keyframes, pick a curve, edit it if you like, then Apply."},{"t":"row","items":[{"k":"f","id":180,"label":"Curve:","v":"0.66","tip":"x1 (time, 0\u20131)"},{"k":"f","id":181,"label":"","v":"0","tip":"y1 (value)"},{"k":"f","id":182,"label":"","v":"0.34","tip":"x2 (time, 0\u20131)"},{"k":"f","id":183,"label":"","v":"1","tip":"y2 (value)"}]},{"t":"btns","items":[{"k":"b","id":184,"text":"\u25c2 In","v":"secondary","tip":"Only the incoming side of each segment (slow arrival).","a":""},{"k":"b","id":185,"text":"Both","v":"primary","tip":"Ease into and out of the keyframes.","a":""},{"k":"b","id":186,"text":"Out \u25b8","v":"secondary","tip":"Only the outgoing side of each segment (slow departure).","a":""}]},{"t":"row","items":[{"k":"t","id":187,"text":"Bounce effect","v":false,"tip":"ON: after each keyframe the layer springs a little past its end value and settles.\nOFF: no bounce (also removes a Flow bounce added earlier)."}]},{"t":"row","items":[{"k":"f","id":188,"label":"Bounce (%):","v":"","tip":"How far it overshoots, as a % of the move. 5 = subtle, 10 = default, 30 = very springy."}]},{"t":"row","items":[{"k":"b","id":189,"text":"Apply","v":"primary","tip":"Applies this curve (and the bounce, if on) to the selected keyframes, or to every key of the selected properties.","a":""}]},{"t":"row","items":[{"k":"b","id":190,"text":"linear","v":"secondary","tip":"linear  (0, 0, 1, 1)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":191,"text":"easeIn","v":"secondary","tip":"easeIn  (0.42, 0, 1, 1)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":192,"text":"easeOut","v":"secondary","tip":"easeOut  (0, 0, 0.58, 1)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":193,"text":"ease","v":"secondary","tip":"ease  (0.25, 0.1, 0.25, 1)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":194,"text":"sineIn","v":"secondary","tip":"sineIn  (0.12, 0, 0.39, 0)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":195,"text":"sineOut","v":"secondary","tip":"sineOut  (0.61, 1, 0.88, 1)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":196,"text":"sine","v":"secondary","tip":"sine  (0.37, 0, 0.63, 1)\nClick to load it into the graph, then Apply.","a":""}]},{"t":"row","items":[{"k":"b","id":197,"text":"quadIn","v":"secondary","tip":"quadIn  (0.11, 0, 0.5, 0)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":198,"text":"quadOut","v":"secondary","tip":"quadOut  (0.5, 1, 0.89, 1)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":199,"text":"quad","v":"secondary","tip":"quad  (0.45, 0, 0.55, 1)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":200,"text":"cubicIn","v":"secondary","tip":"cubicIn  (0.32, 0, 0.67, 0)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":201,"text":"cubicOut","v":"secondary","tip":"cubicOut  (0.33, 1, 0.68, 1)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":202,"text":"cubic","v":"secondary","tip":"cubic  (0.66, 0, 0.34, 1)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":203,"text":"quartIn","v":"secondary","tip":"quartIn  (0.5, 0, 0.75, 0)\nClick to load it into the graph, then Apply.","a":""}]},{"t":"row","items":[{"k":"b","id":204,"text":"quartOut","v":"secondary","tip":"quartOut  (0.25, 1, 0.5, 1)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":205,"text":"quart","v":"secondary","tip":"quart  (0.76, 0, 0.24, 1)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":206,"text":"quintIn","v":"secondary","tip":"quintIn  (0.64, 0, 0.78, 0)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":207,"text":"quintOut","v":"secondary","tip":"quintOut  (0.22, 1, 0.36, 1)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":208,"text":"quint","v":"secondary","tip":"quint  (0.83, 0, 0.17, 1)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":209,"text":"expoIn","v":"secondary","tip":"expoIn  (0.7, 0, 0.84, 0)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":210,"text":"expoOut","v":"secondary","tip":"expoOut  (0.16, 1, 0.3, 1)\nClick to load it into the graph, then Apply.","a":""}]},{"t":"row","items":[{"k":"b","id":211,"text":"expo","v":"secondary","tip":"expo  (0.87, 0, 0.13, 1)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":212,"text":"circIn","v":"secondary","tip":"circIn  (0.55, 0, 1, 0.45)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":213,"text":"circOut","v":"secondary","tip":"circOut  (0, 0.55, 0.45, 1)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":214,"text":"circ","v":"secondary","tip":"circ  (0.85, 0, 0.15, 1)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":215,"text":"backIn","v":"secondary","tip":"backIn  (0.36, 0, 0.66, -0.56)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":216,"text":"backOut","v":"secondary","tip":"backOut  (0.34, 1.56, 0.64, 1)\nClick to load it into the graph, then Apply.","a":""},{"k":"b","id":217,"text":"back","v":"secondary","tip":"back  (0.68, -0.6, 0.32, 1.6)\nClick to load it into the graph, then Apply.","a":""}]}]},{"title":"Camera","kids":[{"t":"card","card":{"title":"3-node camera","kids":[{"t":"hint","text":"Orbit null \u203a Dolly null \u203a Camera"},{"t":"row","items":[{"k":"t","id":218,"text":"Depth of field","v":true,"tip":""}]},{"t":"row","items":[{"k":"f","id":219,"label":"Aperture (blur):","v":"60","tip":""}]},{"t":"row","items":[{"k":"b","id":220,"text":"Create 3-node camera","v":"primary","tip":"","a":""}]}]}},{"t":"card","card":{"title":"Parallax: arrange layers in depth","kids":[{"t":"hint","text":"Select layers, then set the gap between them."},{"t":"row","items":[{"k":"f","id":221,"label":"Distance (px):","v":"300","tip":"Z gap between each layer. Bigger = stronger parallax."}]},{"t":"row","items":[{"k":"f","id":222,"label":"Front layer Z (px):","v":"0","tip":""}]},{"t":"row","items":[{"k":"d","id":223,"label":"In front:","items":["Top layer","Bottom layer"],"sel":0,"tip":"Which end of your timeline selection is closest to the camera."}]},{"t":"row","items":[{"k":"t","id":224,"text":"Keep on-screen size","v":true,"tip":"Scales layers so they look the same size; only the parallax changes."}]},{"t":"row","items":[{"k":"t","id":225,"text":"Add camera rig if none","v":true,"tip":""}]},{"t":"row","items":[{"k":"b","id":226,"text":"Arrange selected in depth","v":"primary","tip":"","a":""}]}]}}]},{"title":"Star Swipe","kids":[{"t":"hint","text":"An icon sweeps across sentence 1; sentence 2 appears in its wake."},{"t":"row","items":[{"k":"f","id":227,"label":"First sentence:","v":"","tip":"Shown at the start; the icon wipes it away."}]},{"t":"row","items":[{"k":"f","id":228,"label":"Second sentence:","v":"","tip":"Revealed behind the icon."}]},{"t":"row","items":[{"k":"b","id":229,"text":"Choose\u2026","v":"secondary","tip":"Choose your own icon: PNG, SVG, AI, PSD or JPG.","a":""},{"k":"b","id":230,"text":"Star","v":"secondary","tip":"Go back to the built-in star.","a":""}]},{"t":"row","items":[{"k":"f","id":231,"label":"Sentence color:","v":"","tip":"Hex color, e.g. #4285F4"},{"k":"b","id":232,"text":"Pick\u2026","v":"secondary","tip":"","a":""}]},{"t":"row","items":[{"k":"f","id":233,"label":"Star color:","v":"","tip":"Hex color, e.g. #4285F4"},{"k":"b","id":234,"text":"Pick\u2026","v":"secondary","tip":"","a":""}]},{"t":"row","items":[{"k":"t","id":235,"text":"Glow trail","v":true,"tip":"A soft glow that follows the icon and fades out."}]},{"t":"row","items":[{"k":"f","id":236,"label":"Trail color:","v":"","tip":"Hex color, e.g. #4285F4"},{"k":"b","id":237,"text":"Pick\u2026","v":"secondary","tip":"","a":""}]},{"t":"row","items":[{"k":"f","id":238,"label":"Font size:","v":"","tip":"Text size in pixels."}]},{"t":"row","items":[{"k":"f","id":239,"label":"Star size (%):","v":"100","tip":"100% = the icon at its natural size for this text."}]},{"t":"row","items":[{"k":"f","id":240,"label":"Wait (s):","v":"0.4","tip":"How long the icon waits in front of sentence 1 before it moves."}]},{"t":"row","items":[{"k":"f","id":241,"label":"Sweep (s):","v":"0.8","tip":"How long the icon takes to cross the frame."}]},{"t":"row","items":[{"k":"f","id":242,"label":"Edge softness (px):","v":"30","tip":"Softness of the wipe edge."}]},{"t":"row","items":[{"k":"t","id":243,"text":"Spin the icon","v":true,"tip":"Half a turn while it sweeps."}]},{"t":"row","items":[{"k":"f","id":244,"label":"Length (s):","v":"5","tip":"How long the layers last from the playhead."}]},{"t":"row","items":[{"k":"b","id":245,"text":"Build star swipe","v":"primary","tip":"Builds both sentences, the wipe, the glow trail and the icon at the playhead. Everything follows one Move null.","a":""}]}]},{"title":"Style","kids":[{"t":"hint","text":"These settings apply to every group."},{"t":"card","card":{"title":"Motion","kids":[{"t":"row","items":[{"k":"d","id":246,"label":"Curve:","items":["Expo In/Out","Apple smooth","Ease in-out"],"sel":0,"tip":""}]},{"t":"row","items":[{"k":"f","id":247,"label":"Duration (frames):","v":"","tip":""}]},{"t":"row","items":[{"k":"t","id":248,"text":"Motion blur on animated layers","v":false,"tip":""}]}]}},{"t":"card","card":{"title":"Bounce","kids":[{"t":"row","items":[{"k":"b","id":249,"text":"Bounce: OFF","v":"secondary","tip":"Live bounce. Select Motion Kit layers (or their precomp) to change them any time.\nWith nothing selected it sets the default for new animations.","a":""},{"k":"f","id":250,"label":"Strength %:","v":"","tip":""}]}]}},{"t":"card","card":{"title":"Brand","kids":[{"t":"hint","text":"Colors, fonts and saved presets."},{"t":"row","items":[{"k":"b","id":251,"text":"Colors & fonts\u2026","v":"primary","tip":"","a":""}]}]}}]}]};
+  try { localStorage.setItem("ru:about_seen", "1"); } catch (e) {}
+  var cut = /RuBridge\.cut\((\d)\)/, feat = /RuBridge\.feature\((\d+)\)/;
+  window.__adobe_cep__ = {
+    getSystemPath: function () { return "file:///ru-motion"; },
+    addEventListener: function () {}, dispatchEvent: function () {},
+    evalScript: function (s, cb) {
+      var m, r = "ok";
+      if (/RuBridge\.meta\(\)/.test(s)) { r = JSON.stringify(DATA.meta); }
+      else if ((m = feat.exec(s))) { r = JSON.stringify(DATA.cards[+m[1]]); }
+      else if (/captionSource|captionList|captionModel/.test(s)) { r = /captionModel/.test(s) ? "base.en" : JSON.stringify({ error: "Open this panel inside After Effects to use captions." }); }
+      setTimeout(function () { if (cb) { cb(r); } }, 0);
+    }
+  };
+  // open on a group named in the address, e.g. panel/index.html#flow
+  window.addEventListener("load", function () {
+    var want = (location.hash || "").replace("#", "").toLowerCase(); if (!want) return;
+    setTimeout(function () {
+      var b = document.querySelectorAll("#nav button");
+      for (var i = 0; i < b.length; i++) { if (b[i].textContent.trim().toLowerCase() === want) { b[i].click(); break; } }
+    }, 250);
+  });
+})();
+</script>
+
+<meta charset="utf-8">
+<title>Ru Motion panel (demo)</title>
+<style>
+  /* ===== Design system tokens (same values as the After Effects panel) ===== */
+  :root {
+    color-scheme: light;
+    --page: #EFF0F2;
+    --surface: #F7F8FA;
+    --card: #FFFFFF;
+    --hairline: #E2E4E8;
+    --text: #111316;
+    --label: #5F6368;
+    --hint: #94979C;
+    --primary: #DCFA37;
+    --primary-press: #B8D527;
+    --on-primary: #101010;
+    --tint: #F1FBC0;
+    --field: #FFFFFF;
+    --shadow: 0 2px 0 rgba(15, 23, 41, .05), 0 12px 32px -18px rgba(15, 23, 41, .25);
+    --radius-outer: 18px;
+    --radius-inner: 14px;
+    --font: "Google Sans", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page: #1C1D20;
+    --surface: #232428;
+    --card: #2B2D31;
+    --hairline: #3C3E43;
+    --text: #F1F2F4;
+    --label: #BEC0C4;
+    --hint: #90939A;
+    --primary: #DCFA37;
+    --primary-press: #B8D527;
+    --on-primary: #101010;
+    --tint: #2A3313;
+    --field: #1F2024;
+    --shadow: 0 2px 0 rgba(0, 0, 0, .25), 0 12px 32px -18px rgba(0, 0, 0, .6);
+  }
+
+  * { box-sizing: border-box; }
+  :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  html, body { margin: 0; }
+  body {
+    background: var(--page);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 13px;
+    line-height: 1.4;
+    min-height: 100vh;
+    display: grid;
+    place-items: start center;
+    padding: 32px 16px 64px;
+  }
+
+  .stage { width: 100%; max-width: 560px; }
+  .note { color: var(--hint); font-size: 12px; text-align: center; margin: 14px 0 0; }
+
+  /* ===== Panel ===== */
+  .panel {
+    background: var(--page);
+    border: 1px solid var(--hairline);
+    border-radius: 22px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .head { display: flex; align-items: center; gap: 8px; }
+  .logo {
+    width: 26px; height: 26px; border-radius: 8px;
+    background: var(--primary); color: var(--on-primary);
+    display: grid; place-items: center; font-weight: 700; font-size: 13px;
+  }
+  .title { font-size: 15px; font-weight: 700; letter-spacing: -.01em; }
+  .head .sub { margin-left: auto; color: var(--hint); font-size: 12px; }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-outer);
+    box-shadow: var(--shadow);
+    padding: 14px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .card > h2 { margin: 0 0 4px; font-size: 13px; font-weight: 700; }
+  .card .card { background: var(--card); border-radius: var(--radius-inner); padding: 12px; gap: 7px; box-shadow: 0 1px 0 rgba(15, 23, 41, .04); }
+  .card .card > h3 { margin: 0 0 2px; font-size: 12px; font-weight: 700; }
+
+  /* Icon tab bar */
+  .body { display: grid; grid-template-columns: 68px minmax(0, 1fr); gap: 10px; align-items: start; }
+  .content { display: grid; gap: 10px; min-width: 0; }
+  .nav { padding: 6px; display: flex; flex-direction: column; gap: 2px; }
+  .tab {
+    appearance: none; border: 1px solid transparent; background: transparent; width: 100%;
+    color: var(--hint); font: inherit; font-size: 10.5px;
+    border-radius: 14px; padding: 8px 2px 6px; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  .tab svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .tab svg .dot { fill: currentColor; stroke: none; }
+  .tab[aria-selected="true"] { color: var(--text); background: var(--card); border-color: var(--hairline); font-weight: 700; }
+  .tab[aria-selected="true"] svg { stroke-width: 2; }
+
+  /* Feature chips */
+  /* fixed-height area with its own scrollbar, like the panel's viewport */
+  .content.scroll { height: 476px; overflow-y: auto; padding-right: 4px; scrollbar-width: thin; }
+  /* feature tabs: one segmented control, the open segment is raised */
+  .chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--card); border: 1px solid var(--hairline); border-radius: 10px; padding: 3px; }
+  .chips[hidden] { display: none; }
+  .chip {
+    appearance: none; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer;
+    height: 28px; padding: 0 8px; border-radius: 7px;
+    border: none; background: transparent; color: var(--hint);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .chips-sub { margin: 2px -3px -3px; border-radius: 0 0 8px 8px; border-width: 1px 0 0; background: var(--surface); }
+  .chip:hover { color: var(--text); }
+  .chip[aria-selected="true"] { background: var(--surface); color: var(--primary); box-shadow: 0 1px 0 rgba(0,0,0,.4), 0 0 0 1px var(--hairline); }
+
+  /* Form rows */
+  .row { display: grid; grid-template-columns: 116px 1fr; align-items: center; gap: 6px; min-height: 30px; }
+  .row > label, .row > .lbl { color: var(--label); font-size: 12px; }
+  .row .ctl { display: flex; gap: 6px; align-items: center; min-width: 0; }
+  input[type="text"], select {
+    font: inherit; font-size: 12px; color: var(--text);
+    background: var(--field); border: 1px solid var(--hairline); border-radius: 10px;
+    height: 28px; padding: 0 9px; min-width: 0;
+  }
+  input[type="text"] { width: 72px; }
+  input.wide { width: 100%; }
+  select { padding-right: 6px; max-width: 100%; }
+  .hint { color: var(--hint); font-size: 11.5px; margin: 0; }
+
+  /* Toggle switch */
+  .toggle {
+    appearance: none; border: 0; background: none; padding: 0; font: inherit; font-size: 12px;
+    color: var(--text); display: flex; align-items: center; gap: 10px; cursor: pointer; text-align: left; min-height: 24px;
+  }
+  .toggle .track { width: 32px; height: 18px; border-radius: 999px; background: var(--hairline); position: relative; flex: none; transition: background .15s; }
+  .toggle .track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; transition: transform .15s; }
+  .toggle[aria-checked="true"] .track { background: var(--primary); }
+  .toggle[aria-checked="true"] .track::after { transform: translateX(14px); background: var(--on-primary); }
+
+  /* Pill buttons */
+  .btn {
+    appearance: none; font: inherit; font-size: 12px; cursor: pointer;
+    height: 32px; padding: 0 14px; border-radius: 999px; width: 100%;
+    border: 1px solid var(--hairline); background: var(--card); color: var(--text);
+  }
+  .btn.primary { background: var(--primary); border-color: var(--primary); color: var(--on-primary); font-weight: 700; }
+  .btn.primary:active { background: var(--primary-press); }
+  .btn { transition: background .08s, border-color .08s, transform .08s; }
+  .btn:not(.primary):active { background: var(--hairline); border-color: var(--primary); box-shadow: inset 0 0 0 1px var(--primary); transform: translateY(1px); }
+  .btn.primary:active { transform: translateY(1px); }
+  .btns { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .btns.four { grid-template-columns: repeat(4, 1fr); }
+  .btns.one { grid-template-columns: 1fr; }
+
+  
+  .swatch.big { width: 64px; height: 40px; cursor: pointer; padding: 0; }
+  .swatch { width: 24px; height: 20px; border-radius: 6px; border: 1px solid var(--hairline); flex: none; }
+  input[type="color"] { position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0; }
+
+  /* Color picker (mirrors the panel's dark picker) */
+  .cp-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); display: grid; place-items: center; z-index: 50; padding: 16px; }
+  .cp { background: #1C1D20; color: #F1F2F4; border: 1px solid #3C3E43; border-radius: 12px; padding: 14px; display: flex; gap: 12px; flex-wrap: wrap; max-width: 100%; box-shadow: 0 24px 60px rgba(0,0,0,.5); }
+  .cp h2 { flex-basis: 100%; margin: 0; font-size: 13px; font-weight: 700; }
+  .cp canvas { display: block; cursor: crosshair; border-radius: 2px; touch-action: none; }
+  .cp-side { display: flex; flex-direction: column; gap: 6px; width: 120px; }
+  .cp-cmp { height: 44px; border: 1px solid #3C3E43; display: grid; grid-template-rows: 1fr 1fr; }
+  .cp-f { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #BEC0C4; }
+  .cp-f span { width: 14px; }
+  .cp-f input { width: 100%; min-width: 0; height: 24px; background: #1F2024; color: #F1F2F4; border: 1px solid #3C3E43; border-radius: 6px; padding: 0 6px; font: inherit; }
+  .cp-btns { display: flex; gap: 6px; margin-top: 4px; }
+  .cp-btns .btn { height: 30px; padding: 0; background: #2B2D31; border-color: #3C3E43; color: #F1F2F4; }
+  .cp-btns .btn.primary { background: #DCFA37; border-color: #DCFA37; color: #101010; }
+
+  /* Flow easing group */
+  .flow-graph { display: block; width: 100%; max-width: 204px; margin: 0 auto; aspect-ratio: 204 / 190; touch-action: none; cursor: crosshair; border-radius: 10px; }
+  .flow-vals { display: flex; gap: 4px; align-items: center; }
+  .flow-vals input { width: 44px; min-width: 0; padding: 0 4px; text-align: center; }
+  .flow-modes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .flow-modes .btn { height: 28px; }
+  .flow-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .flow-tile { padding: 4px 0 3px; border: 1px solid var(--hairline); border-radius: 8px; background: var(--card); color: var(--hint); font: 9px/1.1 var(--font); display: grid; justify-items: center; gap: 1px; cursor: pointer; min-width: 0; }
+  .flow-tile canvas { width: 100%; height: 38px; display: block; }
+  .flow-tile[aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: var(--on-primary); font-weight: 700; }
+  .flow-tile:active { transform: translateY(1px); border-color: var(--primary); }
+
+  /* Text + Icon */
+  .ti-stage { position: relative; height: 96px; border-radius: 12px; background: #0E111C; overflow: hidden; }
+  .ti-stage .w { position: absolute; top: 50%; left: 0; transform-origin: center; white-space: nowrap; font-weight: 600; font-size: 30px; line-height: 1; color: #F1F2F4; will-change: transform; }
+  .ti-stage svg { position: absolute; top: 50%; left: 0; }
+  .ti-line { font-size: 12px; color: var(--hint); min-height: 16px; }
+  .ti-file { display: flex; gap: 6px; align-items: center; min-width: 0; }
+  .ti-file .name { font-size: 12px; color: var(--label); width: 112px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ti-file .btn { width: auto; height: 26px; padding: 0 10px; flex: none; }
+  .pick { width: auto; height: 26px; padding: 0 10px; flex: none; }
+
+  input:disabled { opacity: .45; cursor: not-allowed; }
+  .row.off label, .row.off .lbl { opacity: .45; }
+  button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+  /* Toast */
+  .toast {
+    position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    transform: translate(-50%, 12px); opacity: 0; pointer-events: none;
+    background: var(--text); color: var(--page); font-size: 12px;
+    padding: 10px 16px; border-radius: 999px; transition: opacity .2s, transform .2s; max-width: calc(100% - 32px);
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast, .toggle .track, .toggle .track::after { transition: none; }
+  }
+
+  .about-btn { width: auto; height: 26px; padding: 0 14px; margin-left: auto; font-size: 12px; }
+  .about-ov { position: fixed; inset: 0; background: rgba(0,0,0,.55); display: none; place-items: center; z-index: 50; padding: 16px; }
+  .about-ov.show { display: grid; }
+  .about { width: 100%; max-width: 460px; background: #1C1D20; color: #F1F2F4; border: 1px solid #3C3E43; border-radius: 14px; padding: 22px; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+  .about .top { display: flex; gap: 14px; align-items: center; margin-bottom: 14px; }
+  .about .ab-logo { width: 64px; height: 64px; border-radius: 20px; background: #DCFA37; flex: none; }
+  .about h1 { margin: 0; font-size: 20px; }
+  .about .muted { color: #90939A; } .about .lab { color: #BEC0C4; }
+  .about .ab-card { background: #232428; border: 1px solid #3C3E43; border-radius: 10px; padding: 12px 14px; margin-top: 10px; }
+  .about .ab-card h2 { margin: 0 0 6px; font-size: 12px; font-weight: 700; }
+  .about .ab-card p { margin: 3px 0; color: #BEC0C4; }
+  .about .ab-card.main p { color: #F1F2F4; }
+  .about .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .about .credit { text-align: center; color: #90939A; margin: 14px 0 12px; font-size: 12px; }
+  .about .go { display: block; margin: 0 auto; width: 160px; background: #DCFA37; border-color: #DCFA37; color: #101010; font-weight: 700; }
+</style>
+<style>
+  /* CEP: the panel fills the dock, the content scrolls (mouse wheel works here) */
+  html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
+  .stage { max-width: none; width: 100%; height: 100vh; min-height: 0; padding: 0; margin: 0; display: block; }
+  .panel { max-width: none; width: 100%; height: 100vh; max-height: 100vh; overflow: hidden; border-radius: 0; box-shadow: none; border: 0; display: flex; flex-direction: column; padding: 12px; box-sizing: border-box; gap: 10px; }
+  .panel .head { flex: none; }
+  .panel .body { flex: 1 1 auto; min-height: 0; grid-template-rows: minmax(0, 1fr); }
+  .panel .nav { align-self: start; }
+  .panel .body { align-items: stretch; }
+  .panel .content.scroll { height: auto; align-self: stretch; min-height: 0; max-height: 100%; overflow-y: auto; align-content: start; scroll-behavior: smooth; padding-right: 6px; }
+  .panel .cutbar { flex: none; margin-top: 0 !important; }
+  .btn.busy { opacity: .6; }
+  select { max-width: 100%; }
+  input[type=text] { box-sizing: border-box; padding: 0 6px; }
+  .flow-graph { height: 190px; }
+  .ted-list { display: grid; gap: 6px; max-height: 330px; overflow-y: auto; padding-right: 4px; }
+  .ted-row { display: grid; grid-template-columns: 62px minmax(0, 1fr) 28px; gap: 8px; align-items: stretch; }
+  .ted-time { width: 100% !important; height: 100%; min-height: 34px; text-align: center; font-weight: 600; padding: 0 4px; }
+  .ted-text { background: var(--input, #17181B); color: var(--text); border: 1px solid transparent; border-radius: 9px; padding: 8px 10px; font-size: 13px; line-height: 1.35; min-height: 34px; outline: none; word-break: break-word; }
+  .ted-text:focus { border-color: var(--primary); }
+  .ted-plus { align-self: center; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--hairline); background: transparent; color: var(--label); display: grid; place-items: center; cursor: pointer; padding: 0; }
+  .ted-plus svg { width: 12px; height: 12px; }
+  .cs-stage { position: sticky; top: 0; z-index: 6; box-shadow: 0 10px 18px -8px rgba(0,0,0,.6); aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; border: 1px solid var(--hairline); background: linear-gradient(135deg, #4a5a58, #2d3a3f 55%, #59482f); --hl: #E8A23A; --hl-text: #fff; --rad: 10px; --dim: .45; }
+  .cs-stage::after { content: ""; position: absolute; inset: 0; background: radial-gradient(80% 60% at 50% 100%, rgba(0,0,0,.55), transparent); pointer-events: none; }
+  .cs-caps { position: absolute; left: 0; right: 0; bottom: 12%; z-index: 2; display: flex; justify-content: center; padding: 0 6%; }
+  .cs-line { display: flex; flex-wrap: wrap; justify-content: center; gap: .1em .28em; font-family: "Poppins", "Segoe UI", system-ui, sans-serif; font-weight: 700; font-size: 22px; color: #fff; line-height: 1.35; }
+  .cs-w { position: relative; z-index: 1; padding: .02em .2em; border-radius: var(--rad); transition: color .08s, opacity .08s, transform .12s, background .08s; }
+  .cs-line.dimmed .cs-w { opacity: var(--dim); }
+  .cs-line.dimmed .cs-w.on { opacity: 1; }
+  .cs-line.m-box .cs-w.on { background: var(--hl); color: var(--hl-text); }
+  .cs-line.m-color .cs-w.on { color: var(--hl); }
+  .cs-line.m-pop .cs-w.on { color: var(--hl); transform: scale(1.18); }
+  .cs-line.m-under .cs-w { background-image: linear-gradient(var(--hl), var(--hl)); background-repeat: no-repeat; background-position: 0 100%; background-size: 0 3px; border-radius: 0; transition: background-size .12s; }
+  .cs-line.m-fill .cs-w { background-image: linear-gradient(90deg, var(--hl), var(--hl)); background-repeat: no-repeat; background-size: 0% 100%; -webkit-background-clip: text; background-clip: text; color: rgba(255,255,255,.55); }
+  .cs-line.m-fill .cs-w.done, .cs-line.m-fill .cs-w.on { color: var(--hl); }
+  .cs-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .cs-tile { text-align: left; color: var(--text); background: var(--surface); border: 1px solid var(--hairline); border-radius: 10px; padding: 8px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; min-width: 0; font: inherit; }
+  .cs-tile[aria-pressed="true"] { border-color: var(--primary); background: var(--tint); }
+  .cs-tile b { font-size: 12px; }
+  .cs-tile .s { font-size: 11px; color: var(--hint); }
+  .cs-mini { height: 30px; border-radius: 6px; background: #15161a; display: flex; align-items: center; justify-content: center; gap: 4px; font-weight: 700; font-size: 11px; overflow: hidden; color: #fff; }
+  .cs-mini .d { opacity: .45; }
+  .cs-mini.mm-box .a { background: #E8A23A; border-radius: 4px; padding: 0 5px; }
+  .cs-mini.mm-color .a, .cs-mini.mm-pop .a { color: #E8A23A; }
+  .cs-mini.mm-pop .a { transform: scale(1.2); }
+  .cs-mini.mm-under .a { box-shadow: inset 0 -2px #E8A23A; }
+  .cs-mini.mm-fill .d:first-child { color: #E8A23A; opacity: 1; }
+  .cs-mini.mm-fill .a { color: #E8A23A; }
+  .cs-mini.mm-plain .d { opacity: 1; }
+  .cs-val { font-family: ui-monospace, Consolas, monospace; font-size: 11px; color: var(--hint); min-width: 40px; text-align: right; }
+  .cs-seg { display: flex; gap: 6px; }
+  .cs-seg button { font: inherit; font-size: 12px; font-weight: 700; color: var(--label); background: var(--surface); border: 1px solid var(--hairline); border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+  .cs-seg button[aria-pressed="true"] { border-color: var(--primary); color: var(--primary); background: var(--tint); }
+  .pv-stage { position: sticky; top: 0; z-index: 6; box-shadow: 0 10px 18px -8px rgba(0,0,0,.6); aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; border: 1px solid var(--hairline); background: linear-gradient(135deg, #34383f, #1d1f24); display: grid; place-items: center; }
+  .pv-txt { font-family: "Poppins", "Segoe UI", system-ui, sans-serif; font-weight: 700; font-size: 20px; color: #fff; text-align: center; line-height: 1.25; padding: 0 6%; }
+  .pv-ln { display: block; white-space: nowrap; }
+  .pv-clip { overflow: hidden; height: 1.25em; }
+  .pv-u { display: inline-block; white-space: pre; }
+  .pv-caret { display: inline-block; width: 2px; height: 1em; background: #fff; vertical-align: -.12em; margin-left: 2px; }
+  .pv-name { position: absolute; left: 8px; top: 6px; font-size: 11px; font-weight: 700; color: var(--hint); background: rgba(0,0,0,.4); padding: 2px 8px; border-radius: 99px; }
+  .pv-note { position: absolute; right: 8px; top: 8px; font-size: 11px; color: var(--hint); }
+  .pv-ti { display: flex; align-items: center; justify-content: center; font-family: "Poppins", "Segoe UI", system-ui, sans-serif; font-weight: 700; color: #BFC3C8; font-size: 18px; white-space: nowrap; }
+  .pv-ti span { display: inline-block; }
+  .pv-ico { width: 1.1em; height: 1.1em; }
+  .btn.pv-on { border-color: var(--primary); background: var(--tint); color: var(--primary); }
+  .an-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 24px 24px; }
+  .an-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(255,255,255,.08); z-index: 2; }
+  .an-bar i { display: block; height: 100%; width: 0; background: var(--primary); }
+  .an-lay { position: absolute; left: 50%; top: 50%; width: 96px; height: 60px; margin: -30px 0 0 -48px; border-radius: 12px; background: var(--primary); display: flex; flex-direction: column; gap: 6px; padding: 12px; will-change: transform, opacity, filter; }
+  .an-lay i { display: block; height: 6px; border-radius: 3px; background: rgba(16,16,16,.55); }
+  .an-lay i:nth-child(1) { width: 60%; } .an-lay i:nth-child(2) { width: 100%; } .an-lay i:nth-child(3) { width: 80%; }
+  .an-lay.an-small { width: 72px; height: 44px; padding: 9px 10px; margin-top: -22px; }
+  .an-lay.an-circle { width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; padding: 0; }
+  .an-lay.an-square { width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 14px; background: #F1F2F4; padding: 0; }
+  .an-rows { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; gap: 7px; width: 62%; }
+  .an-rows .an-lay { position: static; margin: 0; width: 100%; height: 26px; padding: 0 10px; border-radius: 7px; flex-direction: row; align-items: center; background: #F1F2F4; }
+  .an-rows .an-lay i { height: 6px; margin: 0; }
+  .an-rows .an-lay i:nth-child(1) { width: 14px; height: 14px; border-radius: 50%; flex: none; background: var(--primary); border: 2px solid rgba(16,16,16,.5); }
+  .an-rows .an-lay i:nth-child(2) { width: 45%; } .an-rows .an-lay i:nth-child(3) { width: 20%; margin-left: auto; }
+  .an-photo { position: absolute; inset: 0; background: linear-gradient(160deg, #7a5cff 0%, #c158be 45%, #ff8a5c 100%); will-change: transform; }
+  .an-photo::after { content: ""; position: absolute; left: 14%; bottom: 18%; width: 40%; height: 12%; border-radius: 8px; background: rgba(255,255,255,.85); }
+  .an-photo::before { content: ""; position: absolute; left: 14%; bottom: 34%; width: 26%; height: 7%; border-radius: 6px; background: rgba(255,255,255,.55); }
+  .ted-plus:hover { border-color: var(--primary); color: var(--primary); }
+  .cap-status { display: grid; gap: 6px; }
+  .cap-status .bar { height: 6px; border-radius: 999px; background: var(--hairline); overflow: hidden; }
+  .cap-status .bar i { display: block; height: 100%; width: 0; background: var(--primary); transition: width .2s; }
+  .cap-status .bar.ind i { width: 35%; animation: capind 1.1s ease-in-out infinite alternate; }
+  @keyframes capind { from { margin-left: 0; } to { margin-left: 65%; } }
+  .cap-status.err .hint { color: #FF6B6B; }
+  .cap-status[hidden] { display: none; }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <main class="panel" aria-label="Ru Motion panel">
+    <header class="head">
+      <div class="logo" aria-hidden="true"><svg viewBox="0 0 100 100" aria-hidden="true" style="width:100%;height:100%;display:block"><path fill="#101010" d="M37.5 86.3 L39.2 85.9 L41.5 84.7 L43.3 83.3 L44.9 81.4 L46.2 79.1 L47.1 76.7 L47.6 74.2 L47.6 71.7 L47.0 68.6 L45.6 65.9 L43.6 63.2 L37.0 56.0 L35.2 53.4 L33.8 50.4 L33.0 47.1 L32.7 43.3 L33.1 39.0 L34.3 34.8 L36.3 30.5 L38.5 27.2 L41.0 24.4 L44.0 22.2 L47.5 20.4 L50.4 19.7 L54.3 19.7 L56.9 20.4 L59.0 21.5 L60.3 22.6 L62.3 25.8 L62.8 27.6 L62.9 29.8 L62.6 32.1 L62.1 33.4 L60.5 35.4 L58.3 36.6 L55.6 37.2 L50.4 37.6 L48.0 38.3 L46.2 39.2 L44.5 40.6 L43.7 41.9 L43.4 43.5 L43.9 45.5 L45.2 47.8 L47.5 49.8 L50.4 51.2 L53.1 51.9 L57.2 52.1 L61.0 51.7 L63.9 50.8 L67.2 49.0 L69.5 47.1 L71.1 45.3 L73.6 40.8 L74.9 35.2 L74.9 30.3 L73.6 24.5 L71.4 20.2 L68.1 16.8 L66.1 15.5 L63.7 14.3 L59.0 13.4 L52.9 13.9 L47.1 15.7 L41.5 18.8 L36.4 23.1 L32.0 28.3 L28.2 34.3 L25.0 41.3 L22.8 48.9 L21.8 57.2 L22.2 65.0 L23.5 71.5 L26.2 78.2 L29.4 82.8 L31.0 84.3 L33.2 85.7 L35.7 86.3 Z"/><path fill="#101010" d="M68.2 86.3 L70.4 85.7 L72.2 84.6 L74.2 82.7 L76.3 79.8 L77.4 77.3 L78.1 74.0 L77.9 71.3 L77.2 69.3 L74.9 66.0 L70.8 63.0 L66.1 60.7 L56.3 57.2 L51.6 55.2 L46.4 52.3 L43.0 49.3 L41.9 47.8 L41.0 45.7 L40.7 43.7 L41.0 41.9 L41.9 40.1 L43.3 38.6 L48.4 35.0 L49.2 33.6 L49.5 31.6 L49.0 29.4 L47.5 28.0 L45.1 27.6 L42.6 28.2 L40.6 29.6 L38.9 31.6 L37.2 35.2 L36.0 38.8 L35.4 42.2 L35.4 44.6 L35.8 47.5 L37.0 50.7 L39.0 54.3 L41.6 57.6 L44.9 61.0 L51.1 66.3 L53.9 69.3 L56.6 73.5 L60.3 80.9 L62.5 84.0 L65.0 85.9 L66.8 86.4 Z"/></svg></div>
+      <div class="title">Ru Motion</div>
+      <button class="btn about-btn" id="aboutBtn" type="button" title="About Ru Motion">About</button>
+    </header>
+    <div class="body">
+      <nav class="card nav" id="nav" role="tablist" aria-label="Groups"></nav>
+      <div class="content scroll">
+        <div class="chips" id="chips" role="tablist" aria-label="Features" hidden></div>
+        <section class="card" id="view" aria-live="polite"></section>
+      </div>
+    </div>
+    <div class="btns cutbar" id="cutbar" style="grid-template-columns:repeat(3,1fr);margin-top:12px">
+      <button class="btn" type="button" data-cut="Cut Before" title="Select layer(s), put the playhead in them, click: cuts and removes everything BEFORE the playhead.">Cut Before</button>
+      <button class="btn" type="button" data-cut="Split" title="Select layer(s), put the playhead in them, click: splits each layer at the playhead.">Split</button>
+      <button class="btn" type="button" data-cut="Cut After" title="Select layer(s), put the playhead in them, click: cuts and removes everything AFTER the playhead.">Cut After</button>
+    </div>
+  </main>
+  
+</div>
+<div class="about-ov" id="aboutOv" role="dialog" aria-label="About Ru Motion"><div class="about">
+  <div class="top"><div class="ab-logo"><svg viewBox="0 0 100 100" aria-hidden="true" style="width:100%;height:100%;display:block"><path fill="#101010" d="M37.5 86.3 L39.2 85.9 L41.5 84.7 L43.3 83.3 L44.9 81.4 L46.2 79.1 L47.1 76.7 L47.6 74.2 L47.6 71.7 L47.0 68.6 L45.6 65.9 L43.6 63.2 L37.0 56.0 L35.2 53.4 L33.8 50.4 L33.0 47.1 L32.7 43.3 L33.1 39.0 L34.3 34.8 L36.3 30.5 L38.5 27.2 L41.0 24.4 L44.0 22.2 L47.5 20.4 L50.4 19.7 L54.3 19.7 L56.9 20.4 L59.0 21.5 L60.3 22.6 L62.3 25.8 L62.8 27.6 L62.9 29.8 L62.6 32.1 L62.1 33.4 L60.5 35.4 L58.3 36.6 L55.6 37.2 L50.4 37.6 L48.0 38.3 L46.2 39.2 L44.5 40.6 L43.7 41.9 L43.4 43.5 L43.9 45.5 L45.2 47.8 L47.5 49.8 L50.4 51.2 L53.1 51.9 L57.2 52.1 L61.0 51.7 L63.9 50.8 L67.2 49.0 L69.5 47.1 L71.1 45.3 L73.6 40.8 L74.9 35.2 L74.9 30.3 L73.6 24.5 L71.4 20.2 L68.1 16.8 L66.1 15.5 L63.7 14.3 L59.0 13.4 L52.9 13.9 L47.1 15.7 L41.5 18.8 L36.4 23.1 L32.0 28.3 L28.2 34.3 L25.0 41.3 L22.8 48.9 L21.8 57.2 L22.2 65.0 L23.5 71.5 L26.2 78.2 L29.4 82.8 L31.0 84.3 L33.2 85.7 L35.7 86.3 Z"/><path fill="#101010" d="M68.2 86.3 L70.4 85.7 L72.2 84.6 L74.2 82.7 L76.3 79.8 L77.4 77.3 L78.1 74.0 L77.9 71.3 L77.2 69.3 L74.9 66.0 L70.8 63.0 L66.1 60.7 L56.3 57.2 L51.6 55.2 L46.4 52.3 L43.0 49.3 L41.9 47.8 L41.0 45.7 L40.7 43.7 L41.0 41.9 L41.9 40.1 L43.3 38.6 L48.4 35.0 L49.2 33.6 L49.5 31.6 L49.0 29.4 L47.5 28.0 L45.1 27.6 L42.6 28.2 L40.6 29.6 L38.9 31.6 L37.2 35.2 L36.0 38.8 L35.4 42.2 L35.4 44.6 L35.8 47.5 L37.0 50.7 L39.0 54.3 L41.6 57.6 L44.9 61.0 L51.1 66.3 L53.9 69.3 L56.6 73.5 L60.3 80.9 L62.5 84.0 L65.0 85.9 L66.8 86.4 Z"/></svg></div><div><h1>Ru Motion</h1><div class="muted">Version 1.0</div><div class="lab">Motion toolkit for After Effects</div></div></div>
+  <div class="ab-card main"><h2>How it works</h2><p>1&nbsp;&nbsp; Select a layer or layers in your timeline.</p><p>2&nbsp;&nbsp; Click an effect in the panel. It starts at the playhead.</p><p>3&nbsp;&nbsp; Retime the keyframes, or click again to replace it.</p></div>
+  <div class="two"><div class="ab-card"><h2>What's inside</h2><p>&bull;&nbsp; Fades, slides and pops</p><p>&bull;&nbsp; Text effects and typewriters</p><p>&bull;&nbsp; Shapes, camera and easing</p></div>
+  <div class="ab-card"><h2>Good to know</h2><p>&bull;&nbsp; Undo with Ctrl / Cmd + Z</p><p>&bull;&nbsp; Layers are named &ldquo;Ru &hellip;&rdquo;</p><p>&bull;&nbsp; Cut tools sit at the bottom</p></div></div>
+  <div class="credit">Made by Tharindu Lakshan &nbsp;&middot;&nbsp; tlakshan10106@gmail.com</div>
+  <button class="btn go" id="aboutGo" type="button">Get started</button>
+</div></div>
+<div class="toast" id="toast" role="status"></div>
+
+
+<script>
+/* Ru Motion: offline English transcription for the CEP panel (whisper.cpp running on the user's computer).
+   Works in the panel (Node is enabled in the manifest) and in plain Node, which is how it is tested.
+   Flow: find or download the engine -> find or download the model -> turn the audio into 16 kHz mono WAV -> run whisper -> clean up the lines. */
+(function (root) {
+  "use strict";
+
+  var nodeRequire = (typeof require === "function") ? require
+    : (root && root.require) ? root.require
+    : (root && root.cep_node && root.cep_node.require) ? root.cep_node.require : null;
+  var proc = (typeof process !== "undefined") ? process : (nodeRequire ? nodeRequire("process") : null);
+
+  var api = {};
+  api.MODELS = { "tiny.en": { mb: 75 }, "base.en": { mb: 142 }, "small.en": { mb: 466 }, "medium.en": { mb: 1530 } };
+  api.available = function () { return !!nodeRequire && !!proc; };
+
+  // ---------------------------------------------------------------- pure helpers
+
+  function hms(s) {   // "00:00:03,120" -> seconds
+    var m = /^(\d+):(\d+):(\d+)[,.](\d+)$/.exec(String(s || "").trim());
+    return m ? (+m[1]) * 3600 + (+m[2]) * 60 + (+m[3]) + (+("0." + m[4])) : NaN;
+  }
+
+  // tokens of one segment (-ojf) -> [{ s, e, w }] words with their own times in seconds. A token that starts with a space starts a new word.
+  function wordsFromTokens(tokens) {
+    var words = [], cur = null, i, tk, txt, a, b;
+    for (i = 0; i < (tokens || []).length; i++) {
+      tk = tokens[i]; txt = String(tk.text === undefined ? "" : tk.text);
+      if (/^\s*\[_[A-Z_]+[0-9_.]*\]\s*$/.test(txt)) { continue; }          // special tokens like [_BEG_] or [_TT_150]
+      if (tk.offsets && typeof tk.offsets.from === "number") { a = tk.offsets.from / 1000; b = tk.offsets.to / 1000; }
+      else { a = hms(tk.timestamps && tk.timestamps.from); b = hms(tk.timestamps && tk.timestamps.to); }
+      if (!trimStr(txt)) { continue; }
+      if (!cur || /^\s/.test(txt)) { cur = { s: a, e: b, w: trimStr(txt) }; words.push(cur); }
+      else { cur.w += trimStr(txt); if (b > cur.e || !(cur.e >= cur.s)) { cur.e = b; } if (!(cur.s >= 0)) { cur.s = a; } }
+    }
+    return words;
+  }
+  function trimStr(x) { return String(x).replace(/^\s+|\s+$/g, ""); }
+
+  // whisper-cli -oj / -ojf output -> [{ start, end, text, words? }] in seconds (words only when the tokens carry times)
+  api.parseWhisperJson = function (text) {
+    var obj = JSON.parse(text), list = obj.transcription || [], out = [], i, t, a, b, seg;
+    for (i = 0; i < list.length; i++) {
+      t = list[i];
+      if (t.offsets && typeof t.offsets.from === "number") { a = t.offsets.from / 1000; b = t.offsets.to / 1000; }
+      else { a = hms(t.timestamps && t.timestamps.from); b = hms(t.timestamps && t.timestamps.to); }
+      seg = { start: a, end: b, text: String(t.text || "") };
+      if (t.tokens && t.tokens.length) { seg.words = wordsFromTokens(t.tokens); }
+      out.push(seg);
+    }
+    return out;
+  };
+
+  // drop sound tags like [BLANK_AUDIO] or (music), fix overlaps, give every line a readable minimum length
+  api.cleanSegments = function (segs) {
+    var out = [], i, j, s, txt, n, minLen = 0.4, ws, w, prev;
+    for (i = 0; i < segs.length; i++) {
+      s = segs[i];
+      txt = String(s.text || "").replace(/\[[^\]]*\]|\([^)]*\)|\u266a+/g, " ").replace(/\s+/g, " ").trim();
+      if (!txt || !(s.start >= 0) || !(s.end > s.start)) { continue; }
+      out.push({ start: s.start, end: s.end, text: txt, words: s.words });
+    }
+    out.sort(function (x, y) { return x.start - y.start; });
+    for (i = 0; i < out.length; i++) {
+      n = out[i + 1];
+      if (n && out[i].end > n.start) { out[i].end = n.start; }
+      if (out[i].end - out[i].start < minLen) { out[i].end = n ? Math.min(out[i].start + minLen, n.start) : out[i].start + minLen; }
+    }
+    return out.filter(function (x) { return x.end > x.start; }).map(function (x) {
+      var r = { start: Math.round(x.start * 1000) / 1000, end: Math.round(x.end * 1000) / 1000, text: x.text }, parts = x.text.split(" "), good = x.words && x.words.length;
+      if (good) {                                              // word times only when they line up with the cleaned text
+        ws = x.words.filter(function (q) { return !/^[\[(].*[\])]$/.test(q.w) && !/^\u266a+$/.test(q.w); });
+        good = ws.length === parts.length;
+        for (j = 0; good && j < ws.length; j++) { if (!(ws[j].s >= 0) || !(ws[j].e >= ws[j].s)) { good = false; } }
+      }
+      if (good) {
+        r.words = []; prev = r.start;
+        for (j = 0; j < ws.length; j++) {
+          w = { s: Math.max(prev, Math.min(r.end, ws[j].s)), e: Math.min(r.end, Math.max(ws[j].e, ws[j].s)), w: ws[j].w };
+          if (w.e < w.s) { w.e = w.s; }
+          prev = w.s;
+          r.words.push({ s: Math.round(w.s * 1000) / 1000, e: Math.round(w.e * 1000) / 1000, w: w.w });
+        }
+      }
+      return r;
+    });
+  };
+
+
+  // 16-bit mono PCM -> WAV bytes
+  api.encodeWav = function (samples, rate) {
+    var n = samples.length, buf = new ArrayBuffer(44 + n * 2), v = new DataView(buf), i;
+    function str(o, s) { for (var k = 0; k < s.length; k++) { v.setUint8(o + k, s.charCodeAt(k)); } }
+    str(0, "RIFF"); v.setUint32(4, 36 + n * 2, true); str(8, "WAVE"); str(12, "fmt ");
+    v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+    v.setUint32(24, rate, true); v.setUint32(28, rate * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true);
+    str(36, "data"); v.setUint32(40, n * 2, true);
+    for (i = 0; i < n; i++) { v.setInt16(44 + i * 2, samples[i], true); }
+    return new Uint8Array(buf);
+  };
+
+  api.floatToInt16 = function (f) {
+    var out = new Int16Array(f.length), i, x;
+    for (i = 0; i < f.length; i++) { x = Math.max(-1, Math.min(1, f[i])); out[i] = x < 0 ? x * 32768 : x * 32767; }
+    return out;
+  };
+
+  // ---------------------------------------------------------------- files and processes (Node)
+
+  function mods() {
+    if (!nodeRequire) { throw new Error("This panel cannot reach Node.js. Reinstall Ru Motion with the latest installer."); }
+    return { fs: nodeRequire("fs"), path: nodeRequire("path"), os: nodeRequire("os"), cp: nodeRequire("child_process") };
+  }
+  var isWin = function () { return proc && proc.platform === "win32"; };
+  var isMac = function () { return proc && proc.platform === "darwin"; };
+
+  api.baseDir = function () {
+    var m = mods(), base;
+    if (isWin()) { base = proc.env.APPDATA || m.path.join(m.os.homedir(), "AppData", "Roaming"); }
+    else if (isMac()) { base = m.path.join(m.os.homedir(), "Library", "Application Support"); }
+    else { base = m.path.join(m.os.homedir(), ".config"); }
+    return m.path.join(base, "RuMotion", "whisper");
+  };
+
+  function mkdirp(dir) {
+    var m = mods();
+    if (m.fs.existsSync(dir)) { return; }
+    mkdirp(m.path.dirname(dir));
+    m.fs.mkdirSync(dir);
+  }
+
+  function walk(dir, depth, names) {   // first file named in `names` (in that order of preference) below dir
+    var m = mods(), list, i, hit, full;
+    if (depth < 0 || !m.fs.existsSync(dir)) { return null; }
+    try { list = m.fs.readdirSync(dir); } catch (e) { return null; }
+    for (i = 0; i < names.length; i++) { if (list.indexOf(names[i]) >= 0 && m.fs.statSync(m.path.join(dir, names[i])).isFile()) { return m.path.join(dir, names[i]); } }
+    for (i = 0; i < list.length; i++) {
+      full = m.path.join(dir, list[i]);
+      try { if (m.fs.statSync(full).isDirectory()) { hit = walk(full, depth - 1, names); if (hit) { return hit; } } } catch (e1) {}
+    }
+    return null;
+  }
+
+  function onPath(names, extraDirs) {
+    var m = mods(), dirs = String(proc.env.PATH || "").split(isWin() ? ";" : ":").concat(extraDirs || []), i, j, f;
+    for (i = 0; i < dirs.length; i++) {
+      if (!dirs[i]) { continue; }
+      for (j = 0; j < names.length; j++) { f = m.path.join(dirs[i], names[j]); try { if (m.fs.existsSync(f) && m.fs.statSync(f).isFile()) { return f; } } catch (e) {} }
+    }
+    return null;
+  }
+
+  api.findEngine = function (custom) {
+    var m = mods(), names = isWin() ? ["whisper-cli.exe", "whisper-cpp.exe", "main.exe"] : ["whisper-cli", "whisper-cpp"];
+    if (custom && m.fs.existsSync(custom)) { return custom; }
+    return walk(m.path.join(api.baseDir(), "engine"), 5, names)
+      || onPath(names, isMac() ? ["/opt/homebrew/bin", "/usr/local/bin"] : []);
+  };
+
+  api.findFfmpeg = function () {
+    return onPath(isWin() ? ["ffmpeg.exe"] : ["ffmpeg"], isMac() ? ["/opt/homebrew/bin", "/usr/local/bin"] : (isWin() ? ["C:\\ffmpeg\\bin"] : ["/usr/bin", "/usr/local/bin"]));
+  };
+
+  function request(url, cb, redirects, headers) {
+    var lib = nodeRequire(/^http:/i.test(url) ? "http" : "https"), URLc = (typeof URL !== "undefined") ? URL : nodeRequire("url").URL, h = { "User-Agent": "RuMotion", "Accept": "*/*" }, k;
+    for (k in (headers || {})) { h[k] = headers[k]; }
+    var req = lib.get(url, { headers: h }, function (res) {
+      if ([301, 302, 303, 307, 308].indexOf(res.statusCode) >= 0 && res.headers.location && (redirects || 0) < 8) {
+        res.resume();
+        request(new URLc(res.headers.location, url).toString(), cb, (redirects || 0) + 1, headers);
+        return;
+      }
+      cb(null, res);
+    });
+    req.setTimeout(30000, function () { req.destroy(Object.assign(new Error("connection timed out"), { code: "ETIMEDOUT" })); });
+    req.on("error", function (e) { cb(e); });
+  }
+
+  function isNetErr(e) { return !!e && /ECONNRESET|ETIMEDOUT|ENOTFOUND|EAI_AGAIN|ECONNREFUSED|EPIPE|EHOSTUNREACH|ENETUNREACH|socket hang up|timed out|certificate|SSL|TLS|aborted/i.test(String(e.code || "") + " " + String(e.message || "")); }
+  api._retryDelay = 1500;
+  function delay(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function retrying(fn, tries) {   // a dropped connection is retried, anything else is not
+    return fn().catch(function (e) { return (tries > 1 && isNetErr(e)) ? delay(api._retryDelay).then(function () { return retrying(fn, tries - 1); }) : Promise.reject(e); });
+  }
+  api.isNetErr = isNetErr;
+  api.netHint = function (e) {
+    return isNetErr(e) ? " Check your internet connection, VPN or firewall (it needs github.com and huggingface.co) and try again." : "";
+  };
+
+  function curlPath() {
+    return onPath(isWin() ? ["curl.exe"] : ["curl"], isWin() ? ["C:\\Windows\\System32"] : ["/usr/bin", "/usr/local/bin", "/opt/homebrew/bin"]);
+  }
+
+  // curl uses the system's own network stack (proxy, certificates), so it often works where Node's connection is reset
+  api._curlJson = function (url) {
+    var m = mods(), c = curlPath(), tmp;
+    if (!c) { return Promise.reject(new Error("curl was not found")); }
+    tmp = m.path.join(m.os.tmpdir(), "rumotion-j-" + Date.now() + ".json");
+    return run(c, ["-sSL", "--retry", "3", "--retry-delay", "2", "--fail", "-H", "User-Agent: RuMotion-curl", "-o", tmp, url]).then(function () {
+      var t = m.fs.readFileSync(tmp, "utf8"); try { m.fs.unlinkSync(tmp); } catch (e) {}
+      return JSON.parse(t);
+    });
+  };
+
+  api._curlDownload = function (url, dest, onFrac, expectedBytes) {
+    var m = mods(), c = curlPath(), part = dest + ".part", poll;
+    if (!c) { return Promise.reject(new Error("curl was not found")); }
+    mkdirp(m.path.dirname(dest));
+    poll = setInterval(function () { try { if (onFrac && expectedBytes) { onFrac(Math.min(0.99, m.fs.statSync(part).size / expectedBytes)); } } catch (e) {} }, 500);
+    return run(c, ["-sSL", "--fail", "--retry", "5", "--retry-delay", "2", "-C", "-", "-o", part, url]).then(function () {
+      clearInterval(poll);
+      if (m.fs.existsSync(dest)) { m.fs.unlinkSync(dest); }
+      m.fs.renameSync(part, dest);
+      return dest;
+    }, function (e) { clearInterval(poll); throw e; });
+  };
+
+  function nodeJson(url) {
+    return new Promise(function (resolve, reject) {
+      request(url, function (err, res) {
+        if (err) { reject(err); return; }
+        var chunks = [];
+        if (res.statusCode !== 200) { res.resume(); reject(new Error("Could not reach " + url + " (" + res.statusCode + ")")); return; }
+        res.on("data", function (c) { chunks.push(c); });
+        res.on("error", reject);
+        res.on("end", function () { try { resolve(JSON.parse(Buffer.concat(chunks).toString("utf8"))); } catch (e) { reject(e); } });
+      });
+    });
+  }
+
+  api.getJson = function (url) {
+    return retrying(function () { return nodeJson(url); }, 3).catch(function (e) {
+      if (!isNetErr(e)) { throw e; }
+      return api._curlJson(url).catch(function () { throw e; });   // report the original problem if curl fails too
+    });
+  };
+
+  // one attempt: continues a partial file with a Range request when the server allows it
+  function nodeDownload(url, dest, onFrac) {
+    var m = mods(), part = dest + ".part";
+    return new Promise(function (resolve, reject) {
+      var have = 0;
+      try { have = m.fs.existsSync(part) ? m.fs.statSync(part).size : 0; } catch (e) { have = 0; }
+      request(url, function (err, res) {
+        if (err) { reject(err); return; }
+        var resumed = res.statusCode === 206, total, got, out;
+        if (res.statusCode !== 200 && !resumed) {
+          res.resume();
+          if (res.statusCode === 416) { try { m.fs.unlinkSync(part); } catch (e1) {} reject(Object.assign(new Error("restarting the download"), { code: "ECONNRESET" })); return; }
+          reject(new Error("Download failed (" + res.statusCode + "): " + url)); return;
+        }
+        total = (+res.headers["content-length"] || 0) + (resumed ? have : 0);
+        got = resumed ? have : 0;
+        mkdirp(m.path.dirname(dest));
+        out = m.fs.createWriteStream(part, { flags: resumed ? "a" : "w" });
+        res.on("data", function (c) { got += c.length; if (onFrac && total) { onFrac(Math.min(1, got / total)); } });
+        res.pipe(out);
+        out.on("finish", function () {
+          out.close(function () {
+            if (total && got < total) { reject(Object.assign(new Error("the connection closed early"), { code: "ECONNRESET" })); return; }
+            try { if (m.fs.existsSync(dest)) { m.fs.unlinkSync(dest); } m.fs.renameSync(part, dest); resolve(dest); } catch (e2) { reject(e2); }
+          });
+        });
+        out.on("error", reject);
+        res.on("error", function (e3) { out.end(); reject(e3); });
+        res.on("aborted", function () { out.end(); reject(Object.assign(new Error("the connection closed early"), { code: "ECONNRESET" })); });
+      }, 0, have > 0 ? { Range: "bytes=" + have + "-" } : null);
+    });
+  }
+
+  // download with retries and resume, then curl as a last resort; expectedBytes only feeds curl's progress bar
+  api.download = function (url, dest, onFrac, expectedBytes) {
+    return retrying(function () { return nodeDownload(url, dest, onFrac); }, 4).catch(function (e) {
+      if (!isNetErr(e)) { throw e; }
+      return api._curlDownload(url, dest, onFrac, expectedBytes).catch(function () { throw e; });
+    });
+  };
+
+  function run(cmd, args, onLine, opts) {   // spawn, collect the tail of stderr, report lines
+    var m = mods();
+    return new Promise(function (resolve, reject) {
+      var child, tail = "";
+      try { child = m.cp.spawn(cmd, args, { windowsHide: true }); } catch (e) { reject(e); return; }
+      if (opts && opts.onChild) { opts.onChild(child); }
+      function feed(chunk) { var s = chunk.toString(); tail = (tail + s).slice(-1500); if (onLine) { s.split(/\r?\n|\r/).forEach(function (l) { if (l) { onLine(l); } }); } }
+      child.stdout.on("data", feed);
+      child.stderr.on("data", feed);
+      child.on("error", reject);
+      child.on("close", function (code, sig) {
+        if (code === 0) { resolve(tail); }
+        else { var e = new Error(sig ? "stopped" : "exit code " + code + ": " + tail.slice(-300)); e.code = code; e.killed = !!sig; reject(e); }
+      });
+    });
+  }
+  api._run = run;
+
+  // the newest release that has a Windows 64-bit CPU build: whisper-bin-x64.zip first, then other x64 zips (OpenBLAS is fine, CUDA is not)
+  api.pickWindowsAsset = function (releases) {
+    var i, j, a, best, score, r;
+    if (!releases || !releases.length) { return null; }
+    for (i = 0; i < releases.length; i++) {
+      r = releases[i]; best = null;
+      if (r.draft) { continue; }
+      for (j = 0; j < (r.assets || []).length; j++) {
+        a = r.assets[j]; score = 0;
+        if (/^whisper-bin-x64\.zip$/i.test(a.name)) { score = 4; }
+        else if (/x64.*\.zip$/i.test(a.name) && !/blas|cuda|cublas|vulkan|xcframework/i.test(a.name)) { score = 3; }
+        else if (/blas.*x64.*\.zip$/i.test(a.name) && !/cublas|cuda/i.test(a.name)) { score = 2; }
+        if (score && (!best || score > best.score)) { best = { score: score, url: a.browser_download_url, name: a.name, tag: r.tag_name }; }
+      }
+      if (best) { return best; }
+    }
+    return null;
+  };
+
+  api.describeReleases = function (releases) {   // for error messages: what the newest releases contain
+    return (releases || []).slice(0, 3).map(function (r) { return r.tag_name + ": " + ((r.assets || []).map(function (a) { return a.name; }).join(", ") || "no files"); }).join("; ") || "no releases";
+  };
+
+  api.ensureEngine = function (status, custom) {
+    var m = mods(), found = api.findEngine(custom), dir = m.path.join(api.baseDir(), "engine"), zip;
+    if (found) { return Promise.resolve(found); }
+    if (isWin()) {
+      status("Downloading the speech engine…", 0);
+      return api.getJson("https://api.github.com/repos/ggml-org/whisper.cpp/releases?per_page=30").then(function (rels) {
+        var pick = api.pickWindowsAsset(rels);
+        if (!pick) {
+          throw new Error("No Windows speech engine download was found on the whisper.cpp releases page (" + api.describeReleases(rels) + "). "
+            + "Download whisper-bin-x64.zip from github.com/ggml-org/whisper.cpp/releases, unzip it into " + dir + " and try again.");
+        }
+        zip = m.path.join(api.baseDir(), "engine.zip");
+        status("Downloading the speech engine (" + pick.tag + ")…", 0);
+        return api.download(pick.url, zip, function (f) { status("Downloading the speech engine… " + Math.round(f * 100) + "%", f); }, 20 * 1024 * 1024);
+      }).catch(function (e) {
+        if (!/^(No Windows|Downloading the speech engine failed)/.test(e.message)) { e.message = "Downloading the speech engine failed: " + e.message + api.netHint(e); }
+        throw e;
+      }).then(function () {
+        status("Unpacking the speech engine…", null);
+        mkdirp(dir);
+        return run("tar", ["-xf", zip, "-C", dir]).catch(function () {
+          return run("powershell", ["-NoProfile", "-Command", "Expand-Archive -Force -LiteralPath '" + zip + "' -DestinationPath '" + dir + "'"]);
+        });
+      }).then(function () {
+        var f = api.findEngine(custom);
+        if (!f) { throw new Error("The speech engine was unpacked but whisper-cli.exe was not found in " + dir); }
+        try { m.fs.unlinkSync(zip); } catch (e) {}
+        return f;
+      });
+    }
+    if (isMac()) {
+      var brew = null, cand = ["/opt/homebrew/bin/brew", "/usr/local/bin/brew"], i2;
+      for (i2 = 0; i2 < cand.length; i2++) { if (!brew && m.fs.existsSync(cand[i2])) { brew = cand[i2]; } }
+      if (!brew) { return Promise.reject(new Error("On a Mac the speech engine is installed once with Homebrew. Open Terminal and run:  brew install whisper-cpp  (Homebrew: brew.sh), then try again.")); }
+      status("Installing the speech engine with Homebrew (a few minutes)…", null);
+      return run(brew, ["install", "whisper-cpp"], function (l) { status("Homebrew: " + l.slice(0, 80), null); }).then(function () {
+        var f = api.findEngine(custom);
+        if (!f) { throw new Error("Homebrew finished but whisper-cli was not found. Try running  brew install whisper-cpp  in Terminal."); }
+        return f;
+      });
+    }
+    return Promise.reject(new Error("Install whisper.cpp and make sure whisper-cli is on your PATH."));
+  };
+
+  api.ensureModel = function (name, status, base) {
+    var m = mods(), info = api.MODELS[name];
+    if (!info) { return Promise.reject(new Error("Unknown model " + name)); }
+    var file = m.path.join(api.baseDir(), "models", "ggml-" + name + ".bin");
+    try { if (m.fs.existsSync(file) && m.fs.statSync(file).size > info.mb * 1024 * 1024 * 0.9) { return Promise.resolve(file); } } catch (e) {}
+    status("Downloading the " + name + " model (" + info.mb + " MB)…", 0);
+    return api.download((base || "https://huggingface.co/ggerganov/whisper.cpp/resolve/main") + "/ggml-" + name + ".bin", file,
+      function (f) { status("Downloading the " + name + " model… " + Math.round(f * 100) + "%", f); }, info.mb * 1024 * 1024).catch(function (e) {
+      e.message = "Downloading the " + name + " model failed: " + e.message + api.netHint(e);
+      throw e;
+    });
+  };
+
+  // audio file -> 16 kHz mono WAV. ffmpeg when it is installed, otherwise the panel's own decoder.
+  api.prepareAudio = function (src, outWav, status) {
+    var m = mods(), ff = api.findFfmpeg();
+    if (ff) {
+      status("Reading the audio…", null);
+      return run(ff, ["-y", "-i", src, "-vn", "-ac", "1", "-ar", "16000", "-c:a", "pcm_s16le", outWav]);
+    }
+    status("Reading the audio…", null);
+    return new Promise(function (resolve, reject) {
+      var Ctx = root.AudioContext || root.webkitAudioContext, size;
+      if (!Ctx || !root.OfflineAudioContext) { reject(new Error("This file needs ffmpeg to read its audio. Install ffmpeg (free), or use a .wav or .mp3 file.")); return; }
+      size = m.fs.statSync(src).size;
+      if (size > 700 * 1024 * 1024) { reject(new Error("This file is large. Install ffmpeg (free), or export the audio as a .wav or .mp3 and use that.")); return; }
+      var b = m.fs.readFileSync(src), ab = b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength), ctx = new Ctx();
+      ctx.decodeAudioData(ab, function (audio) {
+        try { ctx.close(); } catch (e) {}
+        var frames = Math.max(1, Math.ceil(audio.duration * 16000)), off = new root.OfflineAudioContext(1, frames, 16000), s = off.createBufferSource();
+        s.buffer = audio; s.connect(off.destination); s.start();
+        var done = function (r) { m.fs.writeFileSync(outWav, Buffer.from(api.encodeWav(api.floatToInt16(r.getChannelData(0)), 16000))); resolve(); };
+        var p = off.startRendering(); if (p && p.then) { p.then(done, reject); } else { off.oncomplete = function (e) { done(e.renderedBuffer); }; }
+      }, function () { reject(new Error("The audio in this file could not be read. Install ffmpeg (free), or use a .wav or .mp3 file.")); });
+    });
+  };
+
+  // lines of at most 42 characters, split on words, JSON output with times, progress on stderr
+  api.whisperArgs = function (model, wav, prefix, threads) {
+    return ["-m", model, "-f", wav, "-l", "en", "-ojf", "-of", prefix, "-ml", "42", "-sow", "-t", String(threads), "-pp"];
+  };
+
+  // o: { file, model: "base.en", onStatus(message, fraction|null), enginePath, modelBase }
+  // returns { promise -> segments [{start,end,text}] in source-file seconds, cancel() }
+  api.transcribe = function (o) {
+    var m = mods(), cancelled = false, child = null, status = o.onStatus || function () {}, tmp, wav, prefix;
+    function cleanup() {   // the temporary WAV and JSON, also after a failure or a cancel
+      try {
+        if (tmp && m.fs.existsSync(tmp)) { m.fs.readdirSync(tmp).forEach(function (f) { m.fs.unlinkSync(m.path.join(tmp, f)); }); m.fs.rmdirSync(tmp); }
+      } catch (e) {}
+    }
+    function stopCheck() { if (cancelled) { var e = new Error("Cancelled."); e.cancelled = true; throw e; } }
+    var promise = api.ensureEngine(status, o.enginePath).then(function (engine) {
+      stopCheck();
+      return api.ensureModel(o.model || "base.en", status, o.modelBase).then(function (model) {
+        stopCheck();
+        tmp = m.path.join(m.os.tmpdir(), "rumotion-" + Date.now());
+        mkdirp(tmp);
+        wav = m.path.join(tmp, "audio.wav");
+        prefix = m.path.join(tmp, "out");
+        return api.prepareAudio(o.file, wav, status).then(function () {
+          stopCheck();
+          status("Transcribing…", 0);
+          var threads = Math.max(2, Math.min(8, m.os.cpus().length - 1));
+          return run(engine, api.whisperArgs(model, wav, prefix, threads), function (l) {
+            var p = /progress\s*=\s*(\d+)\s*%/.exec(l);
+            if (p) { status("Transcribing… " + p[1] + "%", (+p[1]) / 100); }
+          }, { onChild: function (c) { child = c; } });
+        });
+      });
+    }).then(function () {
+      var jsonFile = prefix + ".json";
+      if (!m.fs.existsSync(jsonFile)) { throw new Error("The speech engine finished but wrote no transcript."); }
+      var segs = api.cleanSegments(api.parseWhisperJson(m.fs.readFileSync(jsonFile, "utf8")));
+      cleanup();
+      return segs;
+    }).catch(function (e) {
+      cleanup();
+      if (cancelled) { var c = new Error("Cancelled."); c.cancelled = true; throw c; }
+      throw e;
+    });
+    return { promise: promise, cancel: function () { cancelled = true; try { if (child) { child.kill(); } } catch (e) {} } };
+  };
+
+
+  if (root) { root.RuTranscribe = api; }
+  if (typeof module !== "undefined" && module.exports) { module.exports = api; }
+})(typeof window !== "undefined" ? window : (typeof globalThis !== "undefined" ? globalThis : this));
+
+</script>
+<script>
+/* Ru Motion — CEP panel front end.
+   The ExtendScript side (jsx/RuMotion.jsx, loaded in "bridge mode") builds the real panel controls on a window that is never shown
+   and describes every card as JSON. This file draws those cards as HTML and sends edits and clicks back, so every effect is the same
+   code as the ScriptUI panel. */
+(function () {
+  "use strict";
+
+  var ICONS = {
+    "Layers": '<rect x="2.5" y="4" width="13" height="10" rx="3"/><rect x="7.5" y="9" width="13" height="10" rx="3"/>',
+    "Layers & Timing": '<rect x="2.5" y="4" width="13" height="10" rx="3"/><rect x="7.5" y="9" width="13" height="10" rx="3"/>',
+    "Animate": '<path d="M7 4 19 12 7 20z"/>',
+    "Build": '<circle cx="7.5" cy="7.5" r="5.5"/><rect x="10" y="11" width="11" height="10" rx="2"/>',
+    "Quick Actions": '<path d="M13 2 6 12h5l-2 9 7-10h-5z"/>',
+    "Flow": '<path d="M3 20C11 20 9 4 21 4"/>',
+    "Camera": '<rect x="1.5" y="6" width="14" height="12" rx="3"/><path d="M15.5 10 20.5 7v10l-5-3z"/>',
+    "Shapes": '<circle cx="7.5" cy="7.5" r="5.5"/><rect x="10" y="11" width="11" height="10" rx="2"/>',
+    "Animation": '<path d="M7 4 19 12 7 20z"/>',
+    "Transitions": '<path d="M3 8h17M16 4l4 4-4 4M21 16H4M8 12l-4 4 4 4"/>',
+    "Text": '<path d="M4 5h16M12 5v15"/>',
+    "UI Kit": '<rect x="1.5" y="6" width="21" height="12" rx="6"/><circle class="dot" cx="7.5" cy="12" r="3"/>',
+    "Media": '<rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/>',
+    "Style": '<circle cx="12" cy="12" r="9"/><circle class="dot" cx="9" cy="9" r="2"/><circle class="dot" cx="15" cy="9" r="2"/><circle class="dot" cx="12" cy="15" r="2"/>'
+  };
+
+  var GROUP_ORDER = ["Layers & Timing", "Animate", "Text", "Transitions", "Build", "Camera", "Flow", "Style"];
+  var FLOW_PRESETS = {
+    linear: [0, 0, 1, 1], easeIn: [.42, 0, 1, 1], easeOut: [0, 0, .58, 1], ease: [.25, .1, .25, 1],
+    sineIn: [.12, 0, .39, 0], sineOut: [.61, 1, .88, 1], sine: [.37, 0, .63, 1],
+    quadIn: [.11, 0, .5, 0], quadOut: [.5, 1, .89, 1], quad: [.45, 0, .55, 1],
+    cubicIn: [.32, 0, .67, 0], cubicOut: [.33, 1, .68, 1], cubic: [.66, 0, .34, 1],
+    quartIn: [.5, 0, .75, 0], quartOut: [.25, 1, .5, 1], quart: [.76, 0, .24, 1],
+    quintIn: [.64, 0, .78, 0], quintOut: [.22, 1, .36, 1], quint: [.83, 0, .17, 1],
+    expoIn: [.7, 0, .84, 0], expoOut: [.16, 1, .3, 1], expo: [.87, 0, .13, 1],
+    circIn: [.55, 0, 1, .45], circOut: [0, .55, .45, 1], circ: [.85, 0, .15, 1],
+    backIn: [.36, 0, .66, -.56], backOut: [.34, 1.56, .64, 1], back: [.68, -.6, .32, 1.6]
+  };
+
+  var root = document.documentElement;
+  root.setAttribute("data-theme", "dark");
+
+  // ---------- helpers ----------
+  function el(tag, attrs, kids) {
+    var n = document.createElement(tag);
+    if (attrs) Object.keys(attrs).forEach(function (k) {
+      if (k === "text") n.textContent = attrs[k];
+      else if (k.slice(0, 2) === "on") n.addEventListener(k.slice(2), attrs[k]);
+      else n.setAttribute(k, attrs[k]);
+    });
+    (kids || []).forEach(function (c) { if (c) n.appendChild(c); });
+    return n;
+  }
+  var toastEl = document.getElementById("toast"), toastTimer;
+  function toast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 2200);
+  }
+  function store(k, d) { try { var v = localStorage.getItem("ru:" + k); return v === null ? d : v; } catch (e) { return d; } }
+  function put(k, v) { try { localStorage.setItem("ru:" + k, v); } catch (e) {} }
+
+  // ---------- talking to After Effects ----------
+  var cep = window.__adobe_cep__;
+  function esc(s) {   // a JS string literal that survives evalScript (ASCII only)
+    return '"' + String(s).replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\r/g, "\\r").replace(/\n/g, "\\n")
+      .replace(/[\u0080-￿]/g, function (c) { return "\\u" + ("0000" + c.charCodeAt(0).toString(16)).slice(-4); }) + '"';
+  }
+  function ev(script, cb) {
+    if (!cep) { cb("EvalScript error: not running inside After Effects"); return; }
+    try { cep.evalScript(script, function (r) { cb(r); }); } catch (e) { cb("EvalScript error: " + e); }
+  }
+  function extFolder() {
+    var u = decodeURI(cep.getSystemPath("extension")).replace(/^file:\/\//, "");
+    if (/^\/[A-Za-z]:/.test(u)) u = u.slice(1);
+    return u;
+  }
+  function loadHost(done) {
+    if (!cep) { done(false, "This panel only runs inside After Effects."); return; }
+    var code = "(function(){ try { if ($.global.RuBridge) { return 'ok'; } $.global.RuMotionBridge = true;" +
+      " $.evalFile(new File(" + esc(extFolder() + "/jsx/RuMotion.jsx") + ")); $.global.RuMotionBridge = false;" +
+      " return $.global.RuBridge ? 'ok' : 'The script loaded but did not start.'; } catch (e) { $.global.RuMotionBridge = false; return 'Error: ' + e + (e.line ? ' (line ' + e.line + ')' : ''); } })()";
+    ev(code, function (r) { done(r === "ok", r); });
+  }
+  function bridge(call, cb) { ev("$.global.RuBridge." + call, function (r) { cb(r); }); }
+
+  // ---------- rendering the described cards ----------
+  var ctlMap = {};   // control id -> { item, node }
+  var curFeature = -1;
+
+  function isHex(v) { return /^#[0-9a-fA-F]{6}$/.test(String(v)); }
+
+  function sendSet(item, value, after) {
+    bridge("set(" + item.id + "," + esc(value) + ")", function (r) {
+      if (r !== "ok") { toast(String(r).slice(0, 120)); }
+      refresh(); if (after) after();
+    });
+  }
+
+  function makeItem(item, ctx) {
+    var n, k;
+    if (item.k === "f") {
+      n = el("input", { type: "text", value: item.v, title: item.tip || "", "aria-label": item.label || "value" });
+      n.style.width = (String(item.v).length > 12 ? "100%" : String(item.v).length <= 5 && ctx.small ? "60px" : "72px");
+      if (isHex(item.v)) { n.style.width = "84px"; }
+      n.addEventListener("change", function () { sendSet(item, n.value); });
+      n.addEventListener("keydown", function (e) { if (e.key === "Enter") { n.blur(); } });
+      ctlMap[item.id] = { item: item, node: n };
+      if (isHex(item.v)) {
+        var sw = el("input", { type: "color", value: item.v, class: "swatch", title: "Choose a color", style: "position:static;opacity:1;pointer-events:auto;padding:0;border:1px solid var(--hairline);border-radius:6px;background:none;width:32px;height:26px;cursor:pointer;flex:none" });
+        sw.addEventListener("change", function () { n.value = sw.value.toUpperCase(); sendSet(item, n.value); });
+        ctx.hex = true;
+        ctlMap[item.id].swatch = sw;
+        return [sw, n];
+      }
+      return [n];
+    }
+    if (item.k === "s") {   // a draggable slider: the real value is v / div
+      var shown = function (v) { return (Math.round(v) / item.div).toFixed(item.dec) + item.unit; };
+      n = el("input", { type: "range", min: String(item.min), max: String(item.max), step: "1", value: String(item.v), title: item.tip || "", "aria-label": item.label || "slider" });
+      n.style.cssText = "width:100%;min-width:120px;flex:1;accent-color:var(--primary)";
+      var lab = el("span", { class: "cs-val", text: shown(item.v) });
+      n.addEventListener("input", function () { lab.textContent = shown(+n.value); });
+      n.addEventListener("change", function () { sendSet(item, n.value); });
+      ctlMap[item.id] = { item: item, node: n, label: lab, shown: shown };
+      return [n, lab];
+    }
+    if (item.k === "d") {
+      n = el("select", { title: item.tip || "", "aria-label": item.label || "choice" });
+      item.items.forEach(function (t, i) { var o = el("option", { value: String(i), text: t }); if (i === item.sel) o.selected = true; n.appendChild(o); });
+      n.addEventListener("change", function () { sendSet(item, n.value); });
+      ctlMap[item.id] = { item: item, node: n };
+      return [n];
+    }
+    if (item.k === "t") {
+      n = el("button", { class: "toggle", type: "button", role: "switch", "aria-checked": String(!!item.v), title: item.tip || "" },
+        [el("span", { class: "track", "aria-hidden": "true" }), el("span", { text: item.text })]);
+      n.addEventListener("click", function () { sendSet(item, n.getAttribute("aria-checked") !== "true"); });
+      ctlMap[item.id] = { item: item, node: n };
+      return [n];
+    }
+    // button
+    if (item.a) {   // an action the panel runs itself (transcription), with a status line under the button
+      n = el("button", { class: "btn primary", type: "button", text: item.text, title: item.tip || "" });
+      n._status = el("div", { class: "cap-status", hidden: "" }, [el("div", { class: "bar" }, [el("i")]), el("p", { class: "hint", text: "" })]);
+      n._label = item.text;
+      n.addEventListener("click", function () { runAction(item, n); });
+      actionNodes.push(n);
+      ctlMap[item.id] = { item: item, node: n };
+      return [n];
+    }
+    k = item.text;
+    if (ctx.flow && FLOW_PRESETS[k]) {
+      var cv = el("canvas", { width: 80, height: 76 });
+      n = el("button", { class: "flow-tile", type: "button", "aria-pressed": String(item.v === "primary"), title: k }, [cv, el("span", { text: k })]);
+      drawCurve(cv, FLOW_PRESETS[k], false);
+      n.addEventListener("click", function () { press(item, n); });
+      ctlMap[item.id] = { item: item, node: n };
+      return [n];
+    }
+    if (ctx.hexRow && /^Pick/.test(k)) { return []; }   // the colour swatch replaces the Pick… button
+    n = el("button", { class: "btn" + (item.v === "primary" ? " primary" : ""), type: "button", text: item.text, title: item.tip || "" });
+    if (ctx.fx && (!ctx.fx.wants || ctx.fx.wants(item))) { ctx.fx.add(item, n); n.addEventListener("click", function () { ctx.fx.select(item, n); }); }   // Text > Effects / Animate: a click previews, Apply adds
+    else { n.addEventListener("click", function () { press(item, n); }); }
+    ctlMap[item.id] = { item: item, node: n };
+    return [n];
+  }
+
+  function press(item, node) {
+    node.classList.add("busy");
+    bridge("click(" + item.id + ")", function (r) {
+      node.classList.remove("busy");
+      toast(r === "ok" ? (item.text + " — done.") : String(r).slice(0, 140));
+      refresh();
+    });
+  }
+
+  // ---------- transcription (runs in this panel; After Effects only supplies the layer and receives the captions) ----------
+  var running = null, actionNodes = [];
+  function setStatus(node, msg, frac, kind) {
+    var st = node._status, bar;
+    if (!st) { return; }
+    bar = st.firstChild;
+    st.hidden = false;
+    bar.classList.toggle("ind", frac === null);
+    bar.firstChild.style.width = (frac === null || frac === undefined) ? "" : Math.round(frac * 100) + "%";
+    st.lastChild.textContent = msg;
+    st.classList.toggle("err", kind === "err");
+  }
+  function lockOthers(except, on) {   // only one transcript at a time: the other transcript buttons wait
+    actionNodes.forEach(function (n) { if (n !== except && n.isConnected !== false) { n.disabled = on; n.style.opacity = on ? ".45" : ""; } });
+  }
+  function finish(node, msg, isErr) {
+    running = null;
+    node.textContent = node._label;
+    node.classList.add("primary");
+    lockOthers(node, false);
+    setStatus(node, msg, isErr ? 0 : 1, isErr ? "err" : "");
+    toast(isErr ? "Transcript: " + msg.slice(0, 80) : msg);
+  }
+  function runAction(item, node) {
+    if (item.a !== "transcribe-en") { return; }
+    if (running) { running.cancel(); return; }   // while it works, the button is Cancel
+    var T = window.RuTranscribe;
+    if (!T || !T.available()) { setStatus(node, "This panel cannot use Node.js yet. Run the latest installer and restart After Effects.", 0, "err"); return; }
+    node._label = item.text;
+    node.textContent = "Cancel";
+    node.classList.remove("primary");
+    lockOthers(node, true);
+    setStatus(node, "Looking at the selected layer…", null);
+    bridge("captionSource()", function (r) {
+      var src;
+      try { src = JSON.parse(r); } catch (e) { src = { error: "Could not read the selected layer: " + String(r).slice(0, 120) }; }
+      if (src.error) { finish(node, src.error, true); return; }
+      function done(segs) {
+        if (!segs.length) { finish(node, "No speech was found in that layer.", true); return; }
+        setStatus(node, "Adding " + segs.length + " captions…", null);
+        bridge("captionBuild(" + esc(JSON.stringify({ layerIndex: src.index, layerName: src.name, segments: segs })) + ")", function (res) {
+          var d;
+          try { d = JSON.parse(res); } catch (e2) { d = { error: String(res).slice(0, 120) }; }
+          if (d.error) { finish(node, d.error, true); return; }
+          var base = "Added " + d.made + " captions" + (d.skipped ? " (" + d.skipped + " fell outside the layer)" : "") + ".";
+          finish(node, base + " Look for layers named Ru Caption.", false);
+          if (editorReload) { editorReload(); }
+        });
+      }
+      function fail(e3) { finish(node, e3.cancelled ? "Cancelled." : (e3.message || String(e3)), !e3.cancelled); }
+      bridge("captionModel()", function (mr) {
+        var model = String(mr).replace(/[^a-z.]/g, "") || "base.en";
+        try {
+          running = T.transcribe({ file: src.path, model: model, enginePath: store("whisper_path", ""), onStatus: function (msg, f) { setStatus(node, msg, f); } });
+        } catch (e1) { fail(e1); return; }
+        running.promise.then(done, fail);
+      });
+    });
+  }
+
+  // ---------- transcript editor: one row per Ru Caption layer (start time + words); Enter splits, Backspace joins, + adds an empty caption ----------
+  var editorReload = null;
+  function fmtTime(sec) {
+    var m = Math.floor(sec / 60), s = Math.floor(sec % 60), d = Math.round((sec - Math.floor(sec)) * 10);
+    if (d === 10) { s++; d = 0; }
+    return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s + (d ? "." + d : "");
+  }
+  function parseTime(v) {
+    var m = /^(\d+):(\d{1,2})(?:\.(\d))?$/.exec(String(v).trim());
+    return m ? (+m[1]) * 60 + (+m[2]) + (m[3] ? (+m[3]) / 10 : 0) : NaN;
+  }
+  function buildEditor() {
+    var rows = [], removedCount = 0, focusAfter = null, loaded = false;
+    var listEl = el("div", { class: "ted-list", "aria-label": "Caption lines" });
+    var pending = el("p", { class: "hint", text: "" });
+    var box = el("div", { class: "card" }, [el("h3", { text: "Transcript" }),
+      el("p", { class: "hint", text: "The start time and words of every caption. Edit them, then press Apply changes. Enter splits a line, Backspace at the start joins it to the line above, + adds an empty caption." }),
+      listEl, pending]);
+    var applyB = el("button", { class: "btn primary", type: "button", text: "Apply changes" });
+    var reloadB = el("button", { class: "btn", type: "button", text: "Reload from timeline" });
+    box.appendChild(el("div", { class: "btns" }, [applyB, reloadB]));
+
+    function count() { return rows.filter(function (r) { return r.changed || r.isNew; }).length + removedCount; }
+    function showPending() { var n = count(); pending.textContent = n ? n + (n === 1 ? " change" : " changes") + " not applied yet" : ""; }
+    function gotoRow(r) { var nm = r.name || r.from; if (nm) { bridge("captionGoto(" + esc(nm) + ")", function () {}); } }
+
+    function render() {
+      listEl.innerHTML = "";
+      if (!rows.length) {
+        listEl.appendChild(el("p", { class: "hint", text: loaded ? "No captions in this composition yet. Click English Transcript above, or open a composition that has Ru Caption layers." : "Reading the captions…" }));
+      }
+      rows.forEach(function (r, i) {
+        var tm = el("input", { class: "ted-time", type: "text", value: fmtTime(r.s), "aria-label": "Start time of line " + (i + 1) });
+        tm.addEventListener("change", function () {
+          var v = parseTime(tm.value), lo = i ? rows[i - 1].s + 0.3 : 0, hi = r.e - 0.3;
+          if (isNaN(v) || v < lo || v > hi) { toast("Times stay in order, like 00:03 or 00:03.5"); tm.value = fmtTime(r.s); return; }
+          r.s = v; r.changed = true;
+          if (i && rows[i - 1].e > v) { rows[i - 1].e = v; rows[i - 1].changed = true; }
+          render();
+        });
+        var tx = el("div", { class: "ted-text", contenteditable: "true", spellcheck: "false", role: "textbox", "aria-label": "Words of line " + (i + 1) });
+        tx.textContent = r.t;
+        tx.addEventListener("focus", function () { gotoRow(r); });
+        tx.addEventListener("input", function () { r.t = tx.textContent; if (!r.changed) { r.changed = true; showPending(); } });
+        tx.addEventListener("paste", function (e) {
+          e.preventDefault();
+          var text = (e.clipboardData || window.clipboardData).getData("text").replace(/[\r\n]+/g, " ");
+          document.execCommand("insertText", false, text);
+        });
+        tx.addEventListener("keydown", function (e) {
+          var sel = window.getSelection(), off = sel.rangeCount ? sel.getRangeAt(0).startOffset : 0, txt = tx.textContent;
+          if (e.key === "Enter") {
+            e.preventDefault();
+            var left = txt.slice(0, off).replace(/\s+$/, ""), right = txt.slice(off).replace(/^\s+/, "");
+            if (!left || !right) { toast("Put the cursor between two words, then press Enter"); return; }
+            var cut = r.s + (r.e - r.s) * left.length / (left.length + right.length);
+            cut = Math.round(Math.min(r.e - 0.4, Math.max(r.s + 0.4, cut)) * 10) / 10;
+            if (!(r.e - r.s >= 0.8)) { toast("This line is too short to split. Make it longer first."); return; }
+            var second = { name: null, from: r.name || r.from, s: cut, e: r.e, t: right, isNew: true };
+            r.t = left; r.e = cut; r.changed = true;
+            rows.splice(i + 1, 0, second); focusAfter = { i: i + 1, off: 0 }; render();
+          } else if (e.key === "Backspace" && off === 0 && sel.isCollapsed && i > 0) {
+            e.preventDefault();
+            var prev = rows[i - 1], at = prev.t.length;
+            prev.t = (prev.t + " " + r.t).replace(/\s+$/, ""); prev.e = r.e; prev.changed = true;
+            if (r.name) { removedCount++; }
+            rows.splice(i, 1); focusAfter = { i: i - 1, off: at + 1 }; render();
+          }
+        });
+        var plus = el("button", { class: "ted-plus", type: "button", title: "Add an empty caption below", "aria-label": "Add an empty caption below line " + (i + 1) }, [
+          (function () { var s = document.createElementNS("http://www.w3.org/2000/svg", "svg"); s.setAttribute("viewBox", "0 0 12 12"); var p = document.createElementNS("http://www.w3.org/2000/svg", "path"); p.setAttribute("d", "M6 2v8M2 6h8"); p.setAttribute("stroke", "currentColor"); p.setAttribute("stroke-width", "1.8"); p.setAttribute("stroke-linecap", "round"); p.setAttribute("fill", "none"); s.appendChild(p); return s; })()]);
+        plus.addEventListener("click", function () {
+          var next = rows[i + 1], from = r.name || r.from, fresh;
+          if (next && next.s - r.e >= 0.4) { fresh = { name: null, from: from, s: r.e, e: Math.min(next.s, r.e + 3), t: "", isNew: true }; }
+          else if (!next) { fresh = { name: null, from: from, s: r.e, e: r.e + 2, t: "", isNew: true }; }
+          else if (r.e - r.s >= 0.8) { var mid = Math.round((r.s + (r.e - r.s) / 2) * 10) / 10; fresh = { name: null, from: from, s: mid, e: r.e, t: "", isNew: true }; r.e = mid; r.changed = true; }
+          else { toast("No room for another caption here. Make this line longer, or change a time first."); return; }
+          rows.splice(i + 1, 0, fresh); focusAfter = { i: i + 1, off: 0 }; render();
+        });
+        listEl.appendChild(el("div", { class: "ted-row" }, [tm, tx, plus]));
+      });
+      showPending();
+      if (focusAfter) {
+        var row = listEl.children[focusAfter.i], node = row && row.querySelector(".ted-text");
+        if (node) {
+          node.focus();
+          var rg = document.createRange(), tn = node.firstChild;
+          if (tn) { rg.setStart(tn, Math.min(focusAfter.off, tn.length)); } else { rg.setStart(node, 0); }
+          rg.collapse(true);
+          var sl = window.getSelection(); sl.removeAllRanges(); sl.addRange(rg);
+        }
+        focusAfter = null;
+      }
+    }
+
+    function load() {
+      bridge("captionList()", function (r) {
+        var d;
+        try { d = JSON.parse(r); } catch (e) { d = { error: String(r).slice(0, 120) }; }
+        loaded = true; removedCount = 0;
+        if (d.error) { rows = []; render(); toast(d.error); return; }
+        rows = d.rows.map(function (x) { return { name: x.name, s: x.start, e: x.end, t: x.text }; });
+        render();
+      });
+    }
+    editorReload = load;
+    reloadB.addEventListener("click", load);
+    applyB.addEventListener("click", function () {
+      if (!rows.length) { toast("There are no captions to apply."); return; }
+      if (!count()) { toast("No changes to apply"); return; }
+      applyB.disabled = true;
+      var payload = rows.map(function (r) { return { name: r.name || null, from: r.from || null, start: r.s, end: r.e, text: r.t }; });
+      bridge("captionApply(" + esc(JSON.stringify({ rows: payload })) + ")", function (res) {
+        applyB.disabled = false;
+        var d;
+        try { d = JSON.parse(res); } catch (e) { d = { error: String(res).slice(0, 140) }; }
+        if (d.error) { toast(d.error.slice(0, 140)); return; }
+        toast("Applied: " + d.changed + " changed, " + d.added + " added, " + d.removed + " joined");
+        load();
+      });
+    });
+    render();
+    load();
+    return box;
+  }
+
+  // ---------- Captions > Style: look tiles, colours and a live preview of the word highlight ----------
+  var CAP_LOOK_TILES = [
+    ["Plain", "Whole line, no highlight", "plain"], ["Word box", "Box jumps word to word", "box"], ["Word colour", "Spoken word changes colour", "color"],
+    ["Word pop", "Spoken word grows a little", "pop"], ["Underline", "Line draws under the word", "under"], ["Karaoke fill", "Letters fill as they are said", "fill"]
+  ];
+  function buildCapStyle(card) {
+    var pick = {}, hintText = "";
+    (function w(c) { c.kids.forEach(function (k) { if (k.t === "hint") { hintText = hintText || k.text; } else if (k.t === "card") { w(k.card); } else if (k.items) { k.items.forEach(function (it) { if (it.label && !pick[it.label]) pick[it.label] = it; }); } }); })(card);
+    var look = pick["Look:"], tcol = pick["Text colour:"], bcol = pick["Box colour:"], rad = pick["Roundness (px):"], dimf = pick["Other words (%):"], dimOn = pick["Other words:"];
+    var S = { look: look.sel, text: String(tcol.v), box: String(bcol.v), rad: parseFloat(rad.v) || 10, dim: parseFloat(dimf.v) || 45, dimOn: dimOn.sel === 0 };
+    function send(item, v) { bridge("set(" + item.id + "," + esc(v) + ")", function (r) { if (r !== "ok") toast(String(r).slice(0, 120)); }); }
+    function lum(c) { var r = parseInt(c.substr(1, 2), 16), g = parseInt(c.substr(3, 2), 16), b = parseInt(c.substr(5, 2), 16); return (0.299 * r + 0.587 * g + 0.114 * b) / 255; }
+
+    var words = ["in", "a", "busy", "world"], spans = [], t0 = performance.now(), live = true;
+    var line = el("div", { class: "cs-line" }), stage = el("div", { class: "cs-stage", role: "img", "aria-label": "Preview of the word highlight" }, [el("div", { class: "cs-caps" }, [line])]);
+    function buildWords() {
+      line.innerHTML = ""; spans = [];
+      words.forEach(function (w2) { var sp = el("span", { class: "cs-w", text: w2 }); line.appendChild(sp); spans.push(sp); });
+    }
+    function applyLook() {
+      var m = CAP_LOOK_TILES[S.look][2];
+      line.className = "cs-line m-" + m + (S.dimOn && m !== "plain" ? " dimmed" : "");
+      stage.style.setProperty("--hl", S.box); stage.style.setProperty("--hl-text", S.text);
+      stage.style.setProperty("--rad", S.rad + "px"); stage.style.setProperty("--dim", String(S.dim / 100));
+    }
+    function frame(now) {
+      if (!stage.isConnected && now - t0 > 1500) { live = false; return; }
+      var per = 0.55, total = words.length * per, t = ((now - t0) / 1000) % (total + 0.6), m = CAP_LOOK_TILES[S.look][2], i, a, b, on, done, p;
+      for (i = 0; i < spans.length; i++) {
+        a = i * per; b = a + per; on = t >= a && t < b; done = t >= b;
+        spans[i].classList.toggle("on", on && m !== "plain");
+        spans[i].classList.toggle("done", done && m === "fill");
+        if (m === "fill") { p = on ? (t - a) / per : (done ? 1 : 0); spans[i].style.backgroundSize = (p * 100) + "% 100%"; } else { spans[i].style.backgroundSize = ""; }
+        if (m === "under") { spans[i].style.backgroundSize = on || done ? "100% 3px" : "0 3px"; }
+      }
+      requestAnimationFrame(frame);
+    }
+    var tiles = el("div", { class: "cs-tiles" });
+    CAP_LOOK_TILES.forEach(function (tl, i) {
+      var mini = el("div", { class: "cs-mini" }, [el("span", { class: "d", text: "in a" }), el("span", { class: "a", text: "busy" }), el("span", { class: "d", text: "world" })]);
+      mini.className = "cs-mini mm-" + tl[2];
+      var b = el("button", { class: "cs-tile", type: "button", "aria-pressed": String(i === S.look) }, [mini, el("b", { text: tl[0] }), el("span", { class: "s", text: tl[1] })]);
+      b.addEventListener("click", function () {
+        S.look = i; send(look, String(i));
+        [].forEach.call(tiles.children, function (n, j) { n.setAttribute("aria-pressed", String(j === i)); });
+        applyLook();
+      });
+      tiles.appendChild(b);
+    });
+    function colorRow(label, item, key) {
+      var pk = el("input", { type: "color", value: S[key], "aria-label": label }), hx = el("input", { type: "text", value: S[key].toUpperCase(), maxlength: "7", spellcheck: "false", "aria-label": label + " hex code" });
+      pk.style.cssText = "position:static;opacity:1;pointer-events:auto;padding:0;border:1px solid var(--hairline);border-radius:6px;background:none;width:32px;height:26px;cursor:pointer;flex:none";
+      hx.style.width = "84px";
+      function set(c) { S[key] = c; pk.value = c; hx.value = c.toUpperCase(); applyLook(); send(item, c.toUpperCase()); }
+      pk.addEventListener("input", function () { S[key] = pk.value; hx.value = pk.value.toUpperCase(); applyLook(); });
+      pk.addEventListener("change", function () { set(pk.value); });
+      hx.addEventListener("change", function () { var v = hx.value.trim(); if (v.charAt(0) !== "#") v = "#" + v; if (/^#[0-9a-fA-F]{6}$/.test(v)) set(v); else { toast("Use a colour like #E8A23A"); hx.value = S[key].toUpperCase(); } });
+      return el("div", { class: "row" }, [el("span", { class: "lbl", text: label }), el("div", { class: "ctl" }, [pk, hx])]);
+    }
+    function rangeRow(label, item, key, lo, hi, unit) {
+      var r = el("input", { type: "range", min: String(lo), max: String(hi), value: String(S[key]), "aria-label": label }), v = el("span", { class: "cs-val", text: S[key] + unit });
+      r.style.width = "100%";
+      r.addEventListener("input", function () { S[key] = +r.value; v.textContent = r.value + unit; applyLook(); });
+      r.addEventListener("change", function () { send(item, r.value); });
+      return el("div", { class: "row" }, [el("span", { class: "lbl", text: label }), el("div", { class: "ctl" }, [r, v])]);
+    }
+    var seg = el("div", { class: "cs-seg" });
+    ["Dimmed", "Full"].forEach(function (name, i) {
+      var b = el("button", { type: "button", text: name, "aria-pressed": String((i === 0) === S.dimOn) });
+      b.addEventListener("click", function () { S.dimOn = i === 0; send(dimOn, String(i)); [].forEach.call(seg.children, function (n, j) { n.setAttribute("aria-pressed", String(j === i)); }); applyLook(); });
+      seg.appendChild(b);
+    });
+    var box = el("div", { class: "card" }, [el("h3", { text: "Style" }), el("p", { class: "hint", text: hintText }), stage, tiles,
+      colorRow("Text colour", tcol, "text"), colorRow("Box colour", bcol, "box"), rangeRow("Roundness", rad, "rad", 0, 30, " px"), rangeRow("Other words", dimf, "dim", 10, 100, "%"),
+      el("div", { class: "row" }, [el("span", { class: "lbl", text: "Words shown" }), seg]),
+      el("p", { class: "hint", text: "Text colour is the spoken word in the Word box look. Box colour is also the highlight in the other looks. Click Apply to all captions to use the look." })]);
+    buildWords(); applyLook(); requestAnimationFrame(frame);
+    bridge("captionList()", function (r) {   // use the words of the first real caption in the preview
+      var d; try { d = JSON.parse(r); } catch (e) { return; }
+      if (d && d.rows && d.rows.length && d.rows[0].text) { var w3 = d.rows[0].text.split(/\s+/).filter(Boolean).slice(0, 6); if (w3.length) { words = w3; buildWords(); } }
+    });
+    return box;
+  }
+
+  // ---------- Text > Effects and Text + Icon: a live stage that plays the effect before it is added ----------
+  function pvClamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
+  function pvOut(u) { u = pvClamp(u, 0, 1); return 1 - Math.pow(1 - u, 3); }
+  function pvSet(e, o) { e.style.opacity = o.o === undefined ? 1 : o.o; e.style.transform = o.t || ""; e.style.filter = o.b ? "blur(" + o.b + "px)" : ""; e.style.color = o.c || ""; }
+  // unit: c letters, w words, a whole text; two: needs two lines; f(el, i, n, t, line, k). Built-in effects use their real timings;
+  // the .ffx presets are guesses from their names (their files cannot be read here).
+  var PV_BOUNCE = function (e, i, n, t) { var x = pvClamp((t - 0.1 - i * 0.05) / 0.5, 0, 1), y = x < 1 ? (1 - x) * -22 * Math.abs(Math.cos(x * 7)) : 0; pvSet(e, { o: pvClamp(x * 4, 0, 1), t: "translateY(" + y + "px)" }); };
+  var PV_SNAP = function (e, i, n, t) { var u = pvOut((t - 0.1 - i * 0.1) / 0.15); pvSet(e, { o: u > 0 ? 1 : 0, t: "scale(" + (1.5 - 0.5 * u) + ")" }); };
+  var PV_FX = {
+    "Typewriter": { unit: "c", caret: 1, f: function (e, i, n, t) { pvSet(e, { o: t >= 0.3 + i / 14 ? 1 : 0 }); } },
+    "Typewriter Block": { unit: "w", f: function (e, i, n, t) { var a = 0.3 + i / 6; pvSet(e, { o: t >= a ? 1 : 0, c: t < a + 0.5 ? "#4285F4" : "" }); } },
+    "Letter Blur": { unit: "c", f: function (e, i, n, t) { var u = pvOut((t - 0.1 - i * 0.035) / 0.28); pvSet(e, { o: u, b: 10 * (1 - u), t: "translateY(" + (10 * (1 - u)) + "px)" }); } },
+    "SaaS Text Preset 1": { unit: "w", two: 1, roll: 1, f: function (e, i, n, t, line, k) { var u = pvOut((t - 0.5 - k * 0.08) / 0.2); pvSet(e, { t: "translateY(" + ((line === 0 ? -u : 1 - u) * 125) + "%)" }); } },
+    "Two-Line Stack": { unit: "w", two: 1, f: function (e, i, n, t, line, k) { if (line === 0) { pvSet(e, {}); return; } var u = pvOut((t - 0.5 - k * 0.08) / 0.25); pvSet(e, { o: u, t: "translateY(" + (10 * (1 - u)) + "px)" }); } },
+    "Word Highlight": { unit: "w", f: function (e, i, n, t) { var a = 0.2 + i * 0.4; pvSet(e, { c: (t >= a && t < a + 0.4) ? "#2EC4B6" : "" }); } },
+    "Hero Zoom": { unit: "a", f: function (e, i, n, t) { var u = pvOut(t / 1); pvSet(e, { o: pvClamp(t / 0.35, 0, 1), t: "scale(" + (3.2 - 2.2 * u) + ")", b: 14 * (1 - u) }); } },
+    "Hero Blur": { unit: "a", f: function (e, i, n, t) { var u = pvOut(t / 0.9); pvSet(e, { o: u, t: "scale(" + (0.94 + 0.06 * u) + ")", b: 9 * (1 - u) }); } },
+    "Blur Out": { unit: "a", f: function (e, i, n, t) { var u = pvClamp((t - 0.8) / 0.55, 0, 1); pvSet(e, { o: 1 - u, t: "scale(" + (1 - 0.08 * u) + ")", b: 9 * u }); } },
+    "Delete Out": { unit: "c", f: function (e, i, n, t) { pvSet(e, { o: t >= 1 + (n - 1 - i) * 0.03 ? 0 : 1 }); } },
+    "One by One": { guess: 1, unit: "c", f: function (e, i, n, t) { pvSet(e, { o: pvOut((t - 0.1 - i * 0.06) / 0.2) }); } },
+    "Bounce Text": { guess: 1, unit: "c", f: PV_BOUNCE },
+    "Bouncing Text": { guess: 1, unit: "c", f: PV_BOUNCE },
+    "Bouncy Color Fade": { guess: 1, unit: "c", f: function (e, i, n, t) { PV_BOUNCE(e, i, n, t); e.style.color = (t > 0.1 + i * 0.05 && t < 0.7 + i * 0.05) ? "#E8A23A" : ""; } },
+    "Letters Drop": { guess: 1, unit: "c", f: function (e, i, n, t) { var u = pvOut((t - 0.1 - i * 0.04) / 0.3); pvSet(e, { o: u, t: "translateY(" + (-20 * (1 - u)) + "px)" }); } },
+    "Letters Slide": { guess: 1, unit: "c", f: function (e, i, n, t) { var u = pvOut((t - 0.1 - i * 0.04) / 0.3); pvSet(e, { o: u, t: "translateX(" + (20 * (1 - u)) + "px)" }); } },
+    "Words Drop": { guess: 1, unit: "w", f: function (e, i, n, t) { var u = pvOut((t - 0.1 - i * 0.12) / 0.35); pvSet(e, { o: u, t: "translateY(" + (-20 * (1 - u)) + "px)" }); } },
+    "Words Slide": { guess: 1, unit: "w", f: function (e, i, n, t) { var u = pvOut((t - 0.1 - i * 0.12) / 0.35); pvSet(e, { o: u, t: "translateX(" + (24 * (1 - u)) + "px)" }); } },
+    "Color Fade Out": { guess: 1, unit: "c", f: function (e, i, n, t) { var u = pvClamp((t - 0.6 - i * 0.04) / 0.4, 0, 1); pvSet(e, { o: 1 - u, c: u > 0 ? "#E8A23A" : "" }); } },
+    "Snap": { guess: 1, unit: "w", f: PV_SNAP }, "Snap 2": { guess: 1, unit: "w", f: PV_SNAP }, "Snapping": { guess: 1, unit: "c", f: PV_SNAP },
+    // the next four are rebuilt from the settings stored in their .ffx files (which properties, based on words / letters / lines, how far)
+    "SaaS Style 3": { guess: 1, unit: "w", f: function (e, i, n, t) { var u = pvOut((t - 0.1 - i * 0.14) / 0.45); pvSet(e, { o: u, b: 8 * (1 - u), t: "translateX(" + (22 * (1 - u)) + "px)" }); } },
+    "SaaS Style 4": { guess: 1, unit: "w", f: function (e, i, n, t) { var u = pvOut((t - 0.1 - i * 0.14) / 0.45); pvSet(e, { o: u, t: "translateX(" + (-30 * (1 - u)) + "px)" }); e.style.letterSpacing = (-0.08 * (1 - u)) + "em"; } },
+    "SaaS Style 5": { guess: 1, unit: "c", f: function (e, i, n, t) { var u = pvOut((t - 0.1) / 0.6), c = pvOut((t - 0.1 - i * 0.03) / 0.3); pvSet(e, { o: c, b: 7 * (1 - u), t: "translateY(" + (16 * (1 - u)) + "px)" }); } },
+    "Motion Type": { guess: 1, unit: "c", f: function (e, i, n, t) {
+      var u = pvOut((t - 0.1 - i * 0.04) / 0.4), x = pvClamp((t - 2.0 - i * 0.03) / 0.3, 0, 1);
+      if (x > 0) { pvSet(e, { o: 1 - x, t: "translateY(" + (-10 * x) + "px) scale(" + (1 - 0.4 * x) + ")" }); }
+      else { pvSet(e, { o: u > 0 ? 1 : 0, t: "translateY(" + (34 * (1 - u)) + "px) rotate(" + (20 * (1 - u)) + "deg)" }); }
+    } }
+  };
+  function buildFxPreview(view) {
+    var cur = null, units = [], caret = null, t0 = performance.now(), btns = [];
+    var nameEl = el("span", { class: "pv-name", text: "" }), noteEl = el("span", { class: "pv-note", text: "" }), txt = el("div", { class: "pv-txt" });
+    var stage = el("div", { class: "pv-stage", role: "img", "aria-label": "Preview of the selected text effect" }, [nameEl, noteEl, txt]);
+    var sample = el("input", { type: "text", value: store("pv_text", "Make it move"), maxlength: "28", "aria-label": "Preview text" });
+    var applyB = el("button", { class: "btn primary", type: "button", text: "Choose an effect above" });
+    applyB.disabled = true;
+    function build() {
+      var fx = cur ? PV_FX[cur.text] : null, s = (sample.value || "").replace(/^\s+|\s+$/g, "") || "Make it move", lines, parts;
+      txt.innerHTML = ""; units = []; caret = null;
+      nameEl.textContent = cur ? cur.text : "Preview";
+      noteEl.textContent = !cur ? "" : (!fx ? "no preview yet" : (fx.guess ? "approximate" : ""));
+      lines = (fx && fx.two) ? [s, "Then make it land"] : [s];
+      lines.forEach(function (L, li) {
+        var ln = el("span", { class: "pv-ln" + (fx && fx.roll ? " pv-clip" : "") }), k = 0;
+        if (fx && fx.roll && li === 1) { ln.style.marginTop = "-1.25em"; }
+        parts = !fx || fx.unit === "a" ? [L] : (fx.unit === "c" ? L.split("") : L.split(/(\s+)/));
+        parts.forEach(function (p) {
+          var sp = el("span", { class: "pv-u", text: p }); ln.appendChild(sp);
+          if (fx && fx.unit === "w" && /^\s+$/.test(p)) { return; }
+          units.push({ el: sp, line: li, k: k++ });
+        });
+        txt.appendChild(ln);
+      });
+      if (fx && fx.caret) { caret = el("span", { class: "pv-caret" }); txt.lastChild.appendChild(caret); }
+      t0 = performance.now();
+    }
+    function frame(now) {
+      if (!stage.isConnected && now - t0 > 3000) { return; }
+      var fx = cur ? PV_FX[cur.text] : null, t = ((now - t0) / 1000) % 3.2, n = units.length, i;
+      if (fx) { for (i = 0; i < n; i++) { fx.f(units[i].el, i, n, t, units[i].line, units[i].k); } }
+      if (caret) { caret.style.opacity = (Math.floor((t - 0.3) * 14) + 1 < n) ? 1 : (Math.floor(t * 1000 / 400) % 2 ? 0 : 1); }
+      requestAnimationFrame(frame);
+    }
+    sample.style.width = "100%";
+    sample.addEventListener("input", function () { put("pv_text", sample.value); build(); });
+    applyB.addEventListener("click", function () { if (cur) { press(cur, applyB); } });
+    view.appendChild(stage);
+    view.appendChild(el("div", { class: "row" }, [el("span", { class: "lbl", text: "Preview text" }), el("div", { class: "ctl" }, [sample])]));
+    build(); requestAnimationFrame(frame);
+    return {
+      add: function (item, node) { btns.push(node); node.classList.remove("primary"); },
+      select: function (item, node) {
+        cur = item;
+        btns.forEach(function (b) { b.classList.toggle("pv-on", b === node); });
+        applyB.disabled = false; applyB.textContent = "Apply " + item.text;
+        build();
+      },
+      finish: function () {
+        view.appendChild(el("div", { class: "btns one" }, [applyB]));
+        view.appendChild(el("p", { class: "hint", text: "Clicking an effect only plays it here. Apply adds it to the selected text layer(s) at the playhead." }));
+      }
+    };
+  }
+
+  // Text + Icon: the words slide apart and grow and the icon slot opens; it follows the Sentence and Icon position controls
+  function buildTiPreview(view, data) {
+    var sentId = -1, whereId = -1, line = el("div", { class: "pv-ti" }), stage = el("div", { class: "pv-stage", role: "img", "aria-label": "Preview of Text + Icon" }, [el("span", { class: "pv-name", text: "Preview" }), line]);
+    (function w(c) { c.kids.forEach(function (k) { if (k.t === "card") { w(k.card); } else if (k.items) { k.items.forEach(function (it) { if (it.label === "Sentence:") sentId = it.id; if (it.label === "Icon position:") whereId = it.id; }); } }); })(data);
+    var key = "", words = [], ico = null, t0 = performance.now();
+    function star() {
+      var s = el("span", { class: "pv-ico" });
+      s.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%"><path fill="currentColor" d="M12 2c1 5 4 8 10 10-6 2-9 5-10 10-1-5-4-8-10-10 6-2 9-5 10-10z"/></svg>';
+      return s;
+    }
+    function build(sent, at) {
+      var w = sent.replace(/^\s+|\s+$/g, "").split(/\s+/).filter(Boolean).slice(0, 6);
+      if (!w.length) { w = ["feature", "requests"]; }
+      at = pvClamp(at, 0, w.length);
+      line.innerHTML = ""; words = []; ico = star();
+      w.forEach(function (x, i) { if (i === at) { line.appendChild(ico); } var s = el("span", { text: x }); s.style.margin = "0 .14em"; line.appendChild(s); words.push({ el: s, side: i < at ? -1 : 1 }); });
+      if (at >= w.length) { line.appendChild(ico); }
+      t0 = performance.now();
+    }
+    function frame(now) {
+      if (!stage.isConnected && now - t0 > 3000) { return; }
+      var sN = ctlMap[sentId] && ctlMap[sentId].node, wN = ctlMap[whereId] && ctlMap[whereId].node;
+      var sent = sN ? sN.value : "feature requests", at = wN ? (+wN.value || 0) : 1, k = sent + "|" + at;
+      if (k !== key) { key = k; build(sent, at); }
+      var t = ((now - t0) / 1000) % 3, u = pvOut((t - 0.3) / 0.8);
+      words.forEach(function (o) { o.el.style.transform = "translateX(" + (-o.side * 12 * (1 - u)) + "px) scale(" + (0.86 + 0.14 * u) + ")"; });
+      if (ico) { ico.style.width = (1.1 * u) + "em"; ico.style.opacity = u; ico.style.margin = "0 " + (0.2 * u) + "em"; }
+      requestAnimationFrame(frame);
+    }
+    view.appendChild(stage);
+    requestAnimationFrame(frame);
+  }
+
+  // Animate: a lime sample layer at the top of every Animate card plays the effect in a loop and follows the card's own
+  // controls (found by label). Quick / Pop / Move in / out: a click on an effect button only previews it (`wants`), the added
+  // Apply button sends the real click; the other three cards have one action button, so the stage just shows the settings.
+  function anOut(u) { u = pvClamp(u, 0, 1); return u >= 1 ? 1 : 1 - Math.pow(2, -10 * u); }
+  function anBounce(u, amt) { if (u >= 1) return 1; return anOut(u) + amt * Math.sin(u * Math.PI * 2.2) * Math.exp(-u * 4); }
+  var AN_FX = {
+    "Quick": { pick: /^(Fade In|Scale Pop|Blur Fade In|Fade Out|Blur Fade Out|Slide (Left|Right|Up|Down) \(\+Fade\))$/, first: "Fade In", layers: 1,
+      f: function (c, t, lay, name) {
+        var bon = c.bool("Bounce effect"), pct = c.num("Bounce (%):", 10), dist = pvClamp(c.num("Slide distance (px):", 200), 0, 2000) / 400 * 100;
+        var u = pvClamp(t / 0.9, 0, 1), e = bon ? anBounce(u, pct / 100) : anOut(u), x = 0, y = 0, s = 1, op = 1, bl = 0;
+        if (name === "Fade In") { op = e; }
+        else if (name === "Scale Pop") { s = 0.2 + 0.8 * e; op = pvClamp(u * 3, 0, 1); }
+        else if (name === "Blur Fade In") { op = e; bl = (1 - anOut(u)) * 12; }
+        else if (name === "Fade Out") { op = 1 - e; }
+        else if (name === "Blur Fade Out") { op = 1 - e; bl = anOut(u) * 12; }
+        else if (name.indexOf("Slide") === 0) {
+          var dx = name.indexOf("Left") > 0 ? 1 : name.indexOf("Right") > 0 ? -1 : 0, dy = name.indexOf("Up") > 0 ? 1 : name.indexOf("Down") > 0 ? -1 : 0;
+          x = dx * dist * (1 - e); y = dy * dist * (1 - e); op = pvClamp(u * 2, 0, 1);
+        }
+        anSet(lay[0], x, y, s, op, bl);
+        return u;
+      } },
+    "Pop": { pick: /^Pop (Up|Out)$/, first: "Pop Up", layers: 1,
+      f: function (c, t, lay, name) {
+        var fade = c.bool("Fade opacity too"), u = pvClamp(t / 1.0, 0, 1), e = anBounce(u, 0.18);
+        if (name === "Pop Up") { anSet(lay[0], 0, 0, Math.max(0, e), fade ? pvClamp(u * 4, 0, 1) : 1, 0); }
+        else { anSet(lay[0], 0, 0, Math.max(0.001, 1 - e), fade ? 1 - pvClamp(u * 1.3, 0, 1) : 1, 0); }
+        return u;
+      } },
+    "Move in / out": { pick: /^[←↑↓→]$/, first: "←", layers: 3, small: true,
+      name: function (c, b) { return "Move " + (c.sel("Mode:") === 1 ? "out " : "in ") + b; },
+      f: function (c, t, lay, name) {
+        var out = c.sel("Mode:") === 1, d = c.sel("Distance:") === 0 ? 260 : pvClamp(c.num("Custom (px):", 300), 0, 2000) / 400 * 100;
+        var fade = c.bool("Fade opacity too"), stag = pvClamp(c.num("Stagger (frames):", 0), 0, 120) / 25;
+        var a = name.charAt(name.length - 1), dx = a === "←" ? -1 : a === "→" ? 1 : 0, dy = a === "↑" ? -1 : a === "↓" ? 1 : 0, sg = out ? 1 : -1;
+        lay.forEach(function (l, i) {
+          var u = pvClamp((t - i * stag) / 0.9, 0, 1), e = anOut(u), k = out ? e : 1 - e;
+          anSet(l, dx * d * k * sg, dy * d * k * sg, 1, fade ? (out ? 1 - e : e) : 1, 0);
+        });
+        return pvClamp(t / 1.2, 0, 1);
+      } },
+    "Shape morph": { layers: 0, build: function (st) {
+        var a = el("div", { class: "an-lay an-circle" }), b = el("div", { class: "an-lay an-square" });
+        a.style.marginLeft = "-96px"; b.style.marginLeft = "34px"; st.appendChild(b); st.appendChild(a); return [a, b];
+      },
+      f: function (c, T, lay) {
+        var amp = c.num("Amplitude:", 100) / 100, frq = c.num("Frequency:", 1.5), dec = Math.max(0.1, c.num("Decay (sec):", 1)), D = 130, x, y, s, rot, u, e, tb;
+        if (T < 0.16) { u = T / 0.16; e = 1 - Math.pow(1 - u, 2); x = -e * D * 0.05; y = e * 12; }
+        else if (T < 0.64) { u = (T - 0.16) / 0.48; e = u * u * (3 - 2 * u); x = -D * 0.05 + (D + D * 0.05) * e; y = 12 * (1 - e) - Math.sin(e * Math.PI) * 22; }
+        else { tb = T - 0.64; x = D + amp * 14 * Math.sin(frq * 2 * Math.PI * tb) / Math.exp(5 / dec * tb); y = 0; }
+        s = T < 0.08 ? 1 : T < 0.40 ? 1 - 0.2 * ((T - 0.08) / 0.32) : T < 0.72 ? 0.8 + 0.2 * ((T - 0.40) / 0.32) : 1;
+        if (T >= 0.72) { tb = T - 0.72; s = 1 + amp * 0.08 * Math.sin(frq * 2 * Math.PI * tb) / Math.exp(5 / dec * tb); }
+        rot = T < 0.16 ? 0 : T < 0.48 ? 18 * ((T - 0.16) / 0.32) : T < 0.80 ? 18 * (1 - (T - 0.48) / 0.32) : 0;
+        var show = T < 0.64, r = show ? pvClamp((T - 0.2) / 0.44, 0, 1) : 1;
+        lay[0].style.opacity = show ? 1 : 0; lay[1].style.opacity = show ? 0.18 : 1;
+        lay[0].style.transform = "translate(" + x + "px," + y + "px) rotate(" + rot + "deg) scale(" + (s * (1 + 0.3 * r)) + ")";
+        lay[0].style.borderRadius = (50 - 36 * r) + "%";
+        lay[1].style.transform = "translate(" + (x - D) + "px," + y + "px) rotate(" + rot + "deg) scale(" + s + ")";
+        return pvClamp(T / 1.6, 0, 1);
+      } },
+    "UI list stagger": { layers: 0, build: function (st) {
+        var rows = [0, 1, 2, 3].map(function () { return anLayer(); }), box = el("div", { class: "an-rows" }, rows); st.appendChild(box); return rows;
+      },
+      f: function (c, t, lay) {
+        var off = pvClamp(c.num("Slide up (px):", 40), 0, 500) / 400 * 100, stag = pvClamp(c.num("Stagger (frames):", 2), 0, 60) / 25, fade = c.bool("Fade opacity too");
+        lay.forEach(function (r, i) { var u = pvClamp((t - i * stag) / 0.7, 0, 1), e = anOut(u); r.style.transform = "translateY(" + (off * (1 - e)) + "px)"; r.style.opacity = fade ? e : 1; });
+        return pvClamp(t / 1.2, 0, 1);
+      } },
+    "Hold push-in": { layers: 0, build: function (st) { var ph = el("div", { class: "an-photo" }); st.appendChild(ph); return [ph]; },
+      f: function (c, t, lay) { var u = t / 2.4; lay[0].style.transform = "scale(" + (1 + pvClamp(c.num("Amount (%):", 5), 0, 100) / 100 * u) + ")"; return u; } }
+  };
+  function anLayer() { return el("div", { class: "an-lay" }, [el("i"), el("i"), el("i")]); }
+  function anSet(l, x, y, s, o, b) { l.style.transform = "translate(" + x + "px," + y + "px) scale(" + s + ")"; l.style.opacity = o; l.style.filter = b ? "blur(" + b + "px)" : ""; }
+  function buildAnimPreview(view, data, title) {
+    var fx = AN_FX[title], ids = {}, cur = null, btns = [], lay = [], t0 = performance.now();
+    (function w(c) { c.kids.forEach(function (k) { if (k.t === "card") { w(k.card); } else if (k.items) { k.items.forEach(function (it) { ids[it.label || it.text] = it.id; }); } }); })(data);
+    function node(label) { var m = ctlMap[ids[label]]; return m ? m.node : null; }
+    var c = {
+      num: function (label, d) { var n = node(label); if (!n) return d; var v = parseFloat(n.value); if (isNaN(v)) return d; var m = ctlMap[ids[label]]; return m.item.k === "s" ? v / m.item.div : v; },
+      bool: function (label) { var n = node(label); return n ? n.getAttribute("aria-checked") === "true" : false; },
+      sel: function (label) { var n = node(label); return n ? (+n.value || 0) : 0; }
+    };
+    var nameEl = el("span", { class: "pv-name", text: title }), bar = el("i");
+    var stage = el("div", { class: "pv-stage an-stage", role: "img", "aria-label": "Preview of " + title }, [el("div", { class: "an-grid" }), nameEl, el("div", { class: "an-bar" }, [bar])]);
+    if (fx.build) { lay = fx.build(stage); }
+    else { for (var i = 0; i < fx.layers; i++) { var l = anLayer(); if (fx.small) { l.classList.add("an-small"); l.style.marginLeft = ((i - 1) * 86 - 36) + "px"; } stage.appendChild(l); lay.push(l); } }
+    var applyB = fx.pick ? el("button", { class: "btn primary", type: "button", text: "Choose an effect above" }) : null;
+    if (applyB) { applyB.disabled = true; applyB.addEventListener("click", function () { if (cur) { press(cur, applyB); } }); }
+    function label() { return !cur ? title : (fx.name ? fx.name(c, cur.text) : cur.text); }
+    function frame(now) {
+      if (!stage.isConnected && now - t0 > 3000) { return; }
+      var t = ((now - t0) / 1000) % 2.4, nm = label();
+      if (nameEl.textContent !== nm) { nameEl.textContent = nm; if (applyB && cur) { applyB.textContent = "Apply " + nm; } }
+      bar.style.width = (pvClamp(fx.f(c, t, lay, nm), 0, 1) * 100) + "%";
+      requestAnimationFrame(frame);
+    }
+    view.appendChild(stage);
+    requestAnimationFrame(frame);
+    return {
+      wants: function (item) { return !!(fx.pick && fx.pick.test(item.text)); },
+      add: function (item, n) { btns.push(n); n.classList.remove("primary"); if (item.text === fx.first) { cur = item; n.classList.add("pv-on"); applyB.disabled = false; applyB.textContent = "Apply " + label(); } },
+      select: function (item, n) { cur = item; btns.forEach(function (b) { b.classList.toggle("pv-on", b === n); }); applyB.disabled = false; applyB.textContent = "Apply " + label(); t0 = performance.now(); },
+      finish: function () {
+        if (!applyB) { return; }
+        view.appendChild(el("div", { class: "btns one" }, [applyB]));
+        view.appendChild(el("p", { class: "hint", text: "Clicking an effect only plays it here. Apply adds it to the selected layer(s) at the playhead." }));
+      }
+    };
+  }
+
+  function drawCurve(canvas, c, big) {
+    var d = window.devicePixelRatio || 1, w = canvas.clientWidth || canvas.width, h = canvas.clientHeight || canvas.height;
+    if (big) { canvas.width = Math.round(w * d); canvas.height = Math.round(h * d); }
+    var g = canvas.getContext("2d"), W = canvas.width, H = canvas.height;
+    g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, W, H);
+    var pad = W * 0.14, x0 = pad, x1 = W - pad, y0 = H * 0.78, y1 = H * 0.18, i, t, u, px, py;
+    var color = getComputedStyle(root).getPropertyValue("--text").trim() || "#fff";
+    g.strokeStyle = "rgba(150,150,160,.5)"; g.lineWidth = Math.max(1, W / 80);
+    g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1); g.stroke();
+    g.strokeStyle = color; g.lineWidth = Math.max(2, W / 40); g.lineCap = "round"; g.beginPath();
+    for (i = 0; i <= 28; i++) {
+      t = i / 28; u = 1 - t;
+      px = 3 * u * u * t * c[0] + 3 * u * t * t * c[2] + t * t * t;
+      py = 3 * u * u * t * c[1] + 3 * u * t * t * c[3] + t * t * t;
+      if (i === 0) g.moveTo(x0 + px * (x1 - x0), y0 + py * (y1 - y0)); else g.lineTo(x0 + px * (x1 - x0), y0 + py * (y1 - y0));
+    }
+    g.stroke();
+  }
+
+  function renderKids(card, parent, ctx) {
+    card.kids.forEach(function (k) {
+      if (k.t === "hint") { parent.appendChild(el("p", { class: "hint", text: k.text })); return; }
+      if (k.t === "card" && k.card.title === "Transcript") { parent.appendChild(buildEditor()); return; }
+      if (k.t === "card" && k.card.title === "Style" && JSON.stringify(k.card).indexOf("\"Look:\"") >= 0) { parent.appendChild(buildCapStyle(k.card)); return; }
+      if (k.t === "card") {
+        var sub = el("div", { class: "card" }, [el("h3", { text: k.card.title })]);
+        var c2 = { flow: ctx.flow, fx: ctx.fx };
+        renderKids(k.card, sub, c2);
+        parent.appendChild(sub);
+        return;
+      }
+      if (k.t === "btns") {
+        var g = el("div", { class: "btns" + (k.items.length === 1 ? " one" : "") });
+        if (k.items.length > 2 && k.items.length <= 4) { g.style.gridTemplateColumns = "repeat(" + k.items.length + ", 1fr)"; }
+        k.items.forEach(function (it) { makeItem(it, ctx).forEach(function (n) { g.appendChild(n); }); });
+        parent.appendChild(g);
+        return;
+      }
+      // row
+      var items = k.items, first = items[0];
+      if (items.length === 1 && first.k === "t") { parent.appendChild(makeItem(first, ctx)[0]); return; }
+      if (items.length === 1 && first.k === "b") {
+        var one = makeItem(first, ctx);
+        parent.appendChild(el("div", { class: "btns one" }, one));
+        if (one[0] && one[0]._status) { parent.appendChild(one[0]._status); }
+        return;
+      }
+      var flowGrid = ctx.flow && items.length > 1 && items.every(function (it) { return it.k === "b" && FLOW_PRESETS[it.text]; });
+      if (flowGrid) {
+        var gr = el("div", { class: "flow-grid" });
+        items.forEach(function (it) { makeItem(it, ctx).forEach(function (n) { gr.appendChild(n); }); });
+        parent.appendChild(gr);
+        return;
+      }
+      var fields = items.filter(function (it) { return it.k === "f"; });
+      if (ctx.flow && fields.length === 4 && /Curve/.test(first.label || "")) {
+        var cv = el("canvas", { class: "flow-graph", "aria-label": "Easing curve" });
+        parent.appendChild(cv);
+        ctx.graph = { canvas: cv, ids: fields.map(function (f) { return f.id; }) };
+      }
+      if (items.length > 1 && items.every(function (it) { return it.k === "b"; }) && !first.label) {
+        var bg = el("div", { class: "btns" });
+        bg.style.gridTemplateColumns = "repeat(" + items.length + ", 1fr)";
+        items.forEach(function (it) { makeItem(it, ctx).forEach(function (n) { bg.appendChild(n); }); });
+        parent.appendChild(bg);
+        return;
+      }
+      var hexRow = items.some(function (it) { return it.k === "f" && isHex(it.v); });
+      var ctl = el("div", { class: "ctl" });
+      var rctx = { flow: ctx.flow, fx: ctx.fx, hexRow: hexRow, small: fields.length >= 3 };
+      items.forEach(function (it, i) {
+        if (i > 0 && it.label) { ctl.appendChild(el("span", { class: "lbl", text: it.label, style: "color:var(--label);font-size:12px" })); }
+        makeItem(it, rctx).forEach(function (n) { ctl.appendChild(n); });
+      });
+      if (!ctl.childNodes.length) { return; }
+      if (!first.label) {
+        [].forEach.call(ctl.querySelectorAll(".btn"), function (b) { b.style.width = "auto"; b.style.padding = "0 14px"; b.style.whiteSpace = "nowrap"; });
+        [].forEach.call(ctl.querySelectorAll("input[type=text]"), function (n) { n.style.flex = "none"; });
+        var wide = el("div", { class: "row" }, [ctl]);
+        wide.style.gridTemplateColumns = "1fr";
+        parent.appendChild(wide);
+        return;
+      }
+      parent.appendChild(el("div", { class: "row" }, [el("span", { class: "lbl", text: first.label || "" }), ctl]));
+    });
+  }
+
+  var view = document.getElementById("view"), chips = document.getElementById("chips"), nav = document.getElementById("nav");
+  var graphRef = null;
+
+  function showFeature(i) {
+    curFeature = i;
+    bridge("feature(" + i + ")", function (r) {
+      var data;
+      try { data = JSON.parse(r); } catch (e) { data = null; }
+      view.innerHTML = ""; ctlMap = {}; graphRef = null; actionNodes = [];
+      if (!data) { view.appendChild(el("p", { class: "hint", text: "Could not read this card from After Effects: " + String(r).slice(0, 160) })); return; }
+      view.appendChild(el("h2", { text: data.title }));
+      var ctx = { flow: data.title === "Easing curves" };
+      if (data.title === "Effects" && META.features[i].group === "Text") { ctx.fx = buildFxPreview(view); }
+      if (data.title === "Text + Icon") { buildTiPreview(view, data); }
+      if (META.features[i].group === "Animate" && AN_FX[data.title]) { ctx.fx = buildAnimPreview(view, data, data.title); }
+      renderKids(data, view, ctx);
+      if (ctx.fx) { ctx.fx.finish(); }
+      if (ctx.graph) { graphRef = ctx.graph; drawGraph(); }
+      put("feature", META.features[i].name);
+    });
+  }
+
+  function drawGraph() {
+    if (!graphRef) return;
+    var v = graphRef.ids.map(function (id) { var m = ctlMap[id]; return m ? parseFloat(m.node.value) : 0; });
+    if (v.some(isNaN)) return;
+    drawCurve(graphRef.canvas, v, true);
+  }
+
+  // after a click or an edit, pull the current values back so clamped numbers, flipped toggles and new button states show
+  var refreshing = false, again = false;
+  function refresh() {
+    if (curFeature < 0) return;
+    if (refreshing) { again = true; return; }
+    refreshing = true;
+    bridge("feature(" + curFeature + ")", function (r) {
+      refreshing = false;
+      var data; try { data = JSON.parse(r); } catch (e) { return; }
+      (function walk(card) {
+        card.kids.forEach(function (k) {
+          if (k.t === "card") { walk(k.card); return; }
+          (k.items || []).forEach(function (it) {
+            var m = ctlMap[it.id]; if (!m) return;
+            if (it.k === "f") { if (document.activeElement !== m.node) { m.node.value = it.v; } if (m.swatch && isHex(it.v)) m.swatch.value = it.v; }
+            else if (it.k === "d") { m.node.value = String(it.sel); }
+            else if (it.k === "s") { if (document.activeElement !== m.node) { m.node.value = String(it.v); m.label.textContent = m.shown(it.v); } }
+            else if (it.k === "t") { m.node.setAttribute("aria-checked", String(!!it.v)); }
+            else if (it.k === "b") {
+              if (m.node.classList.contains("flow-tile")) { m.node.setAttribute("aria-pressed", String(it.v === "primary")); }
+              else { m.node.classList.toggle("primary", it.v === "primary"); if (m.node.textContent !== it.text) m.node.textContent = it.text; }
+            }
+          });
+        });
+      })(data);
+      drawGraph();
+      if (again) { again = false; refresh(); }
+    });
+  }
+
+  // ---------- tabs and chips ----------
+  var META = null, groups = [], curGroup = "";
+  function rank(list, n) { var i = list.indexOf(n); return i < 0 ? list.length : i; }
+  function featuresOf(g) { return META.features.filter(function (f) { return f.group === g; }); }
+
+  function pick(g, featName) {
+    curGroup = g;
+    var all = featuresOf(g), list = all.filter(function (x) { return !x.parent; });
+    var f = all.filter(function (x) { return x.name === featName; })[0] || list[0];
+    var top = f.parent || f.name, kids = all.filter(function (x) { return x.parent === top; });
+    [].forEach.call(nav.children, function (t) { t.setAttribute("aria-selected", String(t.dataset.group === g)); });
+    chips.innerHTML = "";
+    chips.hidden = list.length <= 1 && g !== "Text";
+    if (!chips.hidden) {
+      list.forEach(function (x) {
+        chips.appendChild(el("button", { class: "chip", type: "button", role: "tab", text: x.name, title: x.name, "aria-selected": String(x.name === top), onclick: function () { pick(g, x.name); } }));
+      });
+      if (kids.length) {
+        var sub = el("div", { class: "chips chips-sub", style: "grid-column:1/-1" });
+        [top].concat(kids.map(function (k) { return k.name; })).forEach(function (nm) {
+          sub.appendChild(el("button", { class: "chip", type: "button", role: "tab", text: nm, title: nm, "aria-selected": String(nm === f.name), onclick: function () { pick(g, nm); } }));
+        });
+        chips.appendChild(sub);
+      }
+    }
+    showFeature(f.i);
+  }
+
+  function start() {
+    var labels = { "Layers & Timing": "Layers" };
+    META.features.forEach(function (f) { if (groups.indexOf(f.group) < 0) groups.push(f.group); });
+    groups.sort(function (a, b) { return rank(GROUP_ORDER, a) - rank(GROUP_ORDER, b); });
+    groups.forEach(function (g) {
+      nav.appendChild(el("button", {
+        class: "tab", type: "button", role: "tab", "aria-selected": "false", title: g,
+        onclick: function () { pick(g, ""); }
+      }));
+      var t = nav.lastChild;
+      t.dataset.group = g;
+      t.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + (ICONS[g] || "") + "</svg><span>" + (labels[g] || g) + "</span>";
+    });
+    pick(groups[0], "");
+  }
+
+  [].forEach.call(document.querySelectorAll("#cutbar .btn"), function (b, n) {
+    b.addEventListener("click", function () {
+      bridge("cut(" + n + ")", function (r) { toast(r === "ok" ? b.getAttribute("data-cut") + " applied at the playhead." : String(r).slice(0, 140)); });
+    });
+  });
+
+  // ---------- About: once on the first run, then from the About button ----------
+  (function () {
+    var ov = document.getElementById("aboutOv");
+    function show() { ov.classList.add("show"); }
+    function hide() { ov.classList.remove("show"); }
+    document.getElementById("aboutBtn").addEventListener("click", show);
+    document.getElementById("aboutGo").addEventListener("click", hide);
+    ov.addEventListener("click", function (e) { if (e.target === ov) { hide(); } });
+    if (store("about_seen", "") !== "1") { put("about_seen", "1"); show(); }
+  })();
+
+  // ---------- go ----------
+  view.appendChild(el("p", { class: "hint", text: "Starting Ru Motion…" }));
+  loadHost(function (ok, msg) {
+    if (!ok) { view.innerHTML = ""; view.appendChild(el("p", { class: "hint", text: String(msg) })); return; }
+    bridge("meta()", function (r) {
+      try { META = JSON.parse(r); } catch (e) { view.innerHTML = ""; view.appendChild(el("p", { class: "hint", text: "Could not start: " + String(r).slice(0, 200) })); return; }
+      start();
+    });
+  });
+  window.addEventListener("resize", drawGraph);
+})();
+
+</script>
+</body>
+</html>

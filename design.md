@@ -130,8 +130,8 @@ Mono label, 12px, pill, 1px hairline. Selected: `--lime-tint-dark` bg + lime tex
 ### Stats strip
 3–4 items, each: mono label above, 28px heading below. Items: `FREE` · `WINDOWS + MAC` · `AFTER EFFECTS 2019+` · `28 EASING CURVES` (counted from the plugin's `FLOW_PRESETS`). Hairline separators.
 
-### Product panel mock-up (the hero component)
-- Source: the working browser mock-up of the real panel (`preview/index.html` of the plugin), restyled for the new lime tokens. Dark theme only.
+### Product panel (the hero component)
+- The site shows the **real** panel: `assets/panel/index.html` is the plugin's own CEP panel (same HTML, CSS and card data), with the After Effects calls answered from data baked into the file. It sits in an iframe inside a slim window frame (`.pn-win`) in the hero and the closing card. `assets/panel/index.html#flow` opens a given group. Dark theme only. Rebuild it from the plugin zip when the plugin UI changes.
 - Frame: radius 24px, 1px `--ink-line`, shadow dark. Optional phone-style tall frame on the pinned-scroll section (matches benchmark proportion).
 - Interactions:
   - **Pointer:** tabs, chips and buttons are clickable; the easing/bounce control follows the pointer (thumb tracks X inside the control).
@@ -194,7 +194,7 @@ Display title "Common questions"; narrow column; groups (mono labels): **Getting
 /assets/css/base.css
 /assets/css/components.css
 /assets/js/main.js       (nav, reveal, accordion)
-/assets/js/panel.js      (interactive panel mock-up)
+/assets/panel/index.html (the real panel, baked data, shown in an iframe)
 /assets/img/logo.svg, favicon, og-image
 /design.md
 ```
@@ -249,7 +249,7 @@ Display title "Common questions"; narrow column; groups (mono labels): **Getting
 ```
 /index.html
 /assets/css/tokens.css  base.css  components.css
-/assets/js/main.js  panel.js  trail.js  rotate.js
+/assets/js/main.js  trail.js  rotate.js
 /assets/img/logo.svg  favicon.svg
 ```
 
