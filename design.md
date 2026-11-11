@@ -158,7 +158,7 @@ Display title "Common questions"; narrow column; groups (mono labels): **Getting
 
 ### Download (dark hero → light steps)
 - Hero: "Download Ru Motion", version + date (mono), lime **Download for Windows** / **Download for macOS** (detect OS, show both), file size, "Free for personal and commercial use."
-- Steps (light): 1 Download · 2 Install (Windows `install.bat`, macOS `install.command`) · 3 Open in After Effects: Window › Extensions › Ru Motion.
+- Steps (light): 1 Download · 2 Install (run `RuMotion-Setup`: `.bat` on Windows, `.command` on macOS) · 3 Open in After Effects: Window › Extensions › Ru Motion.
 - Callout (warn): CEP panels are unsigned — debug mode must be on (`PlayerDebugMode = 1`). Provide the manual steps from the plugin's README, per OS.
 - License note: free for personal and commercial use; redistributing the file is not allowed.
 
@@ -255,7 +255,7 @@ Display title "Common questions"; narrow column; groups (mono labels): **Getting
 
 ### Download page (built)
 - **Layout:** breadcrumb strip under the nav ("DOWNLOAD" left, "Need install help?" link right), a dark centered hero ("Download Ru Motion", one lead line), then a light "Get started" section, notes, a checksum block and a help card.
-- **One button for both systems:** a single large lime pill, "Download for Windows and Mac", which downloads `assets/downloads/RuMotion-CEP.zip` (v1.0, 219 KB). The same zip holds `install.bat` (Windows) and `install.command` (Mac). A line under it shows version, size and "After Effects 2019+", plus "DETECTED: WINDOWS" or "MAC" when the visitor's system is recognised.
+- **One button for both systems:** a single large lime pill, "Download for Windows and Mac", which downloads `assets/downloads/RuMotion-CEP.zip` (v1.0, 219 KB). The same zip holds `RuMotion-Setup.bat` (Windows) and `RuMotion-Setup.command` (Mac), shown to visitors simply as "RuMotion-Setup". A line under it shows version, size and "After Effects 2019+", plus "DETECTED: WINDOWS" or "MAC" when the visitor's system is recognised.
 - **Get started:** heading on the left, two install cards on the right (Windows, Mac), each with numbered steps in lime circles and a link to the matching FAQ answer. The visitor's own system card gets a dark outline and a "YOUR SYSTEM" tag.
 - **Good to know:** three notes (license, requirements, why debug mode is set) and a SHA-256 checksum with a Copy button.
 - **Help:** dark card with "Email for help" and "Read the FAQ".
